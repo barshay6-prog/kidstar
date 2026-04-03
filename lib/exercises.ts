@@ -1,0 +1,604 @@
+import { ExerciseType, ExerciseQuestion } from './types';
+
+// ─── Exercise catalogue ───────────────────────────────────────────────────────
+// Points ≈ estimated minutes of work (1 point = 1 minute screen time earned)
+// minPoints = score for just completing, maxPoints = perfect score bonus
+
+export const EXERCISE_TYPES: ExerciseType[] = [
+
+  // ══ ITAI — Grade 4 ════════════════════════════════════════════════════════
+
+  // Math
+  { id: 'mul-tables',    title: 'לוח הכפל',         subject: 'math',    icon: '✖️',  description: 'כפל מ-2 עד 9',                kidIds: ['itai'], color: '#3B82F6', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 10, estimatedMinutes: 5 },
+  { id: 'division',      title: 'חילוק',             subject: 'math',    icon: '➗',  description: 'חילוק בסיסי',                 kidIds: ['itai'], color: '#8B5CF6', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 8,  estimatedMinutes: 5 },
+  { id: 'two-digit',     title: 'חיבור וחיסור',      subject: 'math',    icon: '🔢',  description: 'מספרים דו-ספרתיים',           kidIds: ['itai'], color: '#0EA5E9', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 10, estimatedMinutes: 4 },
+  { id: 'fractions',     title: 'שברים',             subject: 'math',    icon: '½',   description: 'שברים פשוטים ½ ¼ ⅓',         kidIds: ['itai'], color: '#F59E0B', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 8,  estimatedMinutes: 7 },
+  { id: 'sequences',     title: 'סדרות מספרים',      subject: 'math',    icon: '📈',  description: 'מצא את המספר הבא בסדרה',     kidIds: ['itai'], color: '#14B8A6', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+  { id: 'geometry',      title: 'גאומטריה',          subject: 'math',    icon: '📐',  description: 'צורות, שטח והיקף',           kidIds: ['itai'], color: '#F97316', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
+  { id: 'soccer-math',   title: 'מתמטיקה ⚽',        subject: 'math',    icon: '⚽',  description: 'בעיות מילוליות בנושא כדורגל', kidIds: ['itai'], color: '#10B981', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 6,  estimatedMinutes: 6 },
+  { id: 'big-numbers',   title: 'מספרים גדולים',     subject: 'math',    icon: '🔭',  description: 'אלפים, עשרות-אלפים',         kidIds: ['itai'], color: '#6366F1', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
+
+  // Hebrew
+  { id: 'hebrew-spell-4',title: 'איות ד׳',           subject: 'hebrew',  icon: 'א',   description: 'איות מילים לכיתה ד',         kidIds: ['itai'], color: '#EC4899', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 8,  estimatedMinutes: 5 },
+  { id: 'hebrew-grammar', title: 'דקדוק',            subject: 'hebrew',  icon: '📝',  description: 'ריבוי, נקבה, שמות תואר',     kidIds: ['itai'], color: '#DB2777', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 8,  estimatedMinutes: 5 },
+  { id: 'hebrew-antonym', title: 'הפכים ונרדפות',    subject: 'hebrew',  icon: '🔄',  description: 'מילים הפוכות ודומות',        kidIds: ['itai'], color: '#9333EA', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+
+  // English
+  { id: 'english-vocab',  title: 'אנגלית: מילים',   subject: 'english', icon: '🇬🇧',  description: 'אוצר מילים בסיסי',           kidIds: ['itai'], color: '#DC2626', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+  { id: 'english-numbers',title: 'אנגלית: מספרים',  subject: 'english', icon: '🔤',  description: 'מספרים וסדרות באנגלית',      kidIds: ['itai'], color: '#B45309', difficulty: 1, minPoints: 1, maxPoints: 3, questionsCount: 8,  estimatedMinutes: 3 },
+
+  // Science & General
+  { id: 'science-nature', title: 'טבע ומדע',         subject: 'science', icon: '🌿',  description: 'צמחים, בעלי חיים, פיזיקה',   kidIds: ['itai'], color: '#16A34A', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+  { id: 'geography-il',   title: 'גאוגרפיה ישראל',  subject: 'science', icon: '🗺️', description: 'ערים, נהרות, אזורים',        kidIds: ['itai'], color: '#0891B2', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+  { id: 'logic-itai',     title: 'חשיבה לוגית',     subject: 'general', icon: '🧩',  description: 'חידות והיגיון',              kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 6,  estimatedMinutes: 6 },
+  { id: 'mul-200',        title: 'כפל עד 200',       subject: 'math',    icon: '💯',  description: 'כפל עם תוצאות עד 200',        kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 10, estimatedMinutes: 7 },
+  { id: 'parentheses',    title: 'סוגריים וחשבון',   subject: 'math',    icon: '( )', description: 'סדר פעולות חשבוניות עם סוגריים', kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 8,  estimatedMinutes: 7 },
+  {
+    id: 'reading-comp-1', title: 'קריאה: בינה מלאכותית', subject: 'hebrew', icon: '🤖', description: 'קטע קריאה — AI ושאלות הבנה',
+    kidIds: ['itai'], color: '#7C3AED', difficulty: 2, minPoints: 3, maxPoints: 6, questionsCount: 5, estimatedMinutes: 10,
+    passageTitle: 'בינה מלאכותית — המהפכה שמשנה את העולם',
+    passageSourceUrl: 'https://he.wikipedia.org/wiki/בינה_מלאכותית',
+    passage: `בינה מלאכותית (AI) היא ענף מדעי שבו מתכנתים מלמדים מחשבים "לחשוב" — לזהות תמונות, להבין שפה אנושית, לנגן שחמט ברמת אלוף עולם ואפילו לחבר מוזיקה מקורית.
+
+הסוד טמון ב"רשתות נוירונים" — מבנה תוכנה שמחקה את האופן שבו מיליארדי תאי עצב במוח האנושי מתקשרים. את הרשת מאמנים על כמויות עצומות של נתונים: מאות מיליוני תמונות, ספרי ענק, שיחות, ומשחקים. ככל שיש יותר דוגמאות — המכונה לומדת טוב יותר.
+
+מודל כמו ChatGPT אומן על כמות טקסט שאדם לא יוכל לקרוא בכל חייו, אפילו אם יקרא ללא הפסקה. בפרק זמן של שבועות, המחשב "עיכל" יותר ידע מכל ספרייה בעולם.
+
+AI כבר מאתר סרטנים בבדיקות MRI מוקדם מרדיולוגים מנוסים, מתרגם שפות בזמן אמת, ומנווט מכוניות אוטונומיות. אך יש גם שאלות קשות: האם AI יחליף עובדים? מי אחראי כשהמכונה טועה? האם מותר לה "לשקר" כדי לשמח אותנו?`
+  },
+  {
+    id: 'reading-comp-2', title: 'קריאה: חלל ומאדים', subject: 'hebrew', icon: '🚀', description: 'קטע קריאה — חלל ושאלות הבנה',
+    kidIds: ['itai'], color: '#0891B2', difficulty: 2, minPoints: 3, maxPoints: 6, questionsCount: 5, estimatedMinutes: 10,
+    passageTitle: 'מאדים — הגבול הבא של האנושות',
+    passageSourceUrl: 'https://he.wikipedia.org/wiki/מאדים',
+    passage: `מאדים — כוכב הלכת הרביעי — הוא המועמד הסביר ביותר לקולוניה אנושית מחוץ לכדור הארץ. המרחק אליו משתנה: בנקודה הקרובה ביותר כ-55 מיליון ק"מ, ובנקודה הרחוקה — 401 מיליון ק"מ. טיסה אורכת כ-7 חודשים.
+
+האתגרים עצומים: אין שם מגנטוספרה (שמגינה מקרינה קוסמית), הלחץ באטמוספרה הוא פחות מאחוז מלחץ האוויר על הארץ, והטמפרטורה הממוצעת היא מינוס 60 מעלות. בלילה היא יורדת עד מינוס 125.
+
+הרובוט "פרסביירנס" נחת ב-2021 ומסתובב בתוך מכתש ג'זרו — שהיה פעם אגם. הוא כבר מצא אבנים שנראה שנוצרו ממגע עם מים, וסינתז חמצן מהאטמוספרה המאדימאית. חברת SpaceX מתכננת להטיס אנשים לשם לפני 2030.
+
+שאלה פתוחה: אם נמצא מיקרואורגניזמים על מאדים — האם נטיסה לשם תדביק אותם בחיידקי כדור הארץ? המדע מחייב זהירות קיצונית.`
+  },
+  {
+    id: 'reading-comp-3', title: 'קריאה: כדורגל', subject: 'hebrew', icon: '⚽', description: 'קטע קריאה — כדורגל ושאלות הבנה',
+    kidIds: ['itai'], color: '#10B981', difficulty: 2, minPoints: 3, maxPoints: 6, questionsCount: 5, estimatedMinutes: 10,
+    passageTitle: 'כדורגל — הספורט שכבש את העולם',
+    passageSourceUrl: 'https://he.wikipedia.org/wiki/גביע_העולם_בכדורגל',
+    passage: `גביע העולם בכדורגל הוא אירוע הספורט הנצפה ביותר בהיסטוריה — הגמר ב-2022 משך 1.5 מיליארד צופים בו-זמנית. הטורניר מתקיים כל 4 שנים, ו-32 נבחרות נלחמות על התואר. מ-2026 יתרחב ל-48 קבוצות.
+
+הכדורגל המודרני הוא מדע מדויק: כל שחקן נושא חיישן GPS שמודד מהירות, מרחק ריצה ועומס לב. מאמנים מנתחים עשרות אלפי נתונים אחרי כל משחק. טכנולוגיית VAR (בוררות וידאו) מאפשרת לבדוק החלטות שגויות של השופט.
+
+ארגנטינה וברזיל מובילות עם 5 אליפויות כל אחת — ברזיל עם 5 וארגנטינה עם 3 (לפני 2022). ליאו מסי, שרבים רואים בו שחקן הכדורגל הגדול בכל הזמנים, נחשב ל"שלם" לאחר שהוביל את ארגנטינה לניצחון בקטאר.
+
+ישראל השתתפה בגביע העולם פעם אחת בלבד — מקסיקו 1970. נבחרת ישראל מנסה כבר שנים להגיע שוב, ובאירופה היא מתחרה בלוח הקשה ביותר.`
+  },
+
+  // ══ AVIV — Grade 1 ════════════════════════════════════════════════════════
+
+  // Math
+  { id: 'add-10',         title: 'חיבור עד 10',      subject: 'math',    icon: '➕',  description: 'חיבור מספרים עד 10',         kidIds: ['aviv'], color: '#EC4899', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 10, estimatedMinutes: 2 },
+  { id: 'sub-10',         title: 'חיסור עד 10',      subject: 'math',    icon: '➖',  description: 'חיסור מספרים עד 10',         kidIds: ['aviv'], color: '#F97316', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 10, estimatedMinutes: 2 },
+  { id: 'add-20',         title: 'חיבור עד 20',      subject: 'math',    icon: '🔢',  description: 'חיבור מספרים עד 20',         kidIds: ['aviv'], color: '#A855F7', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 8,  estimatedMinutes: 3 },
+  { id: 'sub-20',         title: 'חיסור עד 20',      subject: 'math',    icon: '🔢',  description: 'חיסור מספרים עד 20',         kidIds: ['aviv'], color: '#7C3AED', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 8,  estimatedMinutes: 3 },
+  { id: 'counting-emoji', title: 'ספירה',            subject: 'math',    icon: '🌟',  description: 'ספור את האובייקטים',        kidIds: ['aviv'], color: '#F59E0B', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+  { id: 'compare-nums',   title: 'גדול וקטן',        subject: 'math',    icon: '⚖️',  description: 'מה גדול יותר?',             kidIds: ['aviv'], color: '#0EA5E9', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+  { id: 'number-order',   title: 'סדר מספרים',       subject: 'math',    icon: '1️⃣',  description: 'מה הבא בתור?',              kidIds: ['aviv'], color: '#10B981', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+  { id: 'add-sub-mix',    title: 'חיבור וחיסור',     subject: 'math',    icon: '🎲',  description: 'ערבוב חיבור וחיסור עד 10',   kidIds: ['aviv'], color: '#EF4444', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 10, estimatedMinutes: 3 },
+
+  // Hebrew
+  { id: 'hebrew-letters', title: 'אותיות עברית',     subject: 'hebrew',  icon: 'אבג', description: 'זיהוי אותיות ומילים',        kidIds: ['aviv'], color: '#EC4899', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+  { id: 'hebrew-words-1', title: 'מילים פשוטות',     subject: 'hebrew',  icon: '📖',  description: 'מילים של כיתה א',            kidIds: ['aviv'], color: '#DB2777', difficulty: 1, minPoints: 1, maxPoints: 3, questionsCount: 8,  estimatedMinutes: 3 },
+  { id: 'rhyming',        title: 'חרוזים',           subject: 'hebrew',  icon: '🎵',  description: 'מצא את החרוז',              kidIds: ['aviv'], color: '#9333EA', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+
+  // General
+  { id: 'shapes',         title: 'צורות',            subject: 'general', icon: '🔷',  description: 'זיהוי צורות גיאומטריות',    kidIds: ['aviv'], color: '#14B8A6', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+  { id: 'colors',         title: 'צבעים',            subject: 'general', icon: '🎨',  description: 'צבעים וערבוב צבעים',        kidIds: ['aviv'], color: '#F59E0B', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+  { id: 'animals',        title: 'בעלי חיים',        subject: 'science', icon: '🐾',  description: 'חיות ביתיות ופראיות',       kidIds: ['aviv'], color: '#16A34A', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
+  { id: 'logic-aviv',     title: 'חשיבה',            subject: 'general', icon: '🧩',  description: 'מה שונה? מה חסר?',          kidIds: ['aviv'], color: '#7C3AED', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 6,  estimatedMinutes: 3 },
+  { id: 'nikud-words',    title: 'מילים בניקוד',     subject: 'hebrew',  icon: '✏️', description: 'קרא מילים עם ניקוד מלא',     kidIds: ['aviv'], color: '#DB2777', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+  { id: 'alef-hey-vav-yod', title: 'אהוי — אותיות',  subject: 'hebrew',  icon: 'אהוי', description: 'מתי האות נשמעת ומתי שקטה', kidIds: ['aviv'], color: '#9333EA', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+  { id: 'syllables',      title: 'הברות וקריאה',     subject: 'hebrew',  icon: '🗣️', description: 'קרא הברות ומילים פשוטות',    kidIds: ['aviv'], color: '#EC4899', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+];
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+function rnd(min: number, max: number) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+  return a;
+}
+
+function opts(correct: number, count = 4, min = 0, max = 100): { options: string[]; correctIndex: number } {
+  const s = new Set<number>([correct]);
+  let tries = 0;
+  while (s.size < count && tries < 50) {
+    const v = correct + rnd(-Math.max(3, Math.round(correct * 0.4)), Math.max(3, Math.round(correct * 0.4)));
+    if (v >= min && v <= max && v !== correct) s.add(v);
+    tries++;
+  }
+  while (s.size < count) s.add(correct + s.size);
+  const arr = shuffle([...s]).map(String);
+  return { options: arr, correctIndex: arr.indexOf(String(correct)) };
+}
+
+// ─── ITAI generators ──────────────────────────────────────────────────────────
+
+function genMulTables(): ExerciseQuestion[] {
+  return Array.from({ length: 10 }, () => {
+    const a = rnd(2, 9), b = rnd(2, 9);
+    const { options, correctIndex } = opts(a * b, 4, 4, 81);
+    return { text: `${a} × ${b} = ?`, options, correctIndex };
+  });
+}
+
+function genDivision(): ExerciseQuestion[] {
+  return Array.from({ length: 8 }, () => {
+    const b = rnd(2, 9), q = rnd(2, 9);
+    const { options, correctIndex } = opts(q, 4, 1, 9);
+    return { text: `${b * q} ÷ ${b} = ?`, options, correctIndex };
+  });
+}
+
+function genTwoDigit(): ExerciseQuestion[] {
+  return Array.from({ length: 10 }, () => {
+    if (Math.random() > 0.4) {
+      const a = rnd(11, 60), b = rnd(11, 60);
+      const { options, correctIndex } = opts(a + b, 4, 20, 120);
+      return { text: `${a} + ${b} = ?`, options, correctIndex };
+    } else {
+      const b = rnd(11, 40), a = rnd(b + 1, b + 50);
+      const { options, correctIndex } = opts(a - b, 4, 1, 90);
+      return { text: `${a} - ${b} = ?`, options, correctIndex };
+    }
+  });
+}
+
+const SEQUENCE_QS: ExerciseQuestion[] = [
+  { text: '2, 4, 6, 8, __', options: ['9','10','11','12'], correctIndex: 1 },
+  { text: '5, 10, 15, 20, __', options: ['22','24','25','30'], correctIndex: 2 },
+  { text: '3, 6, 9, 12, __', options: ['13','14','15','16'], correctIndex: 2 },
+  { text: '10, 20, 30, 40, __', options: ['45','48','50','55'], correctIndex: 2 },
+  { text: '1, 3, 5, 7, __', options: ['8','9','10','11'], correctIndex: 1 },
+  { text: '100, 90, 80, 70, __', options: ['65','60','55','50'], correctIndex: 1 },
+  { text: '2, 4, 8, 16, __', options: ['18','24','30','32'], correctIndex: 3 },
+  { text: '1, 4, 9, 16, __', options: ['20','23','25','30'], correctIndex: 2 },
+  { text: '50, 45, 40, 35, __', options: ['28','30','32','34'], correctIndex: 1 },
+  { text: '7, 14, 21, 28, __', options: ['32','33','35','36'], correctIndex: 2 },
+];
+
+const GEOMETRY_QS: ExerciseQuestion[] = [
+  { text: 'מה היקף ריבוע עם צלע 5?', options: ['10','15','20','25'], correctIndex: 2 },
+  { text: 'מה שטח מלבן 3×4?', options: ['7','10','12','14'], correctIndex: 2 },
+  { text: 'כמה קודקודים למשולש?', options: ['2','3','4','5'], correctIndex: 1 },
+  { text: 'מה היקף מלבן 4×6?', options: ['10','18','20','24'], correctIndex: 2 },
+  { text: 'כמה צלעות למשושה?', options: ['4','5','6','8'], correctIndex: 2 },
+  { text: 'מה שטח ריבוע עם צלע 4?', options: ['8','12','14','16'], correctIndex: 3 },
+  { text: 'כמה זוויות ישרות במלבן?', options: ['1','2','3','4'], correctIndex: 3 },
+  { text: 'מה היקף משולש שווה-שוקיים עם צלעות 3,3,4?', options: ['7','9','10','12'], correctIndex: 2 },
+];
+
+const SOCCER_QS: ExerciseQuestion[] = [
+  { text: 'בקבוצה 11 שחקנים. 3 יצאו. כמה נשארו?', options: ['7','8','9','10'], correctIndex: 1 },
+  { text: 'איתי בעט 6 פעמים ביום. כמה ב-5 ימים?', options: ['25','28','30','35'], correctIndex: 2 },
+  { text: 'משחק 45 דקות בכל מחצית. כמה סה״כ?', options: ['70','80','90','100'], correctIndex: 2 },
+  { text: 'איתי קלע 4 שערים ב-3 משחקים. כמה שערים סה״כ?', options: ['10','11','12','14'], correctIndex: 2 },
+  { text: 'בטורניר 8 קבוצות. כל קבוצה שיחקה 3 משחקים. כמה משחקים?', options: ['11','16','20','24'], correctIndex: 3 },
+  { text: 'הקבוצה ניצחה 7 מתוך 10 משחקים. כמה הפסידה?', options: ['2','3','4','5'], correctIndex: 1 },
+];
+
+const BIG_NUMBERS_QS: ExerciseQuestion[] = [
+  { text: '1,000 + 500 = ?', options: ['1,050','1,500','1,005','5,001'], correctIndex: 1 },
+  { text: 'כמה יחידות ב-3,456?', options: ['3','4','5','6'], correctIndex: 3 },
+  { text: '5,000 - 1,000 = ?', options: ['3,000','4,000','5,000','6,000'], correctIndex: 1 },
+  { text: 'מה גדול יותר?', options: ['4,321','4,231','4,213','4,123'], correctIndex: 0 },
+  { text: 'כמה עשרות ב-1,340?', options: ['1','3','4','13'], correctIndex: 3 },
+  { text: '2,500 + 2,500 = ?', options: ['4,000','4,500','5,000','5,500'], correctIndex: 2 },
+  { text: 'עגל ל-100 הקרוב: 347', options: ['300','340','350','400'], correctIndex: 2 },
+  { text: '10,000 - 1 = ?', options: ['9,000','9,009','9,090','9,999'], correctIndex: 3 },
+];
+
+const FRACTION_QS: ExerciseQuestion[] = [
+  { text: 'כמה זה ½ מתוך 10?', options: ['3','4','5','6'], correctIndex: 2 },
+  { text: 'כמה זה ¼ מתוך 20?', options: ['4','5','6','10'], correctIndex: 1 },
+  { text: 'כמה זה ½ מתוך 14?', options: ['6','7','8','9'], correctIndex: 1 },
+  { text: 'כמה זה ¼ מתוך 16?', options: ['2','3','4','5'], correctIndex: 2 },
+  { text: 'כמה זה ⅓ מתוך 12?', options: ['3','4','5','6'], correctIndex: 1 },
+  { text: 'מה גדול יותר: ½ או ¼?', options: ['¼','½','שווים','אי אפשר לדעת'], correctIndex: 1 },
+  { text: '¾ + ¼ = ?', options: ['½','¾','1','1½'], correctIndex: 2 },
+  { text: 'כמה זה ½ מתוך 100?', options: ['25','40','50','75'], correctIndex: 2 },
+];
+
+const GRAMMAR_QS: ExerciseQuestion[] = [
+  { text: 'ריבוי של "ילד":', options: ['ילדות','ילדים','ילדיות','ילדן'], correctIndex: 1 },
+  { text: 'ריבוי של "ספר":', options: ['ספרות','ספרים','ספרין','ספריות'], correctIndex: 1 },
+  { text: 'נקבה של "תלמיד":', options: ['תלמידה','תלמידות','תלמידית','תלמידן'], correctIndex: 0 },
+  { text: 'ריבוי של "עץ":', options: ['עציות','עצות','עצים','עציים'], correctIndex: 2 },
+  { text: 'שם תואר של "ילד שמח":', options: ['שמח','שמחה','שמחים','ישמח'], correctIndex: 0 },
+  { text: 'ריבוי של "כיסא":', options: ['כיסאות','כיסאים','כיסאים','כסאים'], correctIndex: 0 },
+  { text: 'מין של "שמש": ', options: ['זכר','נקבה','שניהם','אף אחד'], correctIndex: 1 },
+  { text: 'ריבוי של "בית":', options: ['בתים','ביתים','בתות','ביתות'], correctIndex: 0 },
+];
+
+const ANTONYM_QS: ExerciseQuestion[] = [
+  { text: 'הפך של "גדול":', options: ['ענק','בינוני','קטן','כבד'], correctIndex: 2 },
+  { text: 'הפך של "חם":', options: ['חמים','פושר','קריר','קר'], correctIndex: 3 },
+  { text: 'נרדפת של "שמח":', options: ['עצוב','עייף','מאושר','כועס'], correctIndex: 2 },
+  { text: 'הפך של "מהיר":', options: ['ממוצע','בינוני','איטי','עצלן'], correctIndex: 2 },
+  { text: 'הפך של "יום":', options: ['בוקר','ערב','לילה','שקיעה'], correctIndex: 2 },
+  { text: 'נרדפת של "יפה":', options: ['מכוער','נאה','רגיל','שונה'], correctIndex: 1 },
+  { text: 'הפך של "פתוח":', options: ['חצי פתוח','אטום','סגור','מכוסה'], correctIndex: 2 },
+  { text: 'הפך של "עלייה":', options: ['שטח','עמידה','ירידה','ריצה'], correctIndex: 2 },
+];
+
+const SPELLING_4_QS: ExerciseQuestion[] = [
+  { text: 'איות נכון:', options: ['ספריה','ספרייה','סיפריה','ספריא'], correctIndex: 1, explanation: 'ספרייה — שתי יודין' },
+  { text: 'איות נכון:', options: ['מחברת','מחבֶּרֶת','מחבֶּרת','מחברות'], correctIndex: 0 },
+  { text: 'איות נכון של מקום לימוד:', options: ['בית-ספר','בית ספר','ביתספר','בית סֵפֶר'], correctIndex: 0 },
+  { text: 'איות נכון:', options: ['תלמיד','תלמיד','תַּלְמִיד','תלמיד'], correctIndex: 0 },
+  { text: 'איות נכון:', options: ['מורֶה','מורה','מֹורֶה','מורא'], correctIndex: 1 },
+  { text: 'השלם: "בית ___" (חולים)', options: ['חולים','חולֵים','חולִים','חולאים'], correctIndex: 0 },
+  { text: 'איות נכון:', options: ['ישראל','ישרָאֵל','יישראל','ישרל'], correctIndex: 0 },
+  { text: 'איות נכון:', options: ['אֲנִי','אני','אָני','אנִי'], correctIndex: 1 },
+];
+
+const ENGLISH_VOCAB_QS: ExerciseQuestion[] = [
+  { text: 'מה פירוש "apple"?', options: ['תפוז','תפוח','בננה','אגס'], correctIndex: 1 },
+  { text: 'מה פירוש "school"?', options: ['בית','ספר','בית-ספר','כיתה'], correctIndex: 2 },
+  { text: 'מה פירוש "friend"?', options: ['אויב','מורה','חבר','אח'], correctIndex: 2 },
+  { text: 'מה פירוש "big"?', options: ['קטן','בינוני','גדול','ארוך'], correctIndex: 2 },
+  { text: 'איך אומרים "ספר" באנגלית?', options: ['book','cook','look','took'], correctIndex: 0 },
+  { text: 'איך אומרים "כדורגל" באנגלית?', options: ['basketball','tennis','football','volleyball'], correctIndex: 2 },
+  { text: 'מה פירוש "happy"?', options: ['עצוב','כועס','עייף','שמח'], correctIndex: 3 },
+  { text: 'איך אומרים "מים" באנגלית?', options: ['fire','water','earth','air'], correctIndex: 1 },
+];
+
+const ENGLISH_NUMS_QS: ExerciseQuestion[] = [
+  { text: '"שש" באנגלית:', options: ['five','six','seven','eight'], correctIndex: 1 },
+  { text: '"עשר" באנגלית:', options: ['eight','nine','ten','eleven'], correctIndex: 2 },
+  { text: '"עשרים" באנגלית:', options: ['twelve','fifteen','twenty','thirty'], correctIndex: 2 },
+  { text: 'מה המספר? "fourteen"', options: ['4','13','14','40'], correctIndex: 2 },
+  { text: '"מאה" באנגלית:', options: ['ten','hundred','thousand','million'], correctIndex: 1 },
+  { text: 'מה המספר? "fifty"', options: ['5','15','50','500'], correctIndex: 2 },
+  { text: '"ראשון" באנגלית:', options: ['first','one','single','start'], correctIndex: 0 },
+  { text: '"אחד-עשר" באנגלית:', options: ['ten','eleven','twelve','thirteen'], correctIndex: 1 },
+];
+
+const SCIENCE_QS: ExerciseQuestion[] = [
+  { text: 'מה צמחים צריכים כדי לגדול?', options: ['רק מים','שמש, מים, אדמה','רק שמש','רק אדמה'], correctIndex: 1 },
+  { text: 'כמה רגליים לעכביש?', options: ['4','6','8','10'], correctIndex: 2 },
+  { text: 'מה הכוכב הקרוב ביותר לכדור הארץ?', options: ['ירח','מאדים','שמש','נגה'], correctIndex: 2 },
+  { text: 'מה הגדול ביותר?', options: ['כלב','פיל','ארי','היפופוטם'], correctIndex: 1 },
+  { text: 'כמה ימים בשנה (רגילה)?', options: ['360','365','366','370'], correctIndex: 1 },
+  { text: 'מה גורם לגשם?', options: ['שמש','עננים ואדים','רוח','קור'], correctIndex: 1 },
+  { text: 'מי ממיר פחמן-דו-חמצני לחמצן?', options: ['בעלי חיים','צמחים','אנשים','מכוניות'], correctIndex: 1 },
+  { text: 'כמה יבשות יש בעולם?', options: ['5','6','7','8'], correctIndex: 2 },
+];
+
+const GEOGRAPHY_IL_QS: ExerciseQuestion[] = [
+  { text: 'מה עיר הבירה של ישראל?', options: ['תל אביב','חיפה','ירושלים','באר שבע'], correctIndex: 2 },
+  { text: 'אילו ים גובל ישראל ממערב?', options: ['ים סוף','ים המלח','ים כנרת','הים התיכון'], correctIndex: 3 },
+  { text: 'מה הנהר הגדול ביותר בישראל?', options: ['ירקון','קישון','ירדן','אלכסנדר'], correctIndex: 2 },
+  { text: 'איזה ים הוא הנמוך ביותר בעולם?', options: ['ים כנרת','ים סוף','ים המלח','הים התיכון'], correctIndex: 2 },
+  { text: 'בה עיר נמצא נמל התעופה?', options: ['תל אביב','חיפה','ירושלים','לוד'], correctIndex: 3 },
+  { text: 'מה ההר הגבוה בישראל?', options: ['הכרמל','הגלבוע','חרמון','תבור'], correctIndex: 2 },
+  { text: 'מי הנמל הגדול?', options: ['תל אביב','אשדוד','חיפה','עכו'], correctIndex: 2 },
+  { text: 'כמה מחוזות יש בישראל?', options: ['4','5','6','7'], correctIndex: 2 },
+];
+
+const LOGIC_ITAI_QS: ExerciseQuestion[] = [
+  { text: 'יש 3 תפוחים ו-2 אגסים. מה אחוז התפוחים?', options: ['40%','50%','60%','66%'], correctIndex: 2 },
+  { text: 'אם A>B ו-B>C, אז:', options: ['A<C','A=C','A>C','אי אפשר לדעת'], correctIndex: 2 },
+  { text: 'מה המספר הבא: 1,1,2,3,5,8,__', options: ['10','12','13','15'], correctIndex: 2 },
+  { text: 'אם היום יום שלישי, מה יהיה עוד 4 ימים?', options: ['שבת','ראשון','שני','שישי'], correctIndex: 0 },
+  { text: 'משפחה: 2 הורים, 3 ילדים. כמה ידיים?', options: ['8','10','12','16'], correctIndex: 1 },
+  { text: 'אם 1 עוגה עולה 15₪, כמה עולות 4?', options: ['45₪','55₪','60₪','75₪'], correctIndex: 2 },
+];
+
+function genMul200(): ExerciseQuestion[] {
+  const pairs: Array<[number,number]> = [
+    [12,5],[15,6],[11,8],[14,9],[13,7],[16,8],[25,6],[18,9],[11,12],[15,12],
+    [20,8],[17,9],[13,11],[14,12],[22,7],[25,8],[15,11],[19,8],[16,11],[12,13],
+  ];
+  const selected = shuffle(pairs).slice(0, 10);
+  return selected.map(([a, b]) => {
+    const { options, correctIndex } = opts(a * b, 4, a * b - 20, a * b + 20);
+    return { text: `${a} × ${b} = ?`, options, correctIndex };
+  });
+}
+
+function genParentheses(): ExerciseQuestion[] {
+  type QSpec = { text: string; answer: number };
+  const all: QSpec[] = [
+    { text: '(3 + 4) × 2 = ?',   answer: 14 },
+    { text: '(10 - 3) × 3 = ?',  answer: 21 },
+    { text: '5 × (8 - 3) = ?',   answer: 25 },
+    { text: '(6 + 4) × 4 = ?',   answer: 40 },
+    { text: '2 × (7 + 3) = ?',   answer: 20 },
+    { text: '(12 - 4) × 5 = ?',  answer: 40 },
+    { text: '3 × (6 + 2) = ?',   answer: 24 },
+    { text: '(5 + 3) × (2 + 1) = ?', answer: 24 },
+    { text: '20 ÷ (2 + 3) = ?',  answer: 4 },
+    { text: '(9 - 3) ÷ 2 = ?',   answer: 3 },
+    { text: '4 × (5 - 2) + 1 = ?', answer: 13 },
+    { text: '(3 + 5) × 3 - 4 = ?', answer: 20 },
+    { text: '6 + (4 × 3) = ?',   answer: 18 },
+    { text: '10 - (2 × 3) = ?',  answer: 4 },
+    { text: '(7 + 3) × (4 - 2) = ?', answer: 20 },
+  ];
+  return shuffle(all).slice(0, 8).map(({ text, answer }) => {
+    const { options, correctIndex } = opts(answer, 4, Math.max(0, answer - 15), answer + 15);
+    return { text, options, correctIndex, explanation: `סוגריים תמיד ראשונים!` };
+  });
+}
+
+const READING_COMP_1_QS: ExerciseQuestion[] = [
+  { text: 'מה זה AI (בינה מלאכותית)?', options: ['רובוט פיזי','מחשב שלומד לבצע משימות חכמות','משחק מחשב','תוכנת גרפיקה'], correctIndex: 1 },
+  { text: 'מה הסוד שמאחורי ChatGPT?', options: ['מעבדים מהירים','תכנות מיוחד','מיליוני דוגמאות אימון','ידע אנושי ישיר'], correctIndex: 2 },
+  { text: 'במה AI כבר עוזר לרופאים?', options: ['ניתוחים','אבחון מחלות','כתיבת מרשמים','ניהול בית חולים'], correctIndex: 1 },
+  { text: 'מה בעיה גדולה ש-AI יכול לעזור לפתור?', options: ['שינוי אקלים','פקקי תנועה','בעיות בית ספר','בנייה'], correctIndex: 0 },
+  { text: 'לפי הכתבה, מה AI יכול לעשות היום?', options: ['רק לשחק שחמט','רק לזהות תמונות','לכתוב שירים, לפתור מתמטיקה ולשוחח','רק לתרגם מילים'], correctIndex: 2 },
+];
+
+const READING_COMP_2_QS: ExerciseQuestion[] = [
+  { text: 'כמה ק"מ רחוק מאדים מהארץ?', options: ['22 מיליון','225 מיליון','2 מיליארד','500,000'], correctIndex: 1 },
+  { text: 'מה הטמפרטורה בלילה במאדים?', options: ['מינוס 20','מינוס 80','0','פלוס 20'], correctIndex: 1 },
+  { text: 'מה שמות הרובוטים שנמצאים כיום במאדים?', options: ['אפולו וגמיני','קיוריוסיטי ופרסביירנס','ווייג׳ר ופיוניר','ספוטניק ומירה'], correctIndex: 1 },
+  { text: 'מתי מתכננים לשלוח בני אדם למאדים?', options: ['2025','שנות ה-2030 עד 2040','2100','לא מתוכנן'], correctIndex: 1 },
+  { text: 'למה מדענים רוצים להגיע למאדים?', options: ['להתגורר שם','לחפוץ עקבות מים ואולי חיים','כי קרוב לשמש','כי יש שם חמצן'], correctIndex: 1 },
+];
+
+const READING_COMP_3_QS: ExerciseQuestion[] = [
+  { text: 'כמה אנשים צופים בגמר גביע העולם?', options: ['100 מיליון','500 מיליון','מיליארד וחצי','10 מיליארד'], correctIndex: 2 },
+  { text: 'כמה קבוצות מתחרות בגביע העולם?', options: ['16','24','32','48'], correctIndex: 2 },
+  { text: 'כמה פעמים ברזיל זכתה בגביע העולם?', options: ['3','4','5','6'], correctIndex: 2 },
+  { text: 'מי זכה בגביע העולם 2022 בקטאר?', options: ['ברזיל','צרפת','ארגנטינה','גרמניה'], correctIndex: 2 },
+  { text: 'מתי ישראל שיחקה בגביע העולם?', options: ['1966','1970','1978','לא שיחקה'], correctIndex: 1 },
+];
+
+// ─── AVIV generators ──────────────────────────────────────────────────────────
+
+function genAdd10(): ExerciseQuestion[] {
+  return Array.from({ length: 10 }, () => {
+    const a = rnd(1, 9), b = rnd(1, 10 - a);
+    const { options, correctIndex } = opts(a + b, 4, 1, 10);
+    return { text: `${a} + ${b} = ?`, options, correctIndex };
+  });
+}
+
+function genSub10(): ExerciseQuestion[] {
+  return Array.from({ length: 10 }, () => {
+    const b = rnd(1, 8), a = rnd(b, 10);
+    const { options, correctIndex } = opts(a - b, 4, 0, 9);
+    return { text: `${a} - ${b} = ?`, options, correctIndex };
+  });
+}
+
+function genAdd20(): ExerciseQuestion[] {
+  return Array.from({ length: 8 }, () => {
+    const a = rnd(1, 15), b = rnd(1, 20 - a);
+    const { options, correctIndex } = opts(a + b, 4, 1, 20);
+    return { text: `${a} + ${b} = ?`, options, correctIndex };
+  });
+}
+
+function genSub20(): ExerciseQuestion[] {
+  return Array.from({ length: 8 }, () => {
+    const b = rnd(1, 10), a = rnd(b, 20);
+    const { options, correctIndex } = opts(a - b, 4, 0, 19);
+    return { text: `${a} - ${b} = ?`, options, correctIndex };
+  });
+}
+
+function genCompareNums(): ExerciseQuestion[] {
+  return Array.from({ length: 8 }, () => {
+    const a = rnd(1, 20), b = rnd(1, 20);
+    const correct = a > b ? 0 : a < b ? 1 : 2;
+    return { text: `${a}  _  ${b}`, options: ['גדול יותר (>)', 'קטן יותר (<)', 'שווה (=)', 'אי אפשר לדעת'], correctIndex: correct };
+  });
+}
+
+function genNumberOrder(): ExerciseQuestion[] {
+  return Array.from({ length: 8 }, () => {
+    const start = rnd(1, 15);
+    const { options, correctIndex } = opts(start + 1, 4, 1, 20);
+    return { text: `${start - 1}, ${start}, __ ?`, options, correctIndex };
+  });
+}
+
+function genAddSubMix(): ExerciseQuestion[] {
+  return Array.from({ length: 10 }, () => {
+    const isAdd = Math.random() > 0.5;
+    if (isAdd) {
+      const a = rnd(1, 8), b = rnd(1, 10 - a);
+      const { options, correctIndex } = opts(a + b, 4, 0, 10);
+      return { text: `${a} + ${b} = ?`, options, correctIndex };
+    } else {
+      const b = rnd(1, 8), a = rnd(b, 10);
+      const { options, correctIndex } = opts(a - b, 4, 0, 9);
+      return { text: `${a} - ${b} = ?`, options, correctIndex };
+    }
+  });
+}
+
+const EMOJI_POOL = ['⭐', '🍎', '🐶', '🌸', '🏀', '🎈', '🐱', '🦋', '🌈', '🍭'];
+function genCountingEmoji(): ExerciseQuestion[] {
+  return Array.from({ length: 8 }, () => {
+    const count = rnd(1, 9);
+    const emoji = EMOJI_POOL[rnd(0, EMOJI_POOL.length - 1)];
+    const { options, correctIndex } = opts(count, 4, 1, 9);
+    return { text: `כמה יש?\n${Array(count).fill(emoji).join(' ')}`, options, correctIndex };
+  });
+}
+
+const LETTERS_QS: ExerciseQuestion[] = [
+  { text: 'אות ראשונה של "אריה":', options: ['ב','א','ר','ה'], correctIndex: 1 },
+  { text: 'אות ראשונה של "בית":', options: ['א','ג','ב','ד'], correctIndex: 2 },
+  { text: 'איזו מילה מתחילה ב-"ש"?', options: ['בית','ילד','שמש','כלב'], correctIndex: 2 },
+  { text: 'אות אחרונה של "ילד":', options: ['י','ל','ד','א'], correctIndex: 2 },
+  { text: 'כמה אותיות ב-"אמא"?', options: ['2','3','4','5'], correctIndex: 1 },
+  { text: 'איזו מילה מתחילה ב-"כ"?', options: ['דג','כלב','שמש','בית'], correctIndex: 1 },
+  { text: 'אות ראשונה של "דג":', options: ['ג','ד','ב','כ'], correctIndex: 1 },
+  { text: 'כמה אותיות ב-"שמש"?', options: ['2','3','4','5'], correctIndex: 1 },
+];
+
+const WORDS_1_QS: ExerciseQuestion[] = [
+  { text: 'השלם: "אמא שלי ___ יפה"', options: ['הוא','הם','היא','הן'], correctIndex: 2 },
+  { text: 'מה זה "כלב"?', options: ['ציפור','חתול','בעל חיים שנובח','דג'], correctIndex: 2 },
+  { text: 'ההפך של "גדול":', options: ['ענק','בינוני','קטן','כבד'], correctIndex: 2 },
+  { text: 'מי גר בבית?', options: ['דגים','ציפורים','אנשים','כולם'], correctIndex: 2 },
+  { text: 'מה אוכלים בבוקר?', options: ['ארוחת ערב','ארוחת בוקר','ארוחת צהריים','אף אחד'], correctIndex: 1 },
+  { text: 'כמה ימים בשבוע?', options: ['5','6','7','8'], correctIndex: 2 },
+  { text: 'מה צבע השמים בשמש?', options: ['אדום','ירוק','כחול','צהוב'], correctIndex: 2 },
+  { text: 'מה עושים בלילה?', options: ['משחקים','ישנים','לומדים','שרים'], correctIndex: 1 },
+];
+
+const RHYMING_QS: ExerciseQuestion[] = [
+  { text: 'מה מחרז עם "דג"?', options: ['עוף','רג','חתול','ספר'], correctIndex: 1 },
+  { text: 'מה מחרז עם "בית"?', options: ['שמש','כלב','שיר','קיר'], correctIndex: 3 },
+  { text: 'מה מחרז עם "שמש"?', options: ['ירח','נמש','כוכב','ענן'], correctIndex: 1 },
+  { text: 'מה מחרז עם "ילד"?', options: ['תלד','ספר','כיסא','שולחן'], correctIndex: 0 },
+  { text: 'מה מחרז עם "חתול"?', options: ['כלב','שולחן','בתול','ציפור'], correctIndex: 2 },
+  { text: 'מה מחרז עם "אמא"?', options: ['אבא','שמה','ילד','בית'], correctIndex: 1 },
+  { text: 'מה מחרז עם "ספר"?', options: ['ילד','גמר','ספר','כיסא'], correctIndex: 1 },
+  { text: 'מה מחרז עם "שיר"?', options: ['ציפור','כלב','קיר','שמש'], correctIndex: 2 },
+];
+
+const SHAPES_QS: ExerciseQuestion[] = [
+  { text: 'לאיזו צורה יש 4 צדדים שווים?', options: ['משולש','ריבוע','עיגול','מלבן'], correctIndex: 1 },
+  { text: 'כמה פינות למשולש?', options: ['2','3','4','5'], correctIndex: 1 },
+  { text: 'לאיזו צורה אין פינות?', options: ['ריבוע','משולש','עיגול','מלבן'], correctIndex: 2 },
+  { text: 'מה הצורה של גלגל?', options: ['ריבוע','משולש','מלבן','עיגול'], correctIndex: 3 },
+  { text: 'כמה צדדים למלבן?', options: ['2','3','4','5'], correctIndex: 2 },
+  { text: 'מה הצורה של דלת?', options: ['עיגול','משולש','מלבן','ריבוע'], correctIndex: 2 },
+  { text: 'איזו צורה דומה לפרוסת פיצה?', options: ['ריבוע','משולש','עיגול','מלבן'], correctIndex: 1 },
+  { text: 'כמה פינות לריבוע?', options: ['2','3','4','6'], correctIndex: 2 },
+];
+
+const COLORS_QS: ExerciseQuestion[] = [
+  { text: 'ערבוב אדום + כחול = ?', options: ['ירוק','צהוב','סגול','כתום'], correctIndex: 2 },
+  { text: 'ערבוב כחול + צהוב = ?', options: ['ירוק','סגול','כתום','אדום'], correctIndex: 0 },
+  { text: 'ערבוב אדום + צהוב = ?', options: ['ירוק','סגול','כתום','כחול'], correctIndex: 2 },
+  { text: 'מה צבע עלי עצים בקיץ?', options: ['צהוב','אדום','ירוק','חום'], correctIndex: 2 },
+  { text: 'מה צבע השמש?', options: ['לבן','כחול','ירוק','צהוב'], correctIndex: 3 },
+  { text: 'מה צבע השמים בלילה?', options: ['כחול','שחור/כחול כהה','לבן','אפור'], correctIndex: 1 },
+  { text: 'ערבוב שחור + לבן = ?', options: ['ירוק','אפור','כחול','חום'], correctIndex: 1 },
+  { text: 'מה צבע תפוח?', options: ['כחול','ירוק','אדום','צהוב'], correctIndex: 2 },
+];
+
+const ANIMALS_QS: ExerciseQuestion[] = [
+  { text: 'מי עושה "מיאו"?', options: ['כלב','חתול','פרה','ציפור'], correctIndex: 1 },
+  { text: 'מי מטיל ביצים?', options: ['פרה','כלב','תרנגולת','חתול'], correctIndex: 2 },
+  { text: 'מי הכי גדול?', options: ['ארנב','כלב','פיל','ארי'], correctIndex: 2 },
+  { text: 'מה אוכל ארנב?', options: ['בשר','גזר וירקות','דגים','עצמות'], correctIndex: 1 },
+  { text: 'מי שוחה בים?', options: ['כלב','ציפור','דג','חתול'], correctIndex: 2 },
+  { text: 'כמה רגליים לעכביש?', options: ['4','6','8','10'], correctIndex: 2 },
+  { text: 'מה בעל החיים שישן בחורף?', options: ['ארי','ציפור','דב','פרה'], correctIndex: 2 },
+  { text: 'מי עושה "הי-הי-הי"?', options: ['סוס','חמור','פרה','כבש'], correctIndex: 1 },
+];
+
+const LOGIC_AVIV_QS: ExerciseQuestion[] = [
+  { text: 'מה שונה: 🍎🍎🍌🍎', options: ['🍎 הראשון','🍎 האחרון','🍌','כולם שווים'], correctIndex: 2 },
+  { text: 'מה חסר: ⭐⭐_⭐', options: ['💫','⭐','🌟','אין חסר'], correctIndex: 1 },
+  { text: 'מה הסדר הנכון: כבסה, לבשתי, הסרתי בגדים?', options: ['כבסה, לבשתי, הסרתי','הסרתי, כבסה, לבשתי','לבשתי, הסרתי, כבסה','הסרתי, לבשתי, כבסה'], correctIndex: 1 },
+  { text: '🔴🔵🔴🔵__ מה הבא?', options: ['🔴','🔵','🟡','🟢'], correctIndex: 0 },
+  { text: 'מה כבד יותר: 1 ק״ג ברזל או 1 ק״ג נוצות?', options: ['ברזל','נוצות','שווים','תלוי'], correctIndex: 2 },
+  { text: 'אם יש 3 ילדים ולכל ילד 2 ידיים, כמה ידיים?', options: ['3','5','6','8'], correctIndex: 2 },
+];
+
+// ─── AVIV new generators ──────────────────────────────────────────────────────
+
+// Nikud words — big display, child chooses the correct reading
+const NIKUD_QS: ExerciseQuestion[] = [
+  { text: 'קרא את המילה:\n\nבַּיִת', options: ['בית','ביית','בית-ה','בות'], correctIndex: 0, explanation: 'בַּ = "בַ", יִ = "יִ", ת = "ת" → בַּיִת' },
+  { text: 'קרא את המילה:\n\nשֶׁמֶשׁ', options: ['שמוש','שמש','שׁמשׁ','שֵׁמֵשׁ'], correctIndex: 1, explanation: 'שֶׁ = "שֶׁ", מֶ = "מֶ", שׁ = "שׁ" → שֶׁמֶשׁ' },
+  { text: 'קרא את המילה:\n\nיֶלֶד', options: ['ילד','יולד','ילוד','יֵלֵד'], correctIndex: 0, explanation: 'יֶ = "יֶ", לֶ = "לֶ", ד = "ד" → יֶלֶד' },
+  { text: 'קרא את המילה:\n\nסֵפֶר', options: ['סיפר','ספר','סֵפֵר','ספור'], correctIndex: 1, explanation: 'סֵ = "סֵ", פֶ = "פֶ", ר = "ר" → סֵפֶר' },
+  { text: 'קרא את המילה:\n\nאִמָּא', options: ['אמא','אימה','אמה','אמו'], correctIndex: 0, explanation: 'אִ = "אִ", מָּ = "מָּ", א = "א" → אִמָּא' },
+  { text: 'קרא את המילה:\n\nכֶּלֶב', options: ['כלב','כּלב','כֵּלֵב','כולב'], correctIndex: 0, explanation: 'כֶּ = "כֶּ", לֶ = "לֶ", ב = "ב" → כֶּלֶב' },
+  { text: 'קרא את המילה:\n\nמַיִם', options: ['מיים','מים','מָיִם','מויים'], correctIndex: 1, explanation: 'מַ = "מַ", יִ = "יִ", ם = "ם" → מַיִם' },
+  { text: 'קרא את המילה:\n\nאֲרִי', options: ['ארי','אריה','ארו','אַרִי'], correctIndex: 0, explanation: 'אֲ = "אֲ", רִ = "רִ", י = "י" → אֲרִי' },
+  { text: 'קרא את המילה:\n\nדָּג', options: ['דג','דוג','דיג','דגה'], correctIndex: 0, explanation: 'דָּ = "דָּ", ג = "ג" → דָּג' },
+  { text: 'קרא את המילה:\n\nגַּן', options: ['גן','גין','גון','גנה'], correctIndex: 0, explanation: 'גַּ = "גַּ", ן = "ן" → גַּן' },
+];
+
+// אהוי — when letters are consonants vs vowel indicators
+const ALEF_HEY_VAV_YOD_QS: ExerciseQuestion[] = [
+  { text: 'במילה "אמא" — האות א בהתחלה היא:', options: ['אות שקטה','עיצור (נשמעת)','לא בטוח','תלוי'], correctIndex: 1, explanation: 'א בתחילת מילה היא תמיד עיצור — נשמעת!' },
+  { text: 'במילה "ילדה" — ה בסוף היא:', options: ['עיצור שנשמע','אות שקטה (סימן נקבה)','שתיהן נכונות','לא בטוח'], correctIndex: 1, explanation: 'ה בסוף מילה בדרך כלל שקטה — סימן שהמילה נקבה' },
+  { text: 'במילה "ויו" (שם האות) — הו בסוף:', options: ['נשמע כ-"ו"','שקטה','נשמע כ-"אוּ"','שניהם נכונים'], correctIndex: 0, explanation: 'ו בסוף "ויו" היא עיצור שנשמע' },
+  { text: 'במילה "שלום" — האות ו היא:', options: ['עיצור','תנועה (סימן אוּ)','שקטה','לא בטוח'], correctIndex: 1, explanation: 'ו ב"שלום" = תנועת "ooo" — שלוֹם' },
+  { text: 'במילה "יד" — האות י היא:', options: ['עיצור (נשמע "י")','תנועה','שקטה','אוֹ'], correctIndex: 0, explanation: 'י בתחילת "יד" — עיצור שנשמע כ-"י"' },
+  { text: 'במילה "ביצה" — האות י אחרי ב:', options: ['עיצור','תנועה (סימן אִי)','שקטה','לא בטוח'], correctIndex: 1, explanation: 'י ב"ביצה" = תנועת "אִי" — בִּיצָה' },
+  { text: 'באיזו מילה ה היא עיצור שנשמע?', options: ['ילדה','שולחן','הרים','ספריה'], correctIndex: 2, explanation: '"הרים" מתחיל ב-ה שנשמעת — הֲרִים' },
+  { text: 'במילה "תורה" — ו אחרי ת:', options: ['עיצור','תנועה "אוֹ"','שקטה','תנועת "אוּ"'], correctIndex: 1, explanation: 'תוֹרָה — ו = "אוֹ"' },
+];
+
+// Syllables — reading Hebrew syllables and short words
+const SYLLABLES_QS: ExerciseQuestion[] = [
+  { text: 'קרא את ההברה:\n\nמָ', options: ['מוּ','מָ','מִי','מֵ'], correctIndex: 1, explanation: 'קמץ (ָ) = "א"' },
+  { text: 'קרא את ההברה:\n\nבִּי', options: ['בֵי','בוּ','בִּי','בַּי'], correctIndex: 2, explanation: 'חיריק (ִ) + יוד = "אִי"' },
+  { text: 'איזו הברה נשמעת "שוּ"?', options: ['שָׁ','שׁוּ','שֵׁי','שֶׁ'], correctIndex: 1, explanation: 'שׁוּ = שׁ + שׁורוּק = "שׁוּ"' },
+  { text: 'קרא:\n\nדַּ + גּ = ?', options: ['דוג','דג','דָּג','דגג'], correctIndex: 1 },
+  { text: 'קרא:\n\nמַּ + יִם = ?', options: ['מַיִם','מיים','מוּים','מֵים'], correctIndex: 0 },
+  { text: 'איזו מילה נשמעת "שמש"?', options: ['שמש','שֶׁמֶשׁ','שמוש','שמישׁ'], correctIndex: 1 },
+  { text: 'קרא:\n\nבֵּ + ית = ?', options: ['בית','ביית','בֵּית','בות'], correctIndex: 2 },
+  { text: 'איזו הברה נשמעת "לִ"?', options: ['לָ','לוּ','לִ','לֵ'], correctIndex: 2, explanation: 'חיריק (ִ) = "אִ"' },
+];
+
+// ─── Master dispatcher ────────────────────────────────────────────────────────
+export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
+  const s = (arr: ExerciseQuestion[], n: number) => shuffle(arr).slice(0, n);
+  switch (exerciseTypeId) {
+    case 'mul-tables':      return genMulTables();
+    case 'division':        return genDivision();
+    case 'two-digit':       return genTwoDigit();
+    case 'fractions':       return s(FRACTION_QS, 8);
+    case 'sequences':       return s(SEQUENCE_QS, 8);
+    case 'geometry':        return s(GEOMETRY_QS, 8);
+    case 'soccer-math':     return s(SOCCER_QS, 6);
+    case 'big-numbers':     return s(BIG_NUMBERS_QS, 8);
+    case 'hebrew-spell-4':  return s(SPELLING_4_QS, 8);
+    case 'hebrew-grammar':  return s(GRAMMAR_QS, 8);
+    case 'hebrew-antonym':  return s(ANTONYM_QS, 8);
+    case 'english-vocab':   return s(ENGLISH_VOCAB_QS, 8);
+    case 'english-numbers': return s(ENGLISH_NUMS_QS, 8);
+    case 'science-nature':  return s(SCIENCE_QS, 8);
+    case 'geography-il':    return s(GEOGRAPHY_IL_QS, 8);
+    case 'logic-itai':      return s(LOGIC_ITAI_QS, 6);
+    case 'mul-200':         return genMul200();
+    case 'parentheses':     return genParentheses();
+    case 'reading-comp-1':  return s(READING_COMP_1_QS, 5);
+    case 'reading-comp-2':  return s(READING_COMP_2_QS, 5);
+    case 'reading-comp-3':  return s(READING_COMP_3_QS, 5);
+    case 'add-10':          return genAdd10();
+    case 'sub-10':          return genSub10();
+    case 'add-20':          return genAdd20();
+    case 'sub-20':          return genSub20();
+    case 'counting-emoji':  return genCountingEmoji();
+    case 'compare-nums':    return genCompareNums();
+    case 'number-order':    return genNumberOrder();
+    case 'add-sub-mix':     return genAddSubMix();
+    case 'hebrew-letters':  return s(LETTERS_QS, 8);
+    case 'hebrew-words-1':  return s(WORDS_1_QS, 8);
+    case 'rhyming':         return s(RHYMING_QS, 8);
+    case 'shapes':          return s(SHAPES_QS, 8);
+    case 'colors':          return s(COLORS_QS, 8);
+    case 'animals':         return s(ANIMALS_QS, 8);
+    case 'logic-aviv':      return s(LOGIC_AVIV_QS, 6);
+    case 'nikud-words':     return s(NIKUD_QS, 8);
+    case 'alef-hey-vav-yod': return s(ALEF_HEY_VAV_YOD_QS, 8);
+    case 'syllables':       return s(SYLLABLES_QS, 8);
+    default:                return [];
+  }
+}
+
+export function getExercisesForKid(kidId: string): ExerciseType[] {
+  return EXERCISE_TYPES.filter(e => e.kidIds.includes(kidId));
+}
+
+/** Calculate points earned given score/total and the exercise type */
+export function calcPoints(ex: ExerciseType, score: number, total: number): number {
+  if (total === 0) return ex.minPoints;
+  return ex.minPoints + Math.round(((score / total)) * (ex.maxPoints - ex.minPoints));
+}
