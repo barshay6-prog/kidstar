@@ -65,7 +65,7 @@ export function useAppStore() {
         const cloud = await loadStateFromCloud();
         if (cloud) {
           // Backfill + daily reset on cloud data too
-          const parsed = cloud as AppState;
+          const parsed = cloud as unknown as AppState;
           const today = new Date().toDateString();
           if (parsed.lastReset !== today) {
             parsed.lastReset = today;
