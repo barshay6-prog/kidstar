@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, useRef, useCallback } from 'react';
+import { use, useState, useRef, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
@@ -10,15 +10,77 @@ import { ExerciseQuestion, ExerciseType, AttemptDetail } from '@/lib/types';
 interface PageProps { params: Promise<{ id: string; type: string }> }
 type Phase = 'ready' | 'reading' | 'question' | 'done';
 
-// ─── TTS helper ───────────────────────────────────────────────────────────────
-function speakHebrew(text: string) {
-  if (typeof window === 'undefined' || !window.speechSynthesis) return;
+// ─── TTS ─────────────────────────────────────────────────────────────────────
+// <audio> elements can load cross-origin audio without CORS restrictions,
+// so we call Google Translate TTS directly from the browser — no server proxy needed.
+let _currentAudio: HTMLAudioElement | null = null;
+
+function cleanForTTS(text: string) {
+  return text.replace(/[\u0591-\u05C7]/g, '').replace(/\n/g, ' ').trim();
+}
+
+function googleTTSUrl(clean: string): string {
+  const u = new URL('https://translate.googleapis.com/translate_tts');
+  u.searchParams.set('ie', 'UTF-8');
+  u.searchParams.set('q', clean);
+  u.searchParams.set('tl', 'he');
+  u.searchParams.set('client', 'dict-chrome-ex');
+  u.searchParams.set('ttsspeed', '0.8');
+  return u.toString();
+}
+
+function trySpeechSynthesis(clean: string, rate: number, onEnd?: () => void) {
+  if (typeof window === 'undefined' || !window.speechSynthesis) { onEnd?.(); return; }
   window.speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text.replace(/\n/g, ' '));
+  const utt = new SpeechSynthesisUtterance(clean);
   utt.lang = 'he-IL';
-  utt.rate = 0.82;
-  utt.pitch = 1.05;
-  window.speechSynthesis.speak(utt);
+  utt.rate = rate;
+  if (onEnd) { utt.onend = onEnd; utt.onerror = onEnd; }
+  const doSpeak = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const heVoice = voices.find(v =>
+      v.lang.toLowerCase().startsWith('he') || v.name.toLowerCase().includes('hebrew')
+    );
+    if (heVoice) utt.voice = heVoice;
+    window.speechSynthesis.speak(utt);
+  };
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length > 0) doSpeak();
+  else { window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.onvoiceschanged = null; doSpeak(); }; }
+}
+
+function speakHebrew(text: string, rate = 0.75) {
+  if (typeof window === 'undefined') return;
+  if (_currentAudio) { _currentAudio.pause(); _currentAudio = null; }
+  const clean = cleanForTTS(text);
+  if (!clean) return;
+  const audio = new window.Audio(googleTTSUrl(clean));
+  _currentAudio = audio;
+  audio.onerror = () => trySpeechSynthesis(clean, rate);
+  audio.play().catch(() => trySpeechSynthesis(clean, rate));
+}
+
+// ─── useTTS hook ──────────────────────────────────────────────────────────────
+function useTTS() {
+  const [speaking, setSpeaking] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => { return () => { audioRef.current?.pause(); }; }, []);
+
+  const speak = useCallback((text: string, rate = 0.75) => {
+    audioRef.current?.pause();
+    const clean = cleanForTTS(text);
+    if (!clean) return;
+    setSpeaking(true);
+    const audio = new Audio(googleTTSUrl(clean));
+    audioRef.current = audio;
+    _currentAudio = audio;
+    audio.onended = () => setSpeaking(false);
+    audio.onerror = () => trySpeechSynthesis(clean, rate, () => setSpeaking(false));
+    audio.play().catch(() => trySpeechSynthesis(clean, rate, () => setSpeaking(false)));
+  }, []);
+
+  return { speaking, speak };
 }
 
 // ─── Nav Overlay (back + home — always on top) ────────────────────────────────
@@ -39,21 +101,21 @@ function NavOverlay({ backHref, homeHref }: { backHref: string; homeHref: string
   );
 }
 
-// ─── TTS Button ───────────────────────────────────────────────────────────────
-function TtsButton({ text, color }: { text: string; color: string }) {
-  const [speaking, setSpeaking] = useState(false);
-  const handle = () => {
-    setSpeaking(true);
-    speakHebrew(text);
-    setTimeout(() => setSpeaking(false), text.length * 60 + 500);
-  };
+// ─── TTS Button (Aviv — big, prominent) ──────────────────────────────────────
+function TtsButton({ text, color, speaking, onSpeak }: { text: string; color: string; speaking: boolean; onSpeak: () => void }) {
   return (
-    <button onClick={handle}
-      className="mt-3 mx-auto flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold shadow-sm border transition-all active:scale-95"
-      style={{ borderColor: color, color: speaking ? 'white' : color, background: speaking ? color : 'white' }}>
-      <span className={speaking ? 'animate-pulse' : ''}>{speaking ? '🔊' : '🔈'}</span>
-      {speaking ? 'מקריא...' : 'הקראה'}
-    </button>
+    <div className="relative flex items-center justify-center mt-5">
+      {speaking && (
+        <span className="absolute inline-flex h-14 w-14 rounded-full opacity-40 animate-ping"
+          style={{ background: color }} />
+      )}
+      <button onClick={onSpeak}
+        className="relative flex items-center gap-3 px-6 py-3 rounded-2xl text-base font-black shadow-lg active:scale-95 transition-all text-white"
+        style={{ background: speaking ? '#6b21a8' : color, minHeight: 56 }}>
+        <span className="text-2xl">{speaking ? '🔊' : '🔈'}</span>
+        {speaking ? 'מקריא... 🔊' : 'שמע שוב 🔈'}
+      </button>
+    </div>
   );
 }
 
@@ -124,15 +186,39 @@ function ReadingScreen({ ex, kidColor, onDone }: { ex: ExerciseType; kidColor: s
 
 // ─── Question ─────────────────────────────────────────────────────────────────
 function QuestionScreen({
-  q, qi, total, selected, onSelect, kidColor, enableTTS,
+  q, qi, total, selected, onSelect, kidColor, enableTTS, kidId,
 }: {
   q: ExerciseQuestion; qi: number; total: number;
   selected: number | null; onSelect: (i: number) => void;
-  kidColor: string; enableTTS: boolean;
+  kidColor: string; enableTTS: boolean; kidId: string;
 }) {
+  const { speaking, speak } = useTTS();
   const pct = (qi / total) * 100;
-  // Clean text for TTS (strip nikud display formatting)
-  const ttsText = q.text.replace(/\n/g, ' ');
+
+  // Auto-play TTS 600ms after question changes (Aviv only)
+  useEffect(() => {
+    if (!enableTTS) return;
+    const t = setTimeout(() => speakHebrew(q.text, 0.72), 700);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [qi, enableTTS]);
+
+  // Speak correct answer after selection
+  useEffect(() => {
+    if (!enableTTS || selected === null) return;
+    const correctText = q.options[q.correctIndex];
+    const isCorrect = selected === q.correctIndex;
+    const prefix = isCorrect ? 'יפה מאוד! ' : 'כן, ';
+    const t = setTimeout(() => speakHebrew(prefix + correctText, 0.7), 400);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected]);
+
+  const isAviv = enableTTS;
+  const shortText = q.text.replace(/[\u0591-\u05C7]/g, '').split('\n')[0].length < 20;
+  const questionSizeClass = isAviv
+    ? (shortText ? 'text-4xl' : 'text-3xl')
+    : 'text-2xl';
 
   return (
     <div className="flex flex-col min-h-screen px-5 pt-16 pb-6">
@@ -151,8 +237,18 @@ function QuestionScreen({
       {/* Question bubble */}
       <div className="flex-1 flex flex-col items-center justify-center">
         <div className="w-full max-w-sm bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
-          <p className="text-2xl font-black text-gray-800 text-center leading-relaxed whitespace-pre-line">{q.text}</p>
-          {enableTTS && <TtsButton text={ttsText} color={kidColor} />}
+          <p className={`${questionSizeClass} font-black text-gray-800 text-center leading-relaxed whitespace-pre-line`}
+            style={{ lineHeight: isAviv ? '1.4' : undefined }}>
+            {q.text}
+          </p>
+          {enableTTS && (
+            <TtsButton
+              text={q.text}
+              color={kidColor}
+              speaking={speaking}
+              onSpeak={() => speak(q.text, 0.72)}
+            />
+          )}
         </div>
       </div>
 
@@ -165,9 +261,18 @@ function QuestionScreen({
             else if (i === selected) cls = 'bg-red-400 border-2 border-red-400 text-white';
             else cls = 'bg-gray-100 border-2 border-gray-100 text-gray-400';
           }
+          const pyClass = isAviv ? 'py-8' : 'py-5';
+          const textClass = isAviv ? 'text-lg' : 'text-lg';
           return (
-            <button key={i} onClick={() => selected === null && onSelect(i)}
-              className={`py-5 px-2 rounded-2xl text-lg font-black transition-all text-center ${cls} ${selected === null ? 'active:scale-95 hover:border-gray-300 shadow-sm' : ''}`}>
+            <button key={i}
+              onClick={() => {
+                if (selected !== null) return;
+                // Aviv: speak option preview before confirming
+                if (enableTTS) speakHebrew(opt, 0.75);
+                onSelect(i);
+              }}
+              className={`${pyClass} px-2 rounded-2xl ${textClass} font-black transition-all text-center ${cls} ${selected === null ? 'active:scale-95 hover:border-gray-300 shadow-sm' : ''}`}
+              style={selected === null && isAviv ? { borderColor: kidColor, borderWidth: 2 } : undefined}>
               {opt}
             </button>
           );
@@ -342,7 +447,7 @@ export default function ExerciseSessionPage({ params }: PageProps) {
         <QuestionScreen
           q={questions[qi]} qi={qi} total={questions.length}
           selected={selected} onSelect={handleSelect}
-          kidColor={kid.color} enableTTS={enableTTS}
+          kidColor={kid.color} enableTTS={enableTTS} kidId={kid.id}
         />
       )}
       {phase === 'done' && (

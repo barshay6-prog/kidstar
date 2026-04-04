@@ -98,6 +98,9 @@ AI כבר מאתר סרטנים בבדיקות MRI מוקדם מרדיולוגי
   { id: 'nikud-words',    title: 'מילים בניקוד',     subject: 'hebrew',  icon: '✏️', description: 'קרא מילים עם ניקוד מלא',     kidIds: ['aviv'], color: '#DB2777', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
   { id: 'alef-hey-vav-yod', title: 'אהוי — אותיות',  subject: 'hebrew',  icon: 'אהוי', description: 'מתי האות נשמעת ומתי שקטה', kidIds: ['aviv'], color: '#9333EA', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
   { id: 'syllables',      title: 'הברות וקריאה',     subject: 'hebrew',  icon: '🗣️', description: 'קרא הברות ומילים פשוטות',    kidIds: ['aviv'], color: '#EC4899', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
+  { id: 'nikud-basics',   title: 'ניקוד — יסודות',   subject: 'hebrew',  icon: '📍',  description: 'לומדים את סימני הניקוד',     kidIds: ['aviv'], color: '#EC4899', difficulty: 1, minPoints: 2, maxPoints: 4, questionsCount: 10, estimatedMinutes: 5 },
+  { id: 'syllable-read',  title: 'קריאת הברות',      subject: 'hebrew',  icon: '🗣️', description: 'קורא הברות עם ניקוד מלא',    kidIds: ['aviv'], color: '#8B5CF6', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 10, estimatedMinutes: 6 },
+  { id: 'word-build',     title: 'בניית מילים',       subject: 'hebrew',  icon: '🧩',  description: 'בונה מילים מהברות',          kidIds: ['aviv'], color: '#F59E0B', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 8,  estimatedMinutes: 6 },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -424,10 +427,15 @@ function genAddSubMix(): ExerciseQuestion[] {
 const EMOJI_POOL = ['⭐', '🍎', '🐶', '🌸', '🏀', '🎈', '🐱', '🦋', '🌈', '🍭'];
 function genCountingEmoji(): ExerciseQuestion[] {
   return Array.from({ length: 8 }, () => {
-    const count = rnd(1, 9);
+    const count = rnd(6, 20);
     const emoji = EMOJI_POOL[rnd(0, EMOJI_POOL.length - 1)];
-    const { options, correctIndex } = opts(count, 4, 1, 9);
-    return { text: `כמה יש?\n${Array(count).fill(emoji).join(' ')}`, options, correctIndex };
+    const { options, correctIndex } = opts(count, 4, Math.max(1, count - 4), count + 4);
+    // Arrange in rows of 5 for readability
+    const rows: string[] = [];
+    for (let i = 0; i < count; i += 5) {
+      rows.push(Array(Math.min(5, count - i)).fill(emoji).join(' '));
+    }
+    return { text: `כמה יש?\n${rows.join('\n')}`, options, correctIndex };
   });
 }
 
@@ -532,6 +540,14 @@ const ALEF_HEY_VAV_YOD_QS: ExerciseQuestion[] = [
   { text: 'במילה "ביצה" — האות י אחרי ב:', options: ['עיצור','תנועה (סימן אִי)','שקטה','לא בטוח'], correctIndex: 1, explanation: 'י ב"ביצה" = תנועת "אִי" — בִּיצָה' },
   { text: 'באיזו מילה ה היא עיצור שנשמע?', options: ['ילדה','שולחן','הרים','ספריה'], correctIndex: 2, explanation: '"הרים" מתחיל ב-ה שנשמעת — הֲרִים' },
   { text: 'במילה "תורה" — ו אחרי ת:', options: ['עיצור','תנועה "אוֹ"','שקטה','תנועת "אוּ"'], correctIndex: 1, explanation: 'תוֹרָה — ו = "אוֹ"' },
+  { text: 'האות ו ב"וָרֶד" (ורד) — פרח:', options: ['עיצור שנשמע "ו"','תנועת "אוֹ"','שקטה','תנועת "אוּ"'], correctIndex: 0, explanation: 'ב"וָרֶד" — ו בתחילת מילה = עיצור' },
+  { text: 'האות י ב"יַלְדָּה":', options: ['תנועת "אִי"','שקטה','עיצור שנשמע "י"','תנועת "אֵי"'], correctIndex: 2, explanation: 'י בתחילת "יַלְדָּה" — עיצור שנשמע' },
+  { text: 'האות ה ב"הֶחָלָב" (החלב):', options: ['שקטה','עיצור שנשמע','תנועה','לא ברור'], correctIndex: 1, explanation: 'ה בתחילת מילה עם חטף = נשמעת' },
+  { text: 'האות א ב"מְלָאכָה":', options: ['עיצור','שקטה (אם קריאה)','תנועת "אַ"','תנועת "אָ"'], correctIndex: 1, explanation: 'א אחרי ל ב"מְלָאכָה" — שקטה, הקמץ הוא התנועה' },
+  { text: 'המילה "אוֹר" — האות א:', options: ['שקטה','עיצור','תנועת "אוֹ"','אי אפשר לדעת'], correctIndex: 1, explanation: 'א ב"אוֹר" היא עיצור שנושא את התנועה חולם' },
+  { text: 'ב"חוֹל" — האות ו:', options: ['עיצור','תנועת "אוֹ"','שקטה','תנועת "אוּ"'], correctIndex: 1, explanation: 'ו עם חולם = תנועת "אוֹ"' },
+  { text: 'ב"גִּיל" — האות י:', options: ['עיצור','שקטה','חלק מתנועת "אִי"','תנועת "אֵי"'], correctIndex: 2, explanation: 'י אחרי חיריק = חיריק-מלא, חלק מהתנועה "אִי"' },
+  { text: 'ב"הַיּוֹם" — ה בהתחלה:', options: ['שקטה','עיצור שנשמע','תנועה','כינוי ה׳'], correctIndex: 1, explanation: 'ה עם פתח בתחילת מילה = עיצור שנשמע (ה הידיעה)' },
 ];
 
 // Syllables — reading Hebrew syllables and short words
@@ -544,6 +560,51 @@ const SYLLABLES_QS: ExerciseQuestion[] = [
   { text: 'איזו מילה נשמעת "שמש"?', options: ['שמש','שֶׁמֶשׁ','שמוש','שמישׁ'], correctIndex: 1 },
   { text: 'קרא:\n\nבֵּ + ית = ?', options: ['בית','ביית','בֵּית','בות'], correctIndex: 2 },
   { text: 'איזו הברה נשמעת "לִ"?', options: ['לָ','לוּ','לִ','לֵ'], correctIndex: 2, explanation: 'חיריק (ִ) = "אִ"' },
+];
+
+// ─── AVIV new reading/nikud question sets ─────────────────────────────────────
+
+const NIKUD_BASICS_QS: ExerciseQuestion[] = [
+  { text: 'איך קוראים את הסימן הזה?\n\nָ (קמץ)', options: ['אָ — "אַ"','אִ — "אִי"','אֹ — "אוֹ"','אֶ — "אֶ"'], correctIndex: 0, explanation: 'קמץ נשמע "אָ" — כמו ב"אָב"' },
+  { text: 'איך קוראים את הסימן הזה?\n\nַ (פתח)', options: ['אִ — "אִי"','אָ/אַ — "אַ"','אֵ — "אֵ"','אֻ — "אֻ"'], correctIndex: 1, explanation: 'פתח נשמע "אַ" — כמו ב"יַד"' },
+  { text: 'איך קוראים את הסימן הזה?\n\nִ (חיריק)', options: ['אַ — "אַ"','אֹ — "אוֹ"','אִ — "אִי"','אֶ — "אֶ"'], correctIndex: 2, explanation: 'חיריק נשמע "אִי" — כמו ב"בִּית"' },
+  { text: 'איך קוראים את הסימן הזה?\n\nֹ (חולם)', options: ['אַ — "אַ"','אִ — "אִי"','אֵ — "אֵ"','אֹ — "אוֹ"'], correctIndex: 3, explanation: 'חולם נשמע "אוֹ" — כמו ב"שׁוֹר"' },
+  { text: 'איך קוראים את הסימן הזה?\n\nוּ (שורוק)', options: ['אֵ — "אֵ"','אוּ — "אוּ"','אַ — "אַ"','אִ — "אִי"'], correctIndex: 1, explanation: 'שורוק נשמע "אוּ" — כמו ב"רוּת"' },
+  { text: 'איך קוראים את הסימן הזה?\n\nֶ (סגול)', options: ['אֶ — "אֶ"','אַ — "אַ"','אֹ — "אוֹ"','אִ — "אִי"'], correctIndex: 0, explanation: 'סגול נשמע "אֶ" — כמו ב"יֶלֶד"' },
+  { text: 'איך קוראים את הסימן הזה?\n\nֵ (צרה)', options: ['אֹ — "אוֹ"','אַ — "אַ"','אֵ — "אֵ"','אִ — "אִי"'], correctIndex: 2, explanation: 'צרה נשמע "אֵ" — כמו ב"בֵּית"' },
+  { text: 'מה הניקוד שנשמע "אִי"?', options: ['קמץ (ָ)','חיריק (ִ)','חולם (ֹ)','פתח (ַ)'], correctIndex: 1, explanation: 'חיריק = "אִי"' },
+  { text: 'מה הניקוד שנשמע "אוֹ"?', options: ['פתח (ַ)','סגול (ֶ)','חולם (ֹ)','שורוק (וּ)'], correctIndex: 2, explanation: 'חולם = "אוֹ"' },
+  { text: 'מה הניקוד שנשמע "אוּ"?', options: ['חיריק (ִ)','שורוק (וּ)','צרה (ֵ)','קמץ (ָ)'], correctIndex: 1, explanation: 'שורוק = "אוּ"' },
+  { text: 'מה הניקוד שנשמע "אַ" או "אָ"?', options: ['חולם (ֹ)','חיריק (ִ)','פתח (ַ) וקמץ (ָ)','שורוק (וּ)'], correctIndex: 2, explanation: 'פתח וקמץ שניהם נשמעים "אַ/אָ"' },
+  { text: 'מה הניקוד שנשמע "אֶ"?', options: ['פתח (ַ)','קמץ (ָ)','חיריק (ִ)','סגול (ֶ)'], correctIndex: 3, explanation: 'סגול = "אֶ"' },
+];
+
+const SYLLABLE_READ_QS: ExerciseQuestion[] = [
+  { text: 'קרא את ההברה:\n\nבַּ', options: ['בוּ','בַּ','בֵּ','בֹ'], correctIndex: 1, explanation: 'ב + פתח = בַּ' },
+  { text: 'קרא את ההברה:\n\nמִי', options: ['מֵ','מַ','מִי','מֹ'], correctIndex: 2, explanation: 'מ + חיריק + י = מִי' },
+  { text: 'קרא את ההברה:\n\nלֹ', options: ['לִ','לַ','לֵ','לֹ'], correctIndex: 3, explanation: 'ל + חולם = לֹ' },
+  { text: 'קרא את ההברה:\n\nשָׁ', options: ['שׁוּ','שָׁ','שִׁ','שֵׁ'], correctIndex: 1, explanation: 'ש + קמץ = שָׁ' },
+  { text: 'קרא את ההברה:\n\nנֵי', options: ['נַי','נֵי','נִי','נֹי'], correctIndex: 1, explanation: 'נ + צרה + י = נֵי' },
+  { text: 'קרא את ההברה:\n\nדוּ', options: ['דַּ','דֶּ','דוּ','דִּ'], correctIndex: 2, explanation: 'ד + שורוק = דוּ' },
+  { text: 'קרא את ההברה:\n\nכֶּ', options: ['כֹּ','כָּ','כֻּ','כֶּ'], correctIndex: 3, explanation: 'כ + סגול = כֶּ' },
+  { text: 'קרא את ההברה:\n\nרָ', options: ['רֵ','רָ','רֻ','רִ'], correctIndex: 1, explanation: 'ר + קמץ = רָ' },
+  { text: 'קרא את ההברה:\n\nתִּ', options: ['תַּ','תֻּ','תֵּ','תִּ'], correctIndex: 3, explanation: 'ת + חיריק = תִּ' },
+  { text: 'קרא את ההברה:\n\nפֵּ', options: ['פֵּ','פַּ','פֹּ','פוּ'], correctIndex: 0, explanation: 'פ + צרה = פֵּ' },
+  { text: 'קרא את ההברה:\n\nגֻּ', options: ['גִּ','גֶּ','גֻּ','גֹּ'], correctIndex: 2, explanation: 'ג + קובוץ = גֻּ' },
+  { text: 'קרא את ההברה:\n\nסֹ', options: ['סֹ','סַ','סֵ','סוּ'], correctIndex: 0, explanation: 'ס + חולם = סֹ' },
+];
+
+const WORD_BUILD_QS: ExerciseQuestion[] = [
+  { text: 'קרא את המילה:\n\nאִמָּא', options: ['אמה','אמא','אימה','אמו'], correctIndex: 1, explanation: 'אִ+מָּ+א = אִמָּא' },
+  { text: 'קרא את המילה:\n\nאַבָּא', options: ['אבו','אבה','אבא','אבי'], correctIndex: 2, explanation: 'אַ+בָּ+א = אַבָּא' },
+  { text: 'קרא את המילה:\n\nכֶּלֶב', options: ['כולב','כלב','כֵּלֵב','כלוב'], correctIndex: 1, explanation: 'כֶּ+לֶ+ב = כֶּלֶב' },
+  { text: 'קרא את המילה:\n\nיֶלֶד', options: ['יולד','ילוד','ילד','יֵלֵד'], correctIndex: 2, explanation: 'יֶ+לֶ+ד = יֶלֶד' },
+  { text: 'קרא את המילה:\n\nגַּן', options: ['גן','גין','גון','גנה'], correctIndex: 0, explanation: 'גַּ+ן = גַּן' },
+  { text: 'קרא את המילה:\n\nשֶׁמֶשׁ', options: ['שמוש','שמישׁ','שמש','שֵׁמֵשׁ'], correctIndex: 2, explanation: 'שֶׁ+מֶ+שׁ = שֶׁמֶשׁ' },
+  { text: 'קרא את המילה:\n\nדָּג', options: ['דוג','דג','דיג','דגה'], correctIndex: 1, explanation: 'דָּ+ג = דָּג' },
+  { text: 'קרא את המילה:\n\nסֵפֶר', options: ['סיפר','ספור','ספר','סֵפֵר'], correctIndex: 2, explanation: 'סֵ+פֶ+ר = סֵפֶר' },
+  { text: 'קרא את המילה:\n\nבַּיִת', options: ['ביית','בות','בייט','בית'], correctIndex: 3, explanation: 'בַּ+יִ+ת = בַּיִת' },
+  { text: 'קרא את המילה:\n\nמַיִם', options: ['מיים','מים','מָיִם','מויים'], correctIndex: 1, explanation: 'מַ+יִ+ם = מַיִם' },
 ];
 
 // ─── Master dispatcher ────────────────────────────────────────────────────────
@@ -589,6 +650,9 @@ export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
     case 'nikud-words':     return s(NIKUD_QS, 8);
     case 'alef-hey-vav-yod': return s(ALEF_HEY_VAV_YOD_QS, 8);
     case 'syllables':       return s(SYLLABLES_QS, 8);
+    case 'nikud-basics':    return s(NIKUD_BASICS_QS, 10);
+    case 'syllable-read':   return s(SYLLABLE_READ_QS, 10);
+    case 'word-build':      return s(WORD_BUILD_QS, 8);
     default:                return [];
   }
 }
