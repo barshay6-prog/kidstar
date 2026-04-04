@@ -15,6 +15,8 @@ export interface Task {
 
 // ─── Exercises ────────────────────────────────────────────────────────────────
 export interface ExerciseQuestion {
+  id: string;
+  difficulty: 1 | 2 | 3 | 4;
   text: string;
   options: string[];
   correctIndex: number;
@@ -34,7 +36,7 @@ export interface ExerciseType {
   questionsCount: number;
   kidIds: string[];
   color: string;
-  difficulty: 1 | 2 | 3;
+  difficulty: 1 | 2 | 3 | 4;
   estimatedMinutes: number;
   /** Reading comprehension: full passage text shown before questions */
   passage?: string;
