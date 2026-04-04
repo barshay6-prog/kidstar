@@ -4,7 +4,7 @@ export const DEFAULT_STATE: AppState = {
   lastReset: new Date().toDateString(),
   settings: {
     parentPin: '1234',
-    pointsPerMinute: 1,
+    pointsPerMinute: 3,
     maxDailyScreenMinutes: 120,
   },
   kids: [

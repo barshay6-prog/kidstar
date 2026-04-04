@@ -124,6 +124,6 @@ export interface AppState {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   parentPin: '1234',
-  pointsPerMinute: 1,
+  pointsPerMinute: 3,
   maxDailyScreenMinutes: 120,
 };
