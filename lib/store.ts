@@ -175,6 +175,26 @@ export function useAppStore() {
   }, [state, update]);
 
   // ─── Screen time ─────────────────────────────────────────────────────────
+  /** Parent grants extra screen time — deducts equivalent points */
+  const grantScreenTime = useCallback((kidId: string, minutes: number) => {
+    const next = structuredClone(state);
+    const kid = next.kids.find((k) => k.id === kidId);
+    if (!kid || minutes <= 0) return;
+    // Deduct points equivalent to the granted minutes
+    const pointCost = Math.ceil(minutes / next.settings.pointsPerMinute);
+    kid.totalPoints = Math.max(0, kid.totalPoints - pointCost);
+    kid.screenTimeEarned += minutes;
+    kid.history.unshift({
+      id: `h-${Date.now()}`,
+      type: 'screen_time',
+      title: `הורה הוסיף ${minutes} דקות מסך`,
+      points: -pointCost,
+      timestamp: new Date().toISOString(),
+    });
+    next.kids = next.kids.map((k) => k.id === kidId ? kid : k);
+    update(next);
+  }, [state, update]);
+
   const useScreenTime = useCallback((kidId: string, minutes: number): boolean => {
     const next = structuredClone(state);
     const kid = next.kids.find((k) => k.id === kidId);
@@ -259,6 +279,7 @@ export function useAppStore() {
     updateTask,
     deleteTask,
     useScreenTime,
+    grantScreenTime,
     recordExercise,
     updateSettings,
     adjustPoints,
