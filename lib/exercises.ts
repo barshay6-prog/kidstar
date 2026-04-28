@@ -101,6 +101,15 @@ AI כבר מאתר סרטנים בבדיקות MRI מוקדם מרדיולוגי
   { id: 'nikud-basics',   title: 'ניקוד — יסודות',   subject: 'hebrew',  icon: '📍',  description: 'לומדים את סימני הניקוד',     kidIds: ['aviv'], color: '#EC4899', difficulty: 1, minPoints: 2, maxPoints: 4, questionsCount: 10, estimatedMinutes: 5 },
   { id: 'syllable-read',  title: 'קריאת הברות',      subject: 'hebrew',  icon: '🗣️', description: 'קורא הברות עם ניקוד מלא',    kidIds: ['aviv'], color: '#8B5CF6', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 10, estimatedMinutes: 6 },
   { id: 'word-build',     title: 'בניית מילים',       subject: 'hebrew',  icon: '🧩',  description: 'בונה מילים מהברות',          kidIds: ['aviv'], color: '#F59E0B', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 8,  estimatedMinutes: 6 },
+
+  // ══ ITAI — Exam Prep ════════════════════════════════════════════════════════
+
+  { id: 'exam-place-value',   title: 'ערך המקום עד מיליון',        subject: 'math', icon: '🔢', description: 'קריאה, כתיבה, השוואה ואומדן של מספרים גדולים', kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-mul-methods',   title: 'כפל בדרכים שונות',           subject: 'math', icon: '✖️', description: 'כפל דו-ספרתי בפילוג, כפל באוזן, שאלות מילוליות', kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-mul-tens',      title: 'כפל וחילוק בעשרות ומאות',    subject: 'math', icon: '💯', description: '30×4=120, 300×4=1200, 120÷4=30', kidIds: ['itai'], color: '#0891B2', difficulty: 3, minPoints: 4, maxPoints: 8,  questionsCount: 8,  estimatedMinutes: 8,  tags: ['exam-prep'] },
+  { id: 'exam-div-partition', title: 'חילוק בחוק הפילוג',          subject: 'math', icon: '➗', description: '96÷4 = (80÷4) + (16÷4) = 24', kidIds: ['itai'], color: '#9333EA', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 8,  estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-fractions-adv', title: 'שברים — שבר מעורב וחיבור',   subject: 'math', icon: '½',  description: 'שבר מעורב↔פשוט, חיבור/חיסור שברים, שאלות מילוליות', kidIds: ['itai'], color: '#F59E0B', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-geometry-adv',  title: 'שטח והיקף — ריבוע ומלבן',   subject: 'math', icon: '📐', description: 'חישוב שטח, היקף, יחידות מ"ר וסמ"ר', kidIds: ['itai'], color: '#F97316', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -623,6 +632,82 @@ const WORD_BUILD_QS: ExerciseQuestion[] = tag('word-build', [
   { text: 'קרא את המילה:\n\nמַיִם', options: ['מיים','מים','מָיִם','מויים'], correctIndex: 1, explanation: 'מַ+יִ+ם = מַיִם' },
 ]);
 
+// ─── ITAI — Exam Prep question banks ─────────────────────────────────────────
+
+const EXAM_PLACE_VALUE_QS: ExerciseQuestion[] = tag('exam-place-value', [
+  { text: 'מה ספרת האלפים במספר 345,678?', options: ['3','4','5','6'], correctIndex: 2, explanation: '345,678 — מימין: יחידות=8, עשרות=7, מאות=6, אלפים=5' },
+  { text: 'מה ערך הספרה 4 במספר 140,000?', options: ['4','400','4,000','40,000'], correctIndex: 3, explanation: '140,000 — ה-4 עומד במקום עשרות האלפים = 40,000' },
+  { text: 'איזה מספר הגדול ביותר?', options: ['456,789','456,987','456,900','456,799'], correctIndex: 1, explanation: '456,987 — ספרת המאות היא 9, הגדולה מבין כולן' },
+  { text: 'עגל ל-1,000 הקרוב: 347,650', options: ['347,000','348,000','350,000','300,000'], correctIndex: 1, explanation: 'ספרת מאות=6 ≥ 5 → מעגלים למעלה → 348,000' },
+  { text: 'מה הבא בסדרה? 200,000 | 400,000 | 600,000 | ___', options: ['700,000','800,000','900,000','1,000,000'], correctIndex: 1, explanation: 'קפיצות של 200,000' },
+  { text: 'כיצד כותבים "שש מאות אלף ושניים"?', options: ['602,000','600,200','600,020','600,002'], correctIndex: 3, explanation: '600,000 + 2 = 600,002' },
+  { text: 'מה ספרת מאות האלפים ב-1,234,567?', options: ['1','2','3','4'], correctIndex: 1, explanation: '1,234,567 — מאות האלפים = 2' },
+  { text: 'עגל ל-10,000 הקרוב: 785,400', options: ['780,000','785,000','790,000','800,000'], correctIndex: 2, explanation: 'ספרת האלפים=5 ≥ 5 → מעגלים למעלה → 790,000' },
+  { text: 'מה הבא בסדרה? 1,000,000 | 900,000 | 800,000 | ___', options: ['750,000','700,000','600,000','500,000'], correctIndex: 1, explanation: 'קפיצות של 100,000 לאחור' },
+  { text: 'איזה מספר גדול יותר: 1,001,000 או 1,000,999?', options: ['1,001,000','1,000,999','שווים','אי אפשר לדעת'], correctIndex: 0, explanation: '1,001,000 > 1,000,999 כי 1,000 > 999' },
+], 3);
+
+const EXAM_MUL_METHODS_QS: ExerciseQuestion[] = tag('exam-mul-methods', [
+  { text: '36 × 4 = (30×4) + (6×4) = 120 + 24 = ?', options: ['134','144','154','164'], correctIndex: 1, explanation: '120 + 24 = 144' },
+  { text: '47 × 3 = ?', options: ['121','131','141','151'], correctIndex: 2, explanation: '(40×3)+(7×3) = 120+21 = 141' },
+  { text: '25 × 6 = ?', options: ['120','130','150','160'], correctIndex: 2, explanation: '(20×6)+(5×6) = 120+30 = 150' },
+  { text: '32 × 7 = ?', options: ['204','214','224','234'], correctIndex: 2, explanation: '(30×7)+(2×7) = 210+14 = 224' },
+  { text: '19 × 5 = (20-1)×5 = 100-5 = ?', options: ['85','90','95','100'], correctIndex: 2, explanation: 'שיטת "עגול ופחות": 20×5-1×5 = 100-5 = 95' },
+  { text: '45 × 4 = ?', options: ['160','170','180','190'], correctIndex: 2, explanation: '(40×4)+(5×4) = 160+20 = 180' },
+  { text: '67 × 3 = (60×3) + (7×3) = 180 + 21 = ?', options: ['191','201','211','221'], correctIndex: 1, explanation: '180 + 21 = 201' },
+  { text: 'כיתה יש 28 ילדים, כל ילד קיבל 5 מדבקות. כמה מדבקות סה"כ?', options: ['120','130','140','150'], correctIndex: 2, explanation: '(20×5)+(8×5) = 100+40 = 140' },
+  { text: 'אבא קנה 38 ביצים בכל שבוע. כמה ב-4 שבועות?', options: ['142','152','162','172'], correctIndex: 1, explanation: '(30×4)+(8×4) = 120+32 = 152' },
+  { text: '54 × 6 = ?', options: ['294','314','324','334'], correctIndex: 2, explanation: '(50×6)+(4×6) = 300+24 = 324' },
+], 3);
+
+const EXAM_MUL_TENS_QS: ExerciseQuestion[] = tag('exam-mul-tens', [
+  { text: '30 × 4 = ?', options: ['34','120','1,200','12'], correctIndex: 1, explanation: '3×4=12, מוסיפים אפס → 120' },
+  { text: '300 × 4 = ?', options: ['120','1,200','12,000','34'], correctIndex: 1, explanation: '3×4=12, מוסיפים שני אפסים → 1,200' },
+  { text: '60 × 7 = ?', options: ['67','420','4,200','42'], correctIndex: 1, explanation: '6×7=42, מוסיפים אפס → 420' },
+  { text: '50 × 80 = ?', options: ['400','4,000','40,000','130'], correctIndex: 1, explanation: '5×8=40, מוסיפים שני אפסים → 4,000' },
+  { text: '120 ÷ 4 = ?', options: ['3','30','300','48'], correctIndex: 1, explanation: '12÷4=3, מחלקים ב-4 → 30' },
+  { text: '1,200 ÷ 4 = ?', options: ['3','30','300','3,000'], correctIndex: 2, explanation: '12÷4=3, שתי אפסים נשארות → 300' },
+  { text: '4,200 ÷ 70 = ?', options: ['6','60','600','4,270'], correctIndex: 1, explanation: '42÷7=6, אפס אחד נשאר → 60' },
+  { text: '200 × 30 = ?', options: ['600','6,000','60,000','230'], correctIndex: 1, explanation: '2×3=6, שלושה אפסים → 6,000' },
+], 3);
+
+const EXAM_DIV_PARTITION_QS: ExerciseQuestion[] = tag('exam-div-partition', [
+  { text: '96 ÷ 4 = (80÷4) + (16÷4) = 20 + 4 = ?', options: ['20','24','28','32'], correctIndex: 1, explanation: 'פילוג: 80÷4=20, 16÷4=4 → 24' },
+  { text: '75 ÷ 5 = (50÷5) + (25÷5) = 10 + 5 = ?', options: ['13','14','15','16'], correctIndex: 2, explanation: '50÷5=10, 25÷5=5 → 15' },
+  { text: '84 ÷ 4 = (80÷4) + (4÷4) = 20 + 1 = ?', options: ['19','21','22','24'], correctIndex: 1, explanation: '80÷4=20, 4÷4=1 → 21' },
+  { text: '84 ÷ 6 = (60÷6) + (24÷6) = 10 + 4 = ?', options: ['12','13','14','15'], correctIndex: 2, explanation: '60÷6=10, 24÷6=4 → 14' },
+  { text: '91 ÷ 7 = ?', options: ['12','13','14','15'], correctIndex: 1, explanation: '(70÷7)+(21÷7) = 10+3 = 13' },
+  { text: '78 ÷ 3 = (60÷3) + (18÷3) = 20 + 6 = ?', options: ['24','25','26','28'], correctIndex: 2, explanation: '60÷3=20, 18÷3=6 → 26' },
+  { text: '90 ÷ 6 = ?', options: ['12','15','16','18'], correctIndex: 1, explanation: '(60÷6)+(30÷6) = 10+5 = 15' },
+  { text: 'אמא חילקה 96 סוכריות ל-8 ילדים שווה בשווה. כמה לכל ילד?', options: ['10','12','14','16'], correctIndex: 1, explanation: '(80÷8)+(16÷8) = 10+2 = 12' },
+], 4);
+
+const EXAM_FRACTIONS_ADV_QS: ExerciseQuestion[] = tag('exam-fractions-adv', [
+  { text: '2½ כשבר פשוט = ?', options: ['2/5','4/2','5/2','6/2'], correctIndex: 2, explanation: '2×2+1=5 → 5/2' },
+  { text: '7/3 כשבר מעורב = ?', options: ['1⅔','2⅓','3⅓','3'], correctIndex: 1, explanation: '7÷3=2 שלמים ושאר 1 → 2⅓' },
+  { text: '2/5 + 1/5 = ?', options: ['3/10','2/5','3/5','4/5'], correctIndex: 2, explanation: 'מכנים שווים → מחברים מונים: 2+1=3 → 3/5' },
+  { text: '3/4 - 1/4 = ?', options: ['2/8','1/4','1/2','2/3'], correctIndex: 2, explanation: '3-1=2 → 2/4 = 1/2' },
+  { text: '1/2 + 1/4 = ? (מכנה מוכל)', options: ['2/6','2/4','3/4','4/4'], correctIndex: 2, explanation: '1/2 = 2/4, אז 2/4 + 1/4 = 3/4' },
+  { text: '3/4 + 1/2 = ?', options: ['4/6','5/4','1','4/8'], correctIndex: 1, explanation: '1/2 = 2/4, אז 3/4 + 2/4 = 5/4 = 1¼' },
+  { text: 'אכלתי ⅓ עוגה בצהריים ו-⅓ בערב. כמה אכלתי סה"כ?', options: ['1/3','2/3','3/3','2/6'], correctIndex: 1, explanation: '1/3 + 1/3 = 2/3' },
+  { text: 'האם 3/8 גדול מ-1/4?', options: ['כן, 3/8 > 2/8 = 1/4','לא, 1/4 גדול יותר','שווים','אי אפשר לדעת'], correctIndex: 0, explanation: '1/4 = 2/8, ו-3/8 > 2/8 → כן' },
+  { text: 'עוגה חתוכה ל-6 חלקים שווים. אכלתי 2. כמה בשבר פשוט?', options: ['2/12','1/6','1/3','1/2'], correctIndex: 2, explanation: '2/6 = 1/3' },
+  { text: '1 שלם = כמה שמיניות?', options: ['4/8','6/8','8/8','10/8'], correctIndex: 2, explanation: '1 = 8/8' },
+], 4);
+
+const EXAM_GEOMETRY_ADV_QS: ExerciseQuestion[] = tag('exam-geometry-adv', [
+  { text: 'מה שטח מלבן עם אורך 8 סמ ורוחב 5 סמ?', options: ['26 סמ"ר','40 סמ"ר','13 סמ"ר','80 סמ"ר'], correctIndex: 1, explanation: 'שטח = אורך × רוחב = 8×5 = 40 סמ"ר' },
+  { text: 'מה היקף ריבוע עם צלע 7 סמ?', options: ['14 סמ','21 סמ','28 סמ','49 סמ'], correctIndex: 2, explanation: 'היקף = 4×צלע = 4×7 = 28 סמ' },
+  { text: 'מה שטח ריבוע עם צלע 6 סמ?', options: ['12 סמ"ר','24 סמ"ר','36 סמ"ר','48 סמ"ר'], correctIndex: 2, explanation: 'שטח = צלע² = 6×6 = 36 סמ"ר' },
+  { text: 'מה היקף מלבן 9 סמ × 4 סמ?', options: ['13 סמ','26 סמ','36 סמ','72 סמ'], correctIndex: 1, explanation: 'היקף = 2×(9+4) = 2×13 = 26 סמ' },
+  { text: 'כמה סמ"ר יש ב-1 מ"ר?', options: ['100','1,000','10,000','100,000'], correctIndex: 2, explanation: '1 מ"ר = 100 סמ × 100 סמ = 10,000 סמ"ר' },
+  { text: 'שטח מלבן = 48 סמ"ר, אורך = 8 סמ. מה הרוחב?', options: ['4 סמ','5 סמ','6 סמ','7 סמ'], correctIndex: 2, explanation: 'רוחב = שטח ÷ אורך = 48 ÷ 8 = 6 סמ' },
+  { text: 'לאיזו צורה כל 4 הצלעות שוות ו-4 זוויות ישרות?', options: ['מלבן','ריבוע','מעוין','טרפז'], correctIndex: 1, explanation: 'ריבוע — כל הצלעות שוות וכל הזוויות 90°' },
+  { text: 'היקף מלבן = 30 סמ, רוחב = 6 סמ. מה האורך?', options: ['7 סמ','8 סמ','9 סמ','10 סמ'], correctIndex: 2, explanation: '2×(א+6)=30 → א+6=15 → א=9 סמ' },
+  { text: 'ריבוע גדול בצלע 10 סמ. מה שטחו?', options: ['40 סמ"ר','80 סמ"ר','100 סמ"ר','1,000 סמ"ר'], correctIndex: 2, explanation: '10×10 = 100 סמ"ר' },
+  { text: 'אי אפשר לציין ריבוע שצלעו 5 מ. מה שטחו?', options: ['10 מ"ר','20 מ"ר','25 מ"ר','50 מ"ר'], correctIndex: 2, explanation: 'שטח = 5×5 = 25 מ"ר' },
+], 3);
+
 // ─── Master dispatcher ────────────────────────────────────────────────────────
 export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
   const s = (arr: ExerciseQuestion[], n: number) => shuffle(arr).slice(0, n);
@@ -668,8 +753,14 @@ export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
     case 'syllables':       return s(SYLLABLES_QS, 8);
     case 'nikud-basics':    return s(NIKUD_BASICS_QS, 10);
     case 'syllable-read':   return s(SYLLABLE_READ_QS, 10);
-    case 'word-build':      return s(WORD_BUILD_QS, 8);
-    default:                return [];
+    case 'word-build':          return s(WORD_BUILD_QS, 8);
+    case 'exam-place-value':    return s(EXAM_PLACE_VALUE_QS, 10);
+    case 'exam-mul-methods':    return s(EXAM_MUL_METHODS_QS, 10);
+    case 'exam-mul-tens':       return s(EXAM_MUL_TENS_QS, 8);
+    case 'exam-div-partition':  return s(EXAM_DIV_PARTITION_QS, 8);
+    case 'exam-fractions-adv':  return s(EXAM_FRACTIONS_ADV_QS, 10);
+    case 'exam-geometry-adv':   return s(EXAM_GEOMETRY_ADV_QS, 10);
+    default:                    return [];
   }
 }
 

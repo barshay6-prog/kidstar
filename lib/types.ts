@@ -42,6 +42,8 @@ export interface ExerciseType {
   passage?: string;
   passageTitle?: string;
   passageSourceUrl?: string;
+  /** Grouping tags, e.g. ['exam-prep'] */
+  tags?: string[];
 }
 
 /** Per-question attempt record — stored so parents can see exactly what went wrong */

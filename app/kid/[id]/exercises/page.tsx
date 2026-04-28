@@ -19,8 +19,12 @@ export default function ExercisesPage({ params }: PageProps) {
 
   if (!ready || !kid) return <div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 rounded-full border-4 border-gray-200 border-t-blue-500 animate-spin" /></div>;
 
-  // Group by subject
-  const bySubject = exercises.reduce<Record<string, typeof exercises>>((acc, ex) => {
+  // Separate exam prep from regular exercises
+  const examPrep = exercises.filter(ex => ex.tags?.includes('exam-prep'));
+  const regular = exercises.filter(ex => !ex.tags?.includes('exam-prep'));
+
+  // Group regular exercises by subject
+  const bySubject = regular.reduce<Record<string, typeof regular>>((acc, ex) => {
     (acc[ex.subject] ??= []).push(ex);
     return acc;
   }, {});
@@ -75,6 +79,51 @@ export default function ExercisesPage({ params }: PageProps) {
             <p className="text-xs text-gray-500 mt-0.5">שיא</p>
           </div>
         </div>
+
+        {/* Exam prep section */}
+        {examPrep.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xl">🎯</span>
+              <h2 className="font-black text-gray-800 text-base">הכנה למבחן</h2>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 font-bold">{examPrep.length} נושאים</span>
+            </div>
+            <div className="rounded-2xl border-2 border-amber-200 bg-amber-50/50 p-3">
+              <div className="grid grid-cols-2 gap-3">
+                {examPrep.map(ex => {
+                  const times = completionCount[ex.id] ?? 0;
+                  const bestForType = kid.completedExercises.filter(e => e.exerciseTypeId === ex.id).reduce((b, e) => Math.max(b, e.score / e.total), 0);
+                  return (
+                    <Link key={ex.id} href={`/kid/${id}/exercises/${ex.id}`}
+                      className="bg-white rounded-2xl p-4 shadow-sm border border-amber-100 hover:shadow-md hover:-translate-y-0.5 transition-all block">
+                      <div className="flex items-start justify-between mb-3">
+                        <span className="text-3xl">{ex.icon}</span>
+                        {times > 0 && (
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-medium">{times}×</span>
+                        )}
+                      </div>
+                      <h3 className="font-bold text-gray-800 text-sm leading-tight mb-1">{ex.title}</h3>
+                      <p className="text-xs text-gray-400 mb-3 leading-snug">{ex.description}</p>
+                      <div className="flex items-center justify-between">
+                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${DIFFICULTY_COLOR[ex.difficulty]}`}>
+                          {DIFFICULTY_LABEL[ex.difficulty]}
+                        </span>
+                        <span className="text-xs font-bold" style={{ color: ex.color }}>
+                          עד {ex.maxPoints} נק׳
+                        </span>
+                      </div>
+                      {times > 0 && (
+                        <div className="mt-2 w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full rounded-full" style={{ width: `${bestForType * 100}%`, background: ex.color }} />
+                        </div>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Exercise groups */}
         {Object.entries(bySubject).map(([subject, exs]) => (
