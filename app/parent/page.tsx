@@ -9,27 +9,43 @@ import { getAchievement } from '@/lib/achievements';
 
 type Tab = 'overview' | 'analytics' | 'tasks' | 'history' | 'settings';
 
-// ─── PIN Gate ─────────────────────────────────────────────────────────────────
-function PinGate({ pin, onUnlock }: { pin: string; onUnlock: () => void }) {
+// ─── PIN Gate — verifies against server, PIN never exposed to browser ─────────
+function PinGate({ onUnlock }: { onUnlock: () => void }) {
   const [input, setInput] = useState('');
   const [shake, setShake] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const verify = async (pin: string) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/verify-pin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin }),
+      });
+      const { ok } = await res.json();
+      if (ok) { onUnlock(); }
+      else { setShake(true); setInput(''); setTimeout(() => setShake(false), 600); }
+    } catch {
+      setShake(true); setInput(''); setTimeout(() => setShake(false), 600);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleDigit = (d: string) => {
     const next = input + d;
     setInput(next);
-    if (next.length === 4) {
-      if (next === pin) { onUnlock(); }
-      else { setShake(true); setInput(''); setTimeout(() => setShake(false), 600); }
-    }
+    if (next.length === 4) verify(next);
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-slate-900 to-blue-950 p-6">
       <div className="w-full max-w-xs">
         <div className="text-center mb-8">
-          <span className="text-5xl">🔒</span>
+          <span className="text-5xl">{loading ? '⏳' : '🔒'}</span>
           <h1 className="text-white text-2xl font-black mt-3">אזור הורים</h1>
-          <p className="text-slate-400 text-sm mt-1">PIN: 1234 (ברירת מחדל)</p>
+          <p className="text-slate-400 text-sm mt-1">הזן קוד PIN</p>
         </div>
         <div className={`flex justify-center gap-4 mb-8 ${shake ? 'animate-bounce' : ''}`}>
           {[0,1,2,3].map(i => (
@@ -38,8 +54,9 @@ function PinGate({ pin, onUnlock }: { pin: string; onUnlock: () => void }) {
         </div>
         <div className="grid grid-cols-3 gap-3">
           {['1','2','3','4','5','6','7','8','9','','0','⌫'].map((d, i) => (
-            <button key={i} onClick={() => d === '⌫' ? setInput(p => p.slice(0,-1)) : d ? handleDigit(d) : undefined}
-              className={`h-14 rounded-2xl text-xl font-bold transition-all active:scale-90 ${d === '' ? 'invisible' : 'bg-slate-700/80 text-white hover:bg-slate-600'}`}>
+            <button key={i} disabled={loading}
+              onClick={() => d === '⌫' ? setInput(p => p.slice(0,-1)) : d ? handleDigit(d) : undefined}
+              className={`h-14 rounded-2xl text-xl font-bold transition-all active:scale-90 ${d === '' ? 'invisible' : 'bg-slate-700/80 text-white hover:bg-slate-600 disabled:opacity-50'}`}>
               {d}
             </button>
           ))}
@@ -222,9 +239,11 @@ function AnalyticsTab() {
 
 // ─── OVERVIEW TAB ─────────────────────────────────────────────────────────────
 function OverviewTab() {
-  const { state, adjustPoints } = useAppStore();
+  const { state, adjustPoints, grantScreenTime } = useAppStore();
   const [adjustKid, setAdjustKid] = useState<string | null>(null);
+  const [grantKid, setGrantKid] = useState<string | null>(null);
   const [delta, setDelta] = useState(10);
+  const [grantMinutes, setGrantMinutes] = useState(30);
   const [reason, setReason] = useState('');
 
   return (
@@ -278,6 +297,30 @@ function OverviewTab() {
                   return def ? <span key={a.achievementId} title={def.title} className="text-2xl">{def.icon}</span> : null;
                 })}
               </div>
+            )}
+
+            {/* Grant screen time */}
+            {grantKid === kid.id ? (
+              <div className="bg-emerald-50 rounded-2xl p-3 space-y-2 mb-2">
+                <p className="text-sm font-bold text-emerald-700">הוספת זמן מסך — יופחתו נקודות בהתאם</p>
+                <div className="flex items-center gap-2">
+                  <button onClick={() => setGrantMinutes(m => Math.max(5, m - 5))} className="w-8 h-8 rounded-full bg-white border border-emerald-200 font-bold text-emerald-700">-</button>
+                  <span className="flex-1 text-center font-bold text-emerald-700">{grantMinutes} דקות</span>
+                  <button onClick={() => setGrantMinutes(m => m + 5)} className="w-8 h-8 rounded-full bg-white border border-emerald-200 font-bold text-emerald-700">+</button>
+                </div>
+                <p className="text-xs text-center text-emerald-600">
+                  יופחתו {Math.ceil(grantMinutes / state.settings.pointsPerMinute)} נקודות מ-{kid.name}
+                </p>
+                <div className="flex gap-2">
+                  <button onClick={() => { grantScreenTime(kid.id, grantMinutes); setGrantKid(null); }}
+                    className="flex-1 py-2 rounded-xl text-sm font-bold text-white bg-emerald-500">✅ אשר</button>
+                  <button onClick={() => setGrantKid(null)} className="px-3 py-2 rounded-xl text-sm text-gray-500 bg-white border border-gray-200">ביטול</button>
+                </div>
+              </div>
+            ) : (
+              <button onClick={() => setGrantKid(kid.id)} className="w-full py-2 rounded-xl text-sm font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 mb-2">
+                📱 הוסף זמן מסך
+              </button>
             )}
 
             {/* Manual points adjust */}
@@ -560,14 +603,13 @@ function HistoryTab() {
 // ─── SETTINGS TAB ────────────────────────────────────────────────────────────
 function SettingsTab() {
   const { state, updateSettings, resetKidData } = useAppStore();
-  const [pin, setPin] = useState(state.settings.parentPin);
   const [ppm, setPpm] = useState(state.settings.pointsPerMinute);
   const [maxMin, setMaxMin] = useState(state.settings.maxDailyScreenMinutes);
   const [saved, setSaved] = useState(false);
   const [resetTarget, setResetTarget] = useState<string | null>(null);
 
   const save = () => {
-    updateSettings({ parentPin: pin, pointsPerMinute: ppm, maxDailyScreenMinutes: maxMin });
+    updateSettings({ pointsPerMinute: ppm, maxDailyScreenMinutes: maxMin });
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -576,10 +618,8 @@ function SettingsTab() {
     <div className="space-y-4">
       <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 space-y-4">
         <h3 className="font-bold text-gray-700">הגדרות מערכת</h3>
-        <div>
-          <label className="text-sm text-gray-600 block mb-1">קוד PIN להורים (4 ספרות)</label>
-          <input value={pin} onChange={e => setPin(e.target.value.replace(/\D/g,'').slice(0,4))} maxLength={4}
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none text-center text-2xl font-bold tracking-[0.5em]" placeholder="1234" />
+        <div className="bg-blue-50 rounded-xl p-3 text-sm text-blue-700">
+          🔒 קוד PIN מוגדר בשרת — לשינוי PIN עדכן את משתנה הסביבה <code className="font-mono bg-blue-100 px-1 rounded">PARENT_PIN</code>
         </div>
         <div>
           <div className="flex justify-between mb-1">
@@ -631,7 +671,7 @@ export default function ParentPage() {
   const [tab, setTab] = useState<Tab>('overview');
 
   if (!ready) return <div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 rounded-full border-4 border-slate-300 border-t-blue-500 animate-spin" /></div>;
-  if (!unlocked) return <PinGate pin={state.settings.parentPin} onUnlock={() => setUnlocked(true)} />;
+  if (!unlocked) return <PinGate onUnlock={() => setUnlocked(true)} />;
 
   const TABS: { id: Tab; label: string; icon: string }[] = [
     { id: 'overview',  label: 'סקירה',      icon: '📊' },

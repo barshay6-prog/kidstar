@@ -15,6 +15,8 @@ export interface Task {
 
 // ─── Exercises ────────────────────────────────────────────────────────────────
 export interface ExerciseQuestion {
+  id: string;
+  difficulty: 1 | 2 | 3 | 4;
   text: string;
   options: string[];
   correctIndex: number;
@@ -34,12 +36,14 @@ export interface ExerciseType {
   questionsCount: number;
   kidIds: string[];
   color: string;
-  difficulty: 1 | 2 | 3;
+  difficulty: 1 | 2 | 3 | 4;
   estimatedMinutes: number;
   /** Reading comprehension: full passage text shown before questions */
   passage?: string;
   passageTitle?: string;
   passageSourceUrl?: string;
+  /** Grouping tags, e.g. ['exam-prep'] */
+  tags?: string[];
 }
 
 /** Per-question attempt record — stored so parents can see exactly what went wrong */
@@ -122,6 +126,6 @@ export interface AppState {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   parentPin: '1234',
-  pointsPerMinute: 1,
+  pointsPerMinute: 3,
   maxDailyScreenMinutes: 120,
 };
