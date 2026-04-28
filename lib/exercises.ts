@@ -105,10 +105,10 @@ AI כבר מאתר סרטנים בבדיקות MRI מוקדם מרדיולוגי
   // ══ ITAI — Exam Prep ════════════════════════════════════════════════════════
 
   { id: 'exam-place-value',   title: 'ערך המקום עד מיליון',        subject: 'math', icon: '🔢', description: 'קריאה, כתיבה, השוואה ואומדן של מספרים גדולים', kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
-  { id: 'exam-mul-methods',   title: 'כפל בדרכים שונות',           subject: 'math', icon: '✖️', description: 'כפל דו-ספרתי בפילוג, כפל באוזן, שאלות מילוליות', kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-mul-methods',   title: 'כפל בדרכים שונות',           subject: 'math', icon: '✖️', description: 'כפל דו-ספרתי בדו-ספרתי בפילוג, כפל באוזן, שאלות מילוליות', kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
   { id: 'exam-mul-tens',      title: 'כפל וחילוק בעשרות ומאות',    subject: 'math', icon: '💯', description: '30×4=120, 300×4=1200, 120÷4=30', kidIds: ['itai'], color: '#0891B2', difficulty: 3, minPoints: 4, maxPoints: 8,  questionsCount: 8,  estimatedMinutes: 8,  tags: ['exam-prep'] },
   { id: 'exam-div-partition', title: 'חילוק בחוק הפילוג',          subject: 'math', icon: '➗', description: '96÷4 = (80÷4) + (16÷4) = 24', kidIds: ['itai'], color: '#9333EA', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 8,  estimatedMinutes: 10, tags: ['exam-prep'] },
-  { id: 'exam-fractions-adv', title: 'שברים — שבר מעורב וחיבור',   subject: 'math', icon: '½',  description: 'שבר מעורב↔פשוט, חיבור/חיסור שברים, שאלות מילוליות', kidIds: ['itai'], color: '#F59E0B', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-fractions-adv', title: 'שברים — זיהוי, המרה וחישוב', subject: 'math', icon: '½',  description: 'זיהוי ושיום, שבר מעורב↔פשוט, חיבור/חיסור, שאלות מילוליות', kidIds: ['itai'], color: '#F59E0B', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
   { id: 'exam-geometry-adv',  title: 'שטח והיקף — ריבוע ומלבן',   subject: 'math', icon: '📐', description: 'חישוב שטח, היקף, יחידות מ"ר וסמ"ר', kidIds: ['itai'], color: '#F97316', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
 ];
 
@@ -648,16 +648,19 @@ const EXAM_PLACE_VALUE_QS: ExerciseQuestion[] = tag('exam-place-value', [
 ], 3);
 
 const EXAM_MUL_METHODS_QS: ExerciseQuestion[] = tag('exam-mul-methods', [
+  // ── דו-ספרתי × חד-ספרתי (חימום: לוודא שיטת הפילוג) ──
   { text: '36 × 4 = (30×4) + (6×4) = 120 + 24 = ?', options: ['134','144','154','164'], correctIndex: 1, explanation: '120 + 24 = 144' },
-  { text: '47 × 3 = ?', options: ['121','131','141','151'], correctIndex: 2, explanation: '(40×3)+(7×3) = 120+21 = 141' },
-  { text: '25 × 6 = ?', options: ['120','130','150','160'], correctIndex: 2, explanation: '(20×6)+(5×6) = 120+30 = 150' },
-  { text: '32 × 7 = ?', options: ['204','214','224','234'], correctIndex: 2, explanation: '(30×7)+(2×7) = 210+14 = 224' },
-  { text: '19 × 5 = (20-1)×5 = 100-5 = ?', options: ['85','90','95','100'], correctIndex: 2, explanation: 'שיטת "עגול ופחות": 20×5-1×5 = 100-5 = 95' },
-  { text: '45 × 4 = ?', options: ['160','170','180','190'], correctIndex: 2, explanation: '(40×4)+(5×4) = 160+20 = 180' },
-  { text: '67 × 3 = (60×3) + (7×3) = 180 + 21 = ?', options: ['191','201','211','221'], correctIndex: 1, explanation: '180 + 21 = 201' },
-  { text: 'כיתה יש 28 ילדים, כל ילד קיבל 5 מדבקות. כמה מדבקות סה"כ?', options: ['120','130','140','150'], correctIndex: 2, explanation: '(20×5)+(8×5) = 100+40 = 140' },
-  { text: 'אבא קנה 38 ביצים בכל שבוע. כמה ב-4 שבועות?', options: ['142','152','162','172'], correctIndex: 1, explanation: '(30×4)+(8×4) = 120+32 = 152' },
-  { text: '54 × 6 = ?', options: ['294','314','324','334'], correctIndex: 2, explanation: '(50×6)+(4×6) = 300+24 = 324' },
+  { text: '19 × 5 = (20−1)×5 = 100−5 = ?', options: ['85','90','95','100'], correctIndex: 2, explanation: 'שיטת "עגול ופחות": 20×5 − 1×5 = 95' },
+  // ── דו-ספרתי × דו-ספרתי בפילוג ──
+  { text: '23 × 14 = (20×14) + (3×14) = 280 + 42 = ?', options: ['302','312','322','332'], correctIndex: 2, explanation: '280 + 42 = 322' },
+  { text: '34 × 12 = (30×12) + (4×12) = 360 + 48 = ?', options: ['388','398','408','418'], correctIndex: 2, explanation: '360 + 48 = 408' },
+  { text: '25 × 16 = (20×16) + (5×16) = 320 + 80 = ?', options: ['380','390','400','410'], correctIndex: 2, explanation: '320 + 80 = 400' },
+  { text: '42 × 13 = (40×13) + (2×13) = 520 + 26 = ?', options: ['536','546','556','566'], correctIndex: 1, explanation: '520 + 26 = 546' },
+  { text: '31 × 24 = (30×24) + (1×24) = 720 + 24 = ?', options: ['724','734','744','754'], correctIndex: 2, explanation: '720 + 24 = 744' },
+  { text: '53 × 21 = (50×21) + (3×21) = 1,050 + 63 = ?', options: ['1,103','1,113','1,123','1,133'], correctIndex: 1, explanation: '1,050 + 63 = 1,113' },
+  // ── שאלות מילוליות ──
+  { text: 'בבית הספר יש 24 כיתות. בכל כיתה 28 ילדים. כמה ילדים בסה"כ?', options: ['622','652','672','692'], correctIndex: 2, explanation: '(20×28)+(4×28) = 560+112 = 672' },
+  { text: 'מחסן יש 32 קרטונים. בכל קרטון 15 פחיות. כמה פחיות?', options: ['440','460','480','520'], correctIndex: 2, explanation: '(30×15)+(2×15) = 450+30 = 480' },
 ], 3);
 
 const EXAM_MUL_TENS_QS: ExerciseQuestion[] = tag('exam-mul-tens', [
@@ -683,16 +686,20 @@ const EXAM_DIV_PARTITION_QS: ExerciseQuestion[] = tag('exam-div-partition', [
 ], 4);
 
 const EXAM_FRACTIONS_ADV_QS: ExerciseQuestion[] = tag('exam-fractions-adv', [
-  { text: '2½ כשבר פשוט = ?', options: ['2/5','4/2','5/2','6/2'], correctIndex: 2, explanation: '2×2+1=5 → 5/2' },
-  { text: '7/3 כשבר מעורב = ?', options: ['1⅔','2⅓','3⅓','3'], correctIndex: 1, explanation: '7÷3=2 שלמים ושאר 1 → 2⅓' },
-  { text: '2/5 + 1/5 = ?', options: ['3/10','2/5','3/5','4/5'], correctIndex: 2, explanation: 'מכנים שווים → מחברים מונים: 2+1=3 → 3/5' },
-  { text: '3/4 - 1/4 = ?', options: ['2/8','1/4','1/2','2/3'], correctIndex: 2, explanation: '3-1=2 → 2/4 = 1/2' },
-  { text: '1/2 + 1/4 = ? (מכנה מוכל)', options: ['2/6','2/4','3/4','4/4'], correctIndex: 2, explanation: '1/2 = 2/4, אז 2/4 + 1/4 = 3/4' },
-  { text: '3/4 + 1/2 = ?', options: ['4/6','5/4','1','4/8'], correctIndex: 1, explanation: '1/2 = 2/4, אז 3/4 + 2/4 = 5/4 = 1¼' },
-  { text: 'אכלתי ⅓ עוגה בצהריים ו-⅓ בערב. כמה אכלתי סה"כ?', options: ['1/3','2/3','3/3','2/6'], correctIndex: 1, explanation: '1/3 + 1/3 = 2/3' },
-  { text: 'האם 3/8 גדול מ-1/4?', options: ['כן, 3/8 > 2/8 = 1/4','לא, 1/4 גדול יותר','שווים','אי אפשר לדעת'], correctIndex: 0, explanation: '1/4 = 2/8, ו-3/8 > 2/8 → כן' },
-  { text: 'עוגה חתוכה ל-6 חלקים שווים. אכלתי 2. כמה בשבר פשוט?', options: ['2/12','1/6','1/3','1/2'], correctIndex: 2, explanation: '2/6 = 1/3' },
-  { text: '1 שלם = כמה שמיניות?', options: ['4/8','6/8','8/8','10/8'], correctIndex: 2, explanation: '1 = 8/8' },
+  // ── זיהוי ושיום ──
+  { text: 'כיצד קוראים לשבר 3/5?', options: ['שלוש חמישיות','חמש שלישים','שלוש חמשיות','חמישית שלישי'], correctIndex: 0, explanation: 'מונה=3 → שלוש; מכנה=5 → חמישיות' },
+  { text: 'מה מייצג המכנה בשבר?', options: ['כמה חלקים יש לנו','לכמה חלקים שווים חולק השלם','כמה שלמים יש','גודל השבר'], correctIndex: 1, explanation: 'המכנה (למטה) = מספר החלקים השווים שחילקנו את השלם' },
+  { text: 'פיצה חתוכה ל-8 חלקים שווים, אכלנו 3. איזה שבר?', options: ['3/5','5/8','3/8','8/3'], correctIndex: 2, explanation: 'מונה=3 (אכלנו), מכנה=8 (סה"כ חלקים) → 3/8' },
+  { text: 'כיצד קוראים לשבר 5/6?', options: ['חמש שישיות','שש חמישיות','חמישית שישי','שישית חמישי'], correctIndex: 0, explanation: 'מונה=5 → חמש; מכנה=6 → שישיות' },
+  // ── מעבר שבר פשוט ↔ מספר מעורב ──
+  { text: '2½ כשבר פשוט = ?', options: ['2/5','4/2','5/2','6/2'], correctIndex: 2, explanation: '2 שלמים × 2 + 1 = 5 → 5/2' },
+  { text: '9/4 כמספר מעורב = ?', options: ['1¾','2¼','2½','3¼'], correctIndex: 1, explanation: '9÷4 = 2 ושאר 1 → 2¼' },
+  // ── חיבור וחיסור (מכנים שווים ומוכלים) ──
+  { text: '2/7 + 3/7 = ?', options: ['5/14','5/7','6/7','1'], correctIndex: 1, explanation: 'מכנים שווים → מחברים מונים בלבד: 2+3=5 → 5/7' },
+  { text: '5/6 − 2/6 = ?', options: ['3/0','3/6','1/2','3/12'], correctIndex: 2, explanation: '5−2=3 → 3/6 = 1/2' },
+  { text: '1/3 + 1/6 = ? (מכנה מוכל)', options: ['2/9','2/6','3/6','1/2'], correctIndex: 2, explanation: '1/3 = 2/6, אז 2/6 + 1/6 = 3/6 = 1/2' },
+  // ── שאלה מילולית ──
+  { text: 'אמא חתכה עוגה ל-8 חלקים. ילד אחד אכל 2 חלקים, השני אכל 3. כמה נאכל ביחד?', options: ['4/8','5/8','6/8','7/8'], correctIndex: 1, explanation: '2/8 + 3/8 = 5/8' },
 ], 4);
 
 const EXAM_GEOMETRY_ADV_QS: ExerciseQuestion[] = tag('exam-geometry-adv', [
