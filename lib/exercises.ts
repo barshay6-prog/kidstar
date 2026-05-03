@@ -306,16 +306,16 @@ const SPELLING_4_QS: ExerciseQuestion[] = tag('hebrew-spell-4', [
 ]);
 
 const ENGLISH_VOCAB_QS: ExerciseQuestion[] = tag('english-vocab', [
-  { text: 'What does "reluctant" mean?', options: ['happy and excited','not willing to do something','very tired','confused and lost'], correctIndex: 1, explanation: '"She was reluctant to speak in front of the class" = she didn\'t want to' },
-  { text: '"The heavy storm caused ___ damage to the forest." Choose the best word:', options: ['significant','tiny','gentle','possible'], correctIndex: 0, explanation: 'Significant = large and important' },
-  { text: 'What does "temporary" mean?', options: ['lasting forever','very strong','lasting only for a short time','very expensive'], correctIndex: 2, explanation: '"A temporary solution" = it won\'t last forever' },
-  { text: '"The police tried to ___ who had broken the window."', options: ['determine','destroy','borrow','imagine'], correctIndex: 0, explanation: 'Determine = to find out or decide' },
-  { text: 'What does "convince" mean?', options: ['to punish someone','to make someone agree or believe','to ignore someone','to compete with someone'], correctIndex: 1, explanation: '"I convinced my parents to let me stay up late" = I made them agree' },
-  { text: '"Scientists try to ___ what the weather will be like next week."', options: ['predict','pretend','produce','perform'], correctIndex: 0, explanation: 'Predict = to say what will happen before it happens' },
-  { text: '"The new traffic lights will ___ accidents on this road."', options: ['allow','prevent','invite','suggest'], correctIndex: 1, explanation: 'Prevent = to stop something from happening' },
-  { text: 'What does "contribute" mean?', options: ['to take away from','to add something that helps','to compete against','to explain clearly'], correctIndex: 1, explanation: '"Everyone contributed to the project" = everyone added something' },
-  { text: '"The athlete made another ___ to break the world record."', options: ['attempt','award','argument','answer'], correctIndex: 0, explanation: 'Attempt = try' },
-  { text: 'What does "expand" mean?', options: ['to make smaller','to make bigger / wider','to explain something','to check something'], correctIndex: 1, explanation: '"The company plans to expand" = to grow larger' },
+  { text: 'What does "dangerous" mean?', options: ['exciting and fun','not safe — could cause harm','very important','easy to do'], correctIndex: 1, explanation: '"It is dangerous to swim alone" = it could cause harm' },
+  { text: '"Scientists ___ a new species of fish in the deep ocean."', options: ['destroyed','discovered','described','decided'], correctIndex: 1, explanation: 'Discovered = found something for the first time' },
+  { text: '"She worked very hard to ___ her dream of becoming a doctor."', options: ['avoid','achieve','explain','imagine'], correctIndex: 1, explanation: 'Achieve = succeed in reaching a goal you worked for' },
+  { text: 'What does "peaceful" mean?', options: ['noisy and busy','calm and quiet','strong and powerful','hot and sunny'], correctIndex: 1, explanation: '"The lake was peaceful in the morning" = calm, no noise' },
+  { text: '"Can you ___ how to get to the train station?"', options: ['explain','enjoy','escape','earn'], correctIndex: 0, explanation: 'Explain = to make something clear, give details' },
+  { text: '"The lion is one of the most ___ animals in Africa."', options: ['tiny','peaceful','powerful','confused'], correctIndex: 2, explanation: 'Powerful = very strong' },
+  { text: 'What does "improve" mean?', options: ['to get worse','to disappear','to get better','to break'], correctIndex: 2, explanation: '"Practice will improve your skills" = make them better' },
+  { text: '"After winning the championship, the whole team felt ___ of their achievement."', options: ['afraid','proud','sorry','bored'], correctIndex: 1, explanation: 'Proud = feeling good about something you or others achieved' },
+  { text: '"We must ___ the rainforest from being cut down."', options: ['destroy','create','protect','produce'], correctIndex: 2, explanation: 'Protect = to keep something safe from harm' },
+  { text: '"The hiker was ___ after climbing the mountain for six hours."', options: ['excited','proud','exhausted','happy'], correctIndex: 2, explanation: 'Exhausted = extremely tired' },
 ], 3);
 
 const ENGLISH_NUMS_QS: ExerciseQuestion[] = tag('english-numbers', [
