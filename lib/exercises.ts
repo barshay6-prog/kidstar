@@ -24,8 +24,8 @@ export const EXERCISE_TYPES: ExerciseType[] = [
   { id: 'hebrew-antonym', title: 'הפכים ונרדפות',    subject: 'hebrew',  icon: '🔄',  description: 'מילים הפוכות ודומות',        kidIds: ['itai'], color: '#9333EA', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
 
   // English
-  { id: 'english-vocab',  title: 'אנגלית: אוצר מילים', subject: 'english', icon: '🇬🇧', description: 'מילים אקדמיות, פועל פרזאלי, ביטויים', kidIds: ['itai'], color: '#DC2626', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
-  { id: 'english-numbers',title: 'אנגלית: משפטים ותחביר', subject: 'english', icon: '🔤', description: 'זמנים, בחירת מילים, תיקון שגיאות', kidIds: ['itai'], color: '#B45309', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
+  { id: 'english-vocab',  title: 'אנגלית: אוצר מילים', subject: 'english', icon: '🇬🇧', description: 'מילים ברמת כיתות ה–ו: הגדרות, מילים בהקשר, בחירת המילה הנכונה', kidIds: ['itai'], color: '#DC2626', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
+  { id: 'english-numbers',title: 'אנגלית: תחביר ודקדוק', subject: 'english', icon: '🔤', description: 'רמת כיתות ה–ו: משפטי תנאי, פסיבי, פסוקיות יחס, השוואה', kidIds: ['itai'], color: '#B45309', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
 
   // Science & General
   { id: 'science-nature', title: 'טבע ומדע',         subject: 'science', icon: '🌿',  description: 'צמחים, בעלי חיים, פיזיקה',   kidIds: ['itai'], color: '#16A34A', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
@@ -75,8 +75,8 @@ AI כבר מאתר סרטנים בבדיקות MRI מוקדם מרדיולוגי
 
   {
     id: 'english-reading', title: 'English: Reading', subject: 'english', icon: '📖',
-    description: 'Read a passage and answer comprehension questions in English',
-    kidIds: ['itai'], color: '#047857', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 5, estimatedMinutes: 10,
+    description: 'Read a passage and answer comprehension & inference questions — grade 5–6 level',
+    kidIds: ['itai'], color: '#047857', difficulty: 3, minPoints: 3, maxPoints: 8, questionsCount: 5, estimatedMinutes: 10,
     passageTitle: 'The Great Barrier Reef',
     passageSourceUrl: 'https://en.wikipedia.org/wiki/Great_Barrier_Reef',
     passage: `The Great Barrier Reef, located off the northeastern coast of Australia, is the world's largest coral reef system. It stretches over 2,300 kilometers and is home to more than 1,500 species of fish and thousands of other sea creatures.
@@ -303,25 +303,29 @@ const SPELLING_4_QS: ExerciseQuestion[] = tag('hebrew-spell-4', [
 ]);
 
 const ENGLISH_VOCAB_QS: ExerciseQuestion[] = tag('english-vocab', [
-  { text: 'What does "ancient" mean?', options: ['famous','strong','very old','modern'], correctIndex: 2, explanation: 'Ancient = very old, e.g. "ancient Egypt"' },
-  { text: 'What does "consequence" mean?', options: ['a problem','a result / effect','an opinion','a plan'], correctIndex: 1, explanation: 'A consequence is the result of an action' },
-  { text: 'What does the phrasal verb "figure out" mean?', options: ['to draw a figure','to memorize numbers','to understand / solve','to look something up'], correctIndex: 2 },
-  { text: '"The pyramid is an ___ monument." Choose the best word:', options: ['ancient','antique','elderly','old-fashioned'], correctIndex: 0, explanation: 'For historical structures we say "ancient"' },
-  { text: 'What does "approximately" mean?', options: ['exactly','about / around','completely','finally'], correctIndex: 1, explanation: '"Approximately 100" = around 100, not exact' },
-  { text: '"She was very ___ to know what was inside the box."', options: ['boring','curious','angry','tired'], correctIndex: 1, explanation: 'Curious = eager to know or learn' },
-  { text: 'What does "carry out" mean?', options: ['to carry something heavy','to perform / do a task','to leave a building','to finish work'], correctIndex: 1 },
-  { text: '"The scientist tried to ___ the distance to the moon."', options: ['imagine','calculate','forget','wonder'], correctIndex: 1, explanation: 'Calculate = to find by mathematics' },
+  { text: 'What does "reluctant" mean?', options: ['happy and excited','not willing to do something','very tired','confused and lost'], correctIndex: 1, explanation: '"She was reluctant to speak in front of the class" = she didn\'t want to' },
+  { text: '"The heavy storm caused ___ damage to the forest." Choose the best word:', options: ['significant','tiny','gentle','possible'], correctIndex: 0, explanation: 'Significant = large and important' },
+  { text: 'What does "temporary" mean?', options: ['lasting forever','very strong','lasting only for a short time','very expensive'], correctIndex: 2, explanation: '"A temporary solution" = it won\'t last forever' },
+  { text: '"The police tried to ___ who had broken the window."', options: ['determine','destroy','borrow','imagine'], correctIndex: 0, explanation: 'Determine = to find out or decide' },
+  { text: 'What does "convince" mean?', options: ['to punish someone','to make someone agree or believe','to ignore someone','to compete with someone'], correctIndex: 1, explanation: '"I convinced my parents to let me stay up late" = I made them agree' },
+  { text: '"Scientists try to ___ what the weather will be like next week."', options: ['predict','pretend','produce','perform'], correctIndex: 0, explanation: 'Predict = to say what will happen before it happens' },
+  { text: '"The new traffic lights will ___ accidents on this road."', options: ['allow','prevent','invite','suggest'], correctIndex: 1, explanation: 'Prevent = to stop something from happening' },
+  { text: 'What does "contribute" mean?', options: ['to take away from','to add something that helps','to compete against','to explain clearly'], correctIndex: 1, explanation: '"Everyone contributed to the project" = everyone added something' },
+  { text: '"The athlete made another ___ to break the world record."', options: ['attempt','award','argument','answer'], correctIndex: 0, explanation: 'Attempt = try' },
+  { text: 'What does "expand" mean?', options: ['to make smaller','to make bigger / wider','to explain something','to check something'], correctIndex: 1, explanation: '"The company plans to expand" = to grow larger' },
 ], 3);
 
 const ENGLISH_NUMS_QS: ExerciseQuestion[] = tag('english-numbers', [
-  { text: 'Choose the correct form: "She ___ been studying for three hours."', options: ['has','have','had','is'], correctIndex: 0, explanation: '"She has been" = present perfect continuous' },
-  { text: 'Which sentence is correct?', options: ["He don't want to play.","He doesn't want to play.","He not want to play.","He is not wanting to play."], correctIndex: 1, explanation: 'Third person singular needs "doesn\'t"' },
-  { text: 'Choose the correct preposition: "I\'ve been waiting ___ Monday."', options: ['for','since','from','until'], correctIndex: 1, explanation: '"Since" is used with a specific point in time' },
-  { text: '"By the time they arrived, the game ___ already started."', options: ['has','had','was','did'], correctIndex: 1, explanation: 'Past perfect: "had started" — before another past event' },
-  { text: '"Neither of the answers ___ correct."', options: ['is','are','were','be'], correctIndex: 0, explanation: '"Neither" takes a singular verb' },
-  { text: 'Find the error: "He scored more goals than anyone other."', options: ['scored','goals','than','other'], correctIndex: 3, explanation: 'Correct: "than anyone else" (not "other")' },
-  { text: '"He\'s interested ___ science and technology."', options: ['in','at','on','for'], correctIndex: 0, explanation: '"Interested in" — always "in"' },
-  { text: 'Which sentence uses the future tense correctly?', options: ['Tomorrow I will went to school.','Tomorrow I will go to school.','Tomorrow I go will to school.','Tomorrow I going to school.'], correctIndex: 1, explanation: '"will + base verb": will go' },
+  { text: 'First conditional — choose the correct form: "If it rains tomorrow, we ___ cancel the trip."', options: ['will','would','should','might'], correctIndex: 0, explanation: 'First conditional: If + present simple, will + base verb' },
+  { text: 'Passive voice — choose the correct form: "The Eiffel Tower ___ in 1889."', options: ['builds','has built','was built','built'], correctIndex: 2, explanation: 'Passive: was + past participle' },
+  { text: 'Relative clause — choose the correct word: "The boy ___ won the competition was from our school."', options: ['which','whose','who','where'], correctIndex: 2, explanation: '"Who" is used for people, "which" for things' },
+  { text: 'Second conditional — choose the correct form: "If I ___ a million dollars, I would travel the world."', options: ['have','had','will have','am having'], correctIndex: 1, explanation: 'Second conditional: If + past simple, would + base verb' },
+  { text: 'Superlative — choose the correct form: "Mount Everest is ___ mountain in the world."', options: ['the highest','higher','the more high','most high'], correctIndex: 0, explanation: 'Superlative: the + adjective-est' },
+  { text: 'Modal verb — choose the correct word: "You ___ wear a helmet when cycling. It\'s the law."', options: ['might','could','must','would'], correctIndex: 2, explanation: '"Must" = strong obligation or rule' },
+  { text: 'Present perfect — choose the correct form: "I ___ already seen that film three times."', options: ['had','have','did','was'], correctIndex: 1, explanation: 'Present perfect: have/has + past participle' },
+  { text: 'Comparison — which sentence is correct?', options: ['She is more tall than her brother.','She is taller than her brother.','She is tallest than her brother.','She is the taller than her brother.'], correctIndex: 1, explanation: 'Comparative: adjective + -er + than' },
+  { text: '"___ the match, one player was injured." Choose the correct word:', options: ['While','During','For','When'], correctIndex: 1, explanation: '"During" + noun; "while" + clause (subject + verb)' },
+  { text: 'Relative clause — choose the correct word: "This is the book ___ I was telling you about."', options: ['who','whom','which','whose'], correctIndex: 2, explanation: '"Which" is used for things; "who" for people' },
 ], 3);
 
 const SCIENCE_QS: ExerciseQuestion[] = tag('science-nature', [
@@ -406,11 +410,11 @@ function genParentheses(): ExerciseQuestion[] {
 }
 
 const ENGLISH_READING_QS: ExerciseQuestion[] = tag('english-reading', [
-  { text: 'How long is the Great Barrier Reef?', options: ['About 1,000 km','Over 2,300 km','About 3,500 km','Exactly 4,000 km'], correctIndex: 1 },
-  { text: 'What does coral "bleaching" mean?', options: ['Corals change color to attract fish','Corals expel their algae and turn white','Corals grow very rapidly','Corals sink to deeper water'], correctIndex: 1, explanation: 'When water is too warm, corals lose their algae and turn white' },
-  { text: 'How much coral cover has the reef lost since 1995?', options: ['A quarter','A third','Half','Three quarters'], correctIndex: 2 },
-  { text: 'What are "super corals"?', options: ['Very large ancient corals','Corals that glow in the dark','Specially bred corals that survive warm water','Corals found only near Australia'], correctIndex: 2 },
-  { text: 'What do experts say is the MOST important step to save the reef?', options: ['Spending more money on conservation','Reducing global carbon emissions','Building artificial reef structures','Stopping all fishing near the reef'], correctIndex: 1 },
+  { text: 'According to the passage, what happens to corals when the water becomes too warm?', options: ['They grow much faster than normal','They move to deeper, cooler water','They lose their algae and turn white','They attract more species of fish'], correctIndex: 2, explanation: 'Bleaching = corals expel their colorful algae and turn white' },
+  { text: 'What does the word "critical" mean in the last paragraph of the passage?', options: ['creative','very expensive','very important and necessary','dangerous and harmful'], correctIndex: 2, explanation: '"Most critical step" = the most important and necessary action' },
+  { text: 'Which statement best describes the MAIN IDEA of the passage?', options: ['Australia has the most beautiful reef in the world','The Great Barrier Reef is threatened but steps are being taken to protect it','Coral bleaching is mainly caused by colorful algae','Scientists have already found a complete solution to save the reef'], correctIndex: 1 },
+  { text: 'Based on the passage, what can we INFER about "super corals"?', options: ['They are the largest corals ever discovered','They alone will completely solve the reef\'s problems','They may help the reef but are not enough on their own','They were created by the Australian government'], correctIndex: 2, explanation: 'The passage says experts agree reducing carbon emissions is still the most critical step' },
+  { text: 'Why does the author mention that Australia spends over $500 million on conservation?', options: ['To show that the reef attracts many tourists','To show that serious effort and resources are needed to protect the reef','To argue that Australia is not doing enough','To explain how the reef became so large'], correctIndex: 1 },
 ]);
 
 const READING_COMP_1_QS: ExerciseQuestion[] = tag('reading-comp-1', [
