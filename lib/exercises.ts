@@ -123,6 +123,9 @@ To protect the reef, Australia spends over $500 million each year on conservatio
   { id: 'exam-div-partition', title: 'חילוק בחוק הפילוג',          subject: 'math', icon: '➗', description: '96÷4 = (80÷4) + (16÷4) = 24', kidIds: ['itai'], color: '#9333EA', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 8,  estimatedMinutes: 10, tags: ['exam-prep'] },
   { id: 'exam-fractions-adv', title: 'שברים — זיהוי, המרה וחישוב', subject: 'math', icon: '½',  description: 'זיהוי ושיום, שבר מעורב↔פשוט, חיבור/חיסור, שאלות מילוליות', kidIds: ['itai'], color: '#F59E0B', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
   { id: 'exam-geometry-adv',  title: 'שטח והיקף — ריבוע ומלבן',   subject: 'math', icon: '📐', description: 'חישוב שטח, היקף, יחידות מ"ר וסמ"ר', kidIds: ['itai'], color: '#F97316', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-add-sub',       title: 'חיבור וחיסור במאונך',        subject: 'math', icon: '🔢', description: 'חיבור וחיסור עם המרה ופריטה — מספרים עד מיליון', kidIds: ['itai'], color: '#0F766E', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-order-ops',     title: 'סדר פעולות חשבון',           subject: 'math', icon: '🧮', description: 'סוגריים → כפל/חילוק → חיבור/חיסור', kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-triangles',     title: 'משולשים — זיהוי וסיווג',     subject: 'math', icon: '📐', description: 'זיהוי ושיום לפי צלעות (שווה צלעות, שווה שוקיים, שונה) ולפי זוויות (ישר, חד, קהה)', kidIds: ['itai'], color: '#DB2777', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -776,6 +779,45 @@ const EXAM_GEOMETRY_ADV_QS: ExerciseQuestion[] = tag('exam-geometry-adv', [
   { text: 'אי אפשר לציין ריבוע שצלעו 5 מ. מה שטחו?', options: ['10 מ"ר','20 מ"ר','25 מ"ר','50 מ"ר'], correctIndex: 2, explanation: 'שטח = 5×5 = 25 מ"ר' },
 ], 3);
 
+const EXAM_ADD_SUB_QS: ExerciseQuestion[] = tag('exam-add-sub', [
+  { text: '358,476 + 241,538 = ?', options: ['599,014','600,014','601,014','600,114'], correctIndex: 1, explanation: 'חיבור במאונך עם המרה: 358,476 + 241,538 = 600,014' },
+  { text: '1,000,000 − 357,842 = ?', options: ['641,158','642,258','642,158','643,158'], correctIndex: 2, explanation: '1,000,000 − 357,842 = 642,158' },
+  { text: '572,834 + 368,479 = ?', options: ['940,313','941,213','941,313','942,313'], correctIndex: 2, explanation: '572,834 + 368,479 = 941,313' },
+  { text: '800,000 − 246,385 = ?', options: ['552,615','553,515','553,615','554,615'], correctIndex: 2, explanation: '800,000 − 246,385 = 553,615' },
+  { text: '437,856 + 293,765 = ?', options: ['730,621','731,521','731,621','732,621'], correctIndex: 2, explanation: '437,856 + 293,765 = 731,621' },
+  { text: '600,000 − 284,567 = ?', options: ['314,433','315,333','315,433','316,433'], correctIndex: 2, explanation: '600,000 − 284,567 = 315,433' },
+  { text: '265,478 + 438,956 = ?', options: ['703,434','704,334','704,434','705,434'], correctIndex: 2, explanation: '265,478 + 438,956 = 704,434' },
+  { text: '543,000 − 178,456 = ?', options: ['363,544','364,444','364,544','365,544'], correctIndex: 2, explanation: '543,000 − 178,456 = 364,544' },
+  { text: 'בספרייה היו 425,368 ספרים. קנו עוד 174,856. כמה ספרים יש עכשיו?', options: ['599,224','600,124','600,224','601,224'], correctIndex: 2, explanation: '425,368 + 174,856 = 600,224' },
+  { text: 'עיר מנתה 750,000 תושבים. 283,456 עזבו לעיר אחרת. כמה נשארו?', options: ['465,544','466,444','466,544','467,544'], correctIndex: 2, explanation: '750,000 − 283,456 = 466,544' },
+], 3);
+
+const EXAM_ORDER_OPS_QS: ExerciseQuestion[] = tag('exam-order-ops', [
+  { text: 'מה מחשבים ראשון בסדר פעולות החשבון?', options: ['חיבור וחיסור','כפל וחילוק','סוגריים','הכל משמאל לימין'], correctIndex: 2, explanation: 'הסדר: סוגריים → כפל/חילוק → חיבור/חיסור' },
+  { text: '5 + 3 × 4 = ?', options: ['32','17','20','15'], correctIndex: 1, explanation: 'קודם כפל: 3×4=12, אחר כך: 5+12=17' },
+  { text: '20 − 12 ÷ 4 = ?', options: ['2','8','17','20'], correctIndex: 2, explanation: 'קודם חילוק: 12÷4=3, אחר כך: 20−3=17' },
+  { text: '(5 + 3) × 4 = ?', options: ['17','24','32','40'], correctIndex: 2, explanation: 'קודם סוגריים: 5+3=8, אחר כך: 8×4=32' },
+  { text: '2 × 3 + 4 × 5 = ?', options: ['26','50','46','100'], correctIndex: 0, explanation: 'קודם כפלים: 2×3=6, 4×5=20, אחר כך: 6+20=26' },
+  { text: '30 ÷ 5 − 2 × 3 = ?', options: ['0','12','6','4'], correctIndex: 0, explanation: 'קודם: 30÷5=6, 2×3=6, אחר כך: 6−6=0' },
+  { text: '7 + 3 × (8 − 5) = ?', options: ['16','30','45','20'], correctIndex: 0, explanation: 'קודם סוגריים: 8−5=3, אחר כך כפל: 3×3=9, אחר כך: 7+9=16' },
+  { text: '24 ÷ (2 + 4) × 3 = ?', options: ['4','12','3','72'], correctIndex: 1, explanation: 'קודם סוגריים: 2+4=6, אחר כך: 24÷6=4, אחר כך: 4×3=12' },
+  { text: '15 − 2 × 3 + 4 = ?', options: ['13','16','40','9'], correctIndex: 0, explanation: 'קודם כפל: 2×3=6, אחר כך: 15−6+4=13' },
+  { text: '40 ÷ (3 + 5) + 6 × 2 = ?', options: ['17','22','11','37'], correctIndex: 0, explanation: 'קודם סוגריים: 3+5=8, אחר כך: 40÷8=5, 6×2=12, אחר כך: 5+12=17' },
+], 3);
+
+const EXAM_TRIANGLES_QS: ExerciseQuestion[] = tag('exam-triangles', [
+  { text: 'משולש שלכל 3 צלעותיו אורך שונה נקרא:', options: ['משולש שווה צלעות','משולש שווה שוקיים','משולש שונה צלעות','משולש ישר זווית'], correctIndex: 2 },
+  { text: 'משולש עם שתי צלעות שוות נקרא:', options: ['משולש שונה צלעות','משולש שווה שוקיים','משולש שווה צלעות','משולש קהה זווית'], correctIndex: 1 },
+  { text: 'משולש שיש בו זווית ישרה (90°) נקרא:', options: ['משולש חד זוויות','משולש קהה זווית','משולש שווה שוקיים','משולש ישר זווית'], correctIndex: 3 },
+  { text: 'משולש שכל זוויותיו קטנות מ-90° נקרא:', options: ['משולש קהה זווית','משולש ישר זווית','משולש חד זוויות','משולש שווה צלעות'], correctIndex: 2 },
+  { text: 'משולש שיש בו זווית גדולה מ-90° נקרא:', options: ['משולש ישר זווית','משולש קהה זווית','משולש חד זוויות','משולש שונה צלעות'], correctIndex: 1 },
+  { text: 'סכום הזוויות בכל משולש שווה תמיד:', options: ['90°','180°','270°','360°'], correctIndex: 1, explanation: 'בכל משולש: סכום 3 הזוויות = 180°' },
+  { text: 'במשולש שווה צלעות, כל זווית שווה:', options: ['45°','60°','90°','120°'], correctIndex: 1, explanation: '180° ÷ 3 = 60° לכל זווית' },
+  { text: 'במשולש שווה שוקיים הזווית בין השוקיים היא 50°. מה גודל כל אחת מהזוויות האחרות?', options: ['50°','65°','75°','90°'], correctIndex: 1, explanation: '(180 − 50) ÷ 2 = 65°' },
+  { text: 'איזה סיווג הוא לפי צלעות (ולא לפי זוויות)?', options: ['משולש ישר זווית','משולש קהה זווית','משולש שווה שוקיים','משולש חד זוויות'], correctIndex: 2, explanation: 'שווה שוקיים = לפי צלעות; ישר/קהה/חד = לפי זוויות' },
+  { text: 'משולש ABC: AB=6 סמ, BC=6 סמ, AC=9 סמ. כיצד נסווג אותו?', options: ['משולש שווה צלעות','משולש שונה צלעות','משולש שווה שוקיים','משולש ישר זווית'], correctIndex: 2, explanation: 'שתי צלעות שוות (AB=BC=6) = משולש שווה שוקיים' },
+], 3);
+
 // ─── Master dispatcher ────────────────────────────────────────────────────────
 export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
   const s = (arr: ExerciseQuestion[], n: number) => shuffle(arr).slice(0, n);
@@ -829,6 +871,9 @@ export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
     case 'exam-div-partition':  return s(EXAM_DIV_PARTITION_QS, 8);
     case 'exam-fractions-adv':  return s(EXAM_FRACTIONS_ADV_QS, 10);
     case 'exam-geometry-adv':   return s(EXAM_GEOMETRY_ADV_QS, 10);
+    case 'exam-add-sub':        return s(EXAM_ADD_SUB_QS, 10);
+    case 'exam-order-ops':      return s(EXAM_ORDER_OPS_QS, 10);
+    case 'exam-triangles':      return s(EXAM_TRIANGLES_QS, 10);
     default:                    return [];
   }
 }
