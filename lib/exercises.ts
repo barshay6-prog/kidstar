@@ -10,12 +10,12 @@ export const EXERCISE_TYPES: ExerciseType[] = [
 
   // Math
   { id: 'mul-tables',    title: 'לוח הכפל',         subject: 'math',    icon: '✖️',  description: 'כפל מ-2 עד 9',                kidIds: ['itai'], color: '#3B82F6', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 10, estimatedMinutes: 5 },
-  { id: 'division',      title: 'חילוק',             subject: 'math',    icon: '➗',  description: 'חילוק בסיסי',                 kidIds: ['itai'], color: '#8B5CF6', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 8,  estimatedMinutes: 5 },
+  { id: 'division',      title: 'חילוק מאתגר',       subject: 'math',    icon: '➗',  description: 'חילוק ספרות גדולות, תוצאות דו-ספרתיות', kidIds: ['itai'], color: '#8B5CF6', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 10, estimatedMinutes: 7 },
   { id: 'two-digit',     title: 'חיבור וחיסור',      subject: 'math',    icon: '🔢',  description: 'מספרים דו-ספרתיים',           kidIds: ['itai'], color: '#0EA5E9', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 10, estimatedMinutes: 4 },
   { id: 'fractions',     title: 'שברים',             subject: 'math',    icon: '½',   description: 'שברים פשוטים ½ ¼ ⅓',         kidIds: ['itai'], color: '#F59E0B', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 8,  estimatedMinutes: 7 },
   { id: 'sequences',     title: 'סדרות מספרים',      subject: 'math',    icon: '📈',  description: 'מצא את המספר הבא בסדרה',     kidIds: ['itai'], color: '#14B8A6', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
   { id: 'geometry',      title: 'גאומטריה',          subject: 'math',    icon: '📐',  description: 'צורות, שטח והיקף',           kidIds: ['itai'], color: '#F97316', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
-  { id: 'soccer-math',   title: 'מתמטיקה ⚽',        subject: 'math',    icon: '⚽',  description: 'בעיות מילוליות בנושא כדורגל', kidIds: ['itai'], color: '#10B981', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 6,  estimatedMinutes: 6 },
+  { id: 'soccer-math',   title: 'מתמטיקה ⚽',        subject: 'math',    icon: '⚽',  description: 'בעיות מרובות שלבים: אחוזים, יחסים, מרחקים', kidIds: ['itai'], color: '#10B981', difficulty: 4, minPoints: 4, maxPoints: 8, questionsCount: 8,  estimatedMinutes: 8 },
   { id: 'big-numbers',   title: 'מספרים גדולים',     subject: 'math',    icon: '🔭',  description: 'אלפים, עשרות-אלפים',         kidIds: ['itai'], color: '#6366F1', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
 
   // Hebrew
@@ -24,15 +24,15 @@ export const EXERCISE_TYPES: ExerciseType[] = [
   { id: 'hebrew-antonym', title: 'הפכים ונרדפות',    subject: 'hebrew',  icon: '🔄',  description: 'מילים הפוכות ודומות',        kidIds: ['itai'], color: '#9333EA', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
 
   // English
-  { id: 'english-vocab',  title: 'אנגלית: מילים',   subject: 'english', icon: '🇬🇧',  description: 'אוצר מילים בסיסי',           kidIds: ['itai'], color: '#DC2626', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
-  { id: 'english-numbers',title: 'אנגלית: מספרים',  subject: 'english', icon: '🔤',  description: 'מספרים וסדרות באנגלית',      kidIds: ['itai'], color: '#B45309', difficulty: 1, minPoints: 1, maxPoints: 3, questionsCount: 8,  estimatedMinutes: 3 },
+  { id: 'english-vocab',  title: 'אנגלית: אוצר מילים', subject: 'english', icon: '🇬🇧', description: 'מילים ברמת כיתות ה–ו: הגדרות, מילים בהקשר, בחירת המילה הנכונה', kidIds: ['itai'], color: '#DC2626', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
+  { id: 'english-numbers',title: 'אנגלית: תחביר ודקדוק', subject: 'english', icon: '🔤', description: 'רמת כיתות ה–ו: משפטי תנאי, פסיבי, פסוקיות יחס, השוואה', kidIds: ['itai'], color: '#B45309', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 8,  estimatedMinutes: 6 },
 
   // Science & General
   { id: 'science-nature', title: 'טבע ומדע',         subject: 'science', icon: '🌿',  description: 'צמחים, בעלי חיים, פיזיקה',   kidIds: ['itai'], color: '#16A34A', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
   { id: 'geography-il',   title: 'גאוגרפיה ישראל',  subject: 'science', icon: '🗺️', description: 'ערים, נהרות, אזורים',        kidIds: ['itai'], color: '#0891B2', difficulty: 2, minPoints: 2, maxPoints: 4, questionsCount: 8,  estimatedMinutes: 4 },
   { id: 'logic-itai',     title: 'חשיבה לוגית',     subject: 'general', icon: '🧩',  description: 'חידות והיגיון',              kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 3, maxPoints: 6, questionsCount: 6,  estimatedMinutes: 6 },
-  { id: 'mul-200',        title: 'כפל עד 200',       subject: 'math',    icon: '💯',  description: 'כפל עם תוצאות עד 200',        kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 10, estimatedMinutes: 7 },
-  { id: 'parentheses',    title: 'סוגריים וחשבון',   subject: 'math',    icon: '( )', description: 'סדר פעולות חשבוניות עם סוגריים', kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 3, maxPoints: 7, questionsCount: 8,  estimatedMinutes: 7 },
+  { id: 'mul-200',        title: 'כפל עד 250',       subject: 'math',    icon: '💯',  description: 'כפל דו-ספרתי בדו-ספרתי, תוצאות עד 250', kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 3, maxPoints: 8, questionsCount: 10, estimatedMinutes: 8 },
+  { id: 'parentheses',    title: 'סוגריים וחשבון',   subject: 'math',    icon: '( )', description: 'ביטויים מורכבים: סוגריים מקוננים, 3–4 פעולות', kidIds: ['itai'], color: '#7C3AED', difficulty: 4, minPoints: 4, maxPoints: 9, questionsCount: 10, estimatedMinutes: 9 },
   {
     id: 'reading-comp-1', title: 'קריאה: בינה מלאכותית', subject: 'hebrew', icon: '🤖', description: 'קטע קריאה — AI ושאלות הבנה',
     kidIds: ['itai'], color: '#7C3AED', difficulty: 2, minPoints: 3, maxPoints: 6, questionsCount: 5, estimatedMinutes: 10,
@@ -71,6 +71,19 @@ AI כבר מאתר סרטנים בבדיקות MRI מוקדם מרדיולוגי
 ארגנטינה וברזיל מובילות עם 5 אליפויות כל אחת — ברזיל עם 5 וארגנטינה עם 3 (לפני 2022). ליאו מסי, שרבים רואים בו שחקן הכדורגל הגדול בכל הזמנים, נחשב ל"שלם" לאחר שהוביל את ארגנטינה לניצחון בקטאר.
 
 ישראל השתתפה בגביע העולם פעם אחת בלבד — מקסיקו 1970. נבחרת ישראל מנסה כבר שנים להגיע שוב, ובאירופה היא מתחרה בלוח הקשה ביותר.`
+  },
+
+  {
+    id: 'english-reading', title: 'English: Reading', subject: 'english', icon: '📖',
+    description: 'Read a passage and answer comprehension & inference questions — grade 5–6 level',
+    kidIds: ['itai'], color: '#047857', difficulty: 3, minPoints: 3, maxPoints: 8, questionsCount: 5, estimatedMinutes: 10,
+    passageTitle: 'The Great Barrier Reef',
+    passageSourceUrl: 'https://en.wikipedia.org/wiki/Great_Barrier_Reef',
+    passage: `The Great Barrier Reef, located off the northeastern coast of Australia, is the world's largest coral reef system. It stretches over 2,300 kilometers and is home to more than 1,500 species of fish and thousands of other sea creatures.
+
+Unfortunately, rising ocean temperatures caused by climate change are threatening the reef. When water becomes too warm, corals "bleach" — they expel the colorful algae living in their tissue and turn completely white. Without these algae, corals slowly starve and die. Scientists estimate that the reef has lost half of its coral cover since 1995.
+
+To protect the reef, Australia spends over $500 million each year on conservation. Researchers are also developing "super corals" — specially bred to survive warmer temperatures. However, experts agree that reducing global carbon emissions remains the most critical step to saving this natural wonder.`
   },
 
   // ══ AVIV — Grade 1 ════════════════════════════════════════════════════════
@@ -127,6 +140,19 @@ function genQ(typeId: string, text: string, options: string[], correctIndex: num
   return { id: `${typeId}-${key}`, difficulty, text, options, correctIndex, ...(explanation ? { explanation } : {}) };
 }
 
+/** Generate `count` unique questions (no duplicate text) using a factory function */
+function genUnique(factory: () => ExerciseQuestion, count: number): ExerciseQuestion[] {
+  const seen = new Set<string>();
+  const result: ExerciseQuestion[] = [];
+  let attempts = 0;
+  while (result.length < count && attempts < count * 8) {
+    const q = factory();
+    if (!seen.has(q.text)) { seen.add(q.text); result.push(q); }
+    attempts++;
+  }
+  return result;
+}
+
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
@@ -149,23 +175,31 @@ function opts(correct: number, count = 4, min = 0, max = 100): { options: string
 // ─── ITAI generators ──────────────────────────────────────────────────────────
 
 function genMulTables(): ExerciseQuestion[] {
-  return Array.from({ length: 10 }, () => {
+  return genUnique(() => {
     const a = rnd(2, 9), b = rnd(2, 9);
     const { options, correctIndex } = opts(a * b, 4, 4, 81);
     return genQ('mul-tables', `? = ${a} × ${b}`, options, correctIndex);
-  });
+  }, 10);
 }
 
 function genDivision(): ExerciseQuestion[] {
-  return Array.from({ length: 8 }, () => {
-    const b = rnd(2, 9), q = rnd(2, 9);
-    const { options, correctIndex } = opts(q, 4, 1, 9);
-    return genQ('division', `? = ${b * q} ÷ ${b}`, options, correctIndex);
-  });
+  return genUnique(() => {
+    const type = rnd(0, 2);
+    let b: number, q: number;
+    if (type === 0) {
+      b = rnd(2, 9); q = rnd(11, 30);           // 2-digit quotient, small divisor
+    } else if (type === 1) {
+      b = rnd(6, 12); q = rnd(8, 22);            // larger divisor, 2-digit quotient
+    } else {
+      b = rnd(3, 9); q = rnd(20, 45);            // 3-digit dividend
+    }
+    const { options, correctIndex } = opts(q, 4, Math.max(1, q - 9), q + 9);
+    return genQ('division', `? = ${b * q} ÷ ${b}`, options, correctIndex, 3);
+  }, 10);
 }
 
 function genTwoDigit(): ExerciseQuestion[] {
-  return Array.from({ length: 10 }, () => {
+  return genUnique(() => {
     if (Math.random() > 0.4) {
       const a = rnd(11, 60), b = rnd(11, 60);
       const { options, correctIndex } = opts(a + b, 4, 20, 120);
@@ -175,7 +209,7 @@ function genTwoDigit(): ExerciseQuestion[] {
       const { options, correctIndex } = opts(a - b, 4, 1, 90);
       return genQ('two-digit', `? = ${a} - ${b}`, options, correctIndex);
     }
-  });
+  }, 10);
 }
 
 const SEQUENCE_QS: ExerciseQuestion[] = tag('sequences', [
@@ -203,13 +237,15 @@ const GEOMETRY_QS: ExerciseQuestion[] = tag('geometry', [
 ], 3);
 
 const SOCCER_QS: ExerciseQuestion[] = tag('soccer-math', [
-  { text: 'בקבוצה 11 שחקנים. 3 יצאו. כמה נשארו?', options: ['7','8','9','10'], correctIndex: 1 },
-  { text: 'איתי בעט 6 פעמים ביום. כמה ב-5 ימים?', options: ['25','28','30','35'], correctIndex: 2 },
-  { text: 'משחק 45 דקות בכל מחצית. כמה סה״כ?', options: ['70','80','90','100'], correctIndex: 2 },
-  { text: 'איתי קלע 4 שערים ב-3 משחקים. כמה שערים סה״כ?', options: ['10','11','12','14'], correctIndex: 2 },
-  { text: 'בטורניר 8 קבוצות. כל קבוצה שיחקה 3 משחקים. כמה משחקים?', options: ['11','16','20','24'], correctIndex: 3 },
-  { text: 'הקבוצה ניצחה 7 מתוך 10 משחקים. כמה הפסידה?', options: ['2','3','4','5'], correctIndex: 1 },
-], 3);
+  { text: 'ניצחון=3נק׳, תיקו=1נק׳, הפסד=0. קבוצה: 12 ניצחון, 5 תיקו, 8 הפסד. כמה נקודות?', options: ['36','38','41','45'], correctIndex: 2, explanation: '12×3 + 5×1 + 8×0 = 36+5 = 41' },
+  { text: 'איתי קלע 9 שערים ב-6 משחקים. כדי להגיע לממוצע 2 שערים ב-10 משחקים, כמה יצטרך ב-4 הנותרים?', options: ['9','10','11','12'], correctIndex: 2, explanation: 'נדרש: 10×2=20, כבר 9, נשאר: 20-9=11' },
+  { text: 'כרטיס VIP עולה 240₪, רגיל 80₪. קנו 3 VIP ו-9 רגילים. כמה שילמו?', options: ['1,200₪','1,360₪','1,440₪','1,560₪'], correctIndex: 2, explanation: '3×240 + 9×80 = 720+720 = 1,440₪' },
+  { text: 'קבוצה ניצחה 60% מ-25 משחקים. כמה ניצחות?', options: ['12','13','15','18'], correctIndex: 2, explanation: '25 × 60÷100 = 15' },
+  { text: 'מגרש כדורגל: אורך 105מ׳, רוחב 68מ׳. מה ההיקף?', options: ['316מ׳','336מ׳','346מ׳','366מ׳'], correctIndex: 2, explanation: '2×(105+68) = 2×173 = 346מ׳' },
+  { text: 'מנוי שנתי 1,200₪ ל-20 משחקים. כרטיס בודד 85₪. כמה חוסך קונה מנוי?', options: ['400₪','480₪','500₪','520₪'], correctIndex: 2, explanation: '20×85=1,700₪, חיסכון: 1,700-1,200=500₪' },
+  { text: 'שחקן ריץ 120 מטר בדקה ומתוך 90 דקות ריץ 54 דקות. כמה מטר ריץ?', options: ['5,400מ׳','6,000מ׳','6,480מ׳','7,200מ׳'], correctIndex: 2, explanation: '120×54 = 6,480מ׳' },
+  { text: 'בליגה 16 קבוצות. כל קבוצה שיחקה 3 משחקים. ב-¼ מהמשחקים היה תיקו. כמה תיקו?', options: ['10','12','14','16'], correctIndex: 1, explanation: '16×3=48 משחקים, 48÷4=12 תיקו' },
+], 4);
 
 const BIG_NUMBERS_QS: ExerciseQuestion[] = tag('big-numbers', [
   { text: '1,000 + 500 = ?', options: ['1,050','1,500','1,005','5,001'], correctIndex: 1 },
@@ -267,26 +303,30 @@ const SPELLING_4_QS: ExerciseQuestion[] = tag('hebrew-spell-4', [
 ]);
 
 const ENGLISH_VOCAB_QS: ExerciseQuestion[] = tag('english-vocab', [
-  { text: 'מה פירוש "apple"?', options: ['תפוז','תפוח','בננה','אגס'], correctIndex: 1 },
-  { text: 'מה פירוש "school"?', options: ['בית','ספר','בית-ספר','כיתה'], correctIndex: 2 },
-  { text: 'מה פירוש "friend"?', options: ['אויב','מורה','חבר','אח'], correctIndex: 2 },
-  { text: 'מה פירוש "big"?', options: ['קטן','בינוני','גדול','ארוך'], correctIndex: 2 },
-  { text: 'איך אומרים "ספר" באנגלית?', options: ['book','cook','look','took'], correctIndex: 0 },
-  { text: 'איך אומרים "כדורגל" באנגלית?', options: ['basketball','tennis','football','volleyball'], correctIndex: 2 },
-  { text: 'מה פירוש "happy"?', options: ['עצוב','כועס','עייף','שמח'], correctIndex: 3 },
-  { text: 'איך אומרים "מים" באנגלית?', options: ['fire','water','earth','air'], correctIndex: 1 },
-]);
+  { text: 'What does "reluctant" mean?', options: ['happy and excited','not willing to do something','very tired','confused and lost'], correctIndex: 1, explanation: '"She was reluctant to speak in front of the class" = she didn\'t want to' },
+  { text: '"The heavy storm caused ___ damage to the forest." Choose the best word:', options: ['significant','tiny','gentle','possible'], correctIndex: 0, explanation: 'Significant = large and important' },
+  { text: 'What does "temporary" mean?', options: ['lasting forever','very strong','lasting only for a short time','very expensive'], correctIndex: 2, explanation: '"A temporary solution" = it won\'t last forever' },
+  { text: '"The police tried to ___ who had broken the window."', options: ['determine','destroy','borrow','imagine'], correctIndex: 0, explanation: 'Determine = to find out or decide' },
+  { text: 'What does "convince" mean?', options: ['to punish someone','to make someone agree or believe','to ignore someone','to compete with someone'], correctIndex: 1, explanation: '"I convinced my parents to let me stay up late" = I made them agree' },
+  { text: '"Scientists try to ___ what the weather will be like next week."', options: ['predict','pretend','produce','perform'], correctIndex: 0, explanation: 'Predict = to say what will happen before it happens' },
+  { text: '"The new traffic lights will ___ accidents on this road."', options: ['allow','prevent','invite','suggest'], correctIndex: 1, explanation: 'Prevent = to stop something from happening' },
+  { text: 'What does "contribute" mean?', options: ['to take away from','to add something that helps','to compete against','to explain clearly'], correctIndex: 1, explanation: '"Everyone contributed to the project" = everyone added something' },
+  { text: '"The athlete made another ___ to break the world record."', options: ['attempt','award','argument','answer'], correctIndex: 0, explanation: 'Attempt = try' },
+  { text: 'What does "expand" mean?', options: ['to make smaller','to make bigger / wider','to explain something','to check something'], correctIndex: 1, explanation: '"The company plans to expand" = to grow larger' },
+], 3);
 
 const ENGLISH_NUMS_QS: ExerciseQuestion[] = tag('english-numbers', [
-  { text: '"שש" באנגלית:', options: ['five','six','seven','eight'], correctIndex: 1 },
-  { text: '"עשר" באנגלית:', options: ['eight','nine','ten','eleven'], correctIndex: 2 },
-  { text: '"עשרים" באנגלית:', options: ['twelve','fifteen','twenty','thirty'], correctIndex: 2 },
-  { text: 'מה המספר? "fourteen"', options: ['4','13','14','40'], correctIndex: 2 },
-  { text: '"מאה" באנגלית:', options: ['ten','hundred','thousand','million'], correctIndex: 1 },
-  { text: 'מה המספר? "fifty"', options: ['5','15','50','500'], correctIndex: 2 },
-  { text: '"ראשון" באנגלית:', options: ['first','one','single','start'], correctIndex: 0 },
-  { text: '"אחד-עשר" באנגלית:', options: ['ten','eleven','twelve','thirteen'], correctIndex: 1 },
-], 1);
+  { text: 'First conditional — choose the correct form: "If it rains tomorrow, we ___ cancel the trip."', options: ['will','would','should','might'], correctIndex: 0, explanation: 'First conditional: If + present simple, will + base verb' },
+  { text: 'Passive voice — choose the correct form: "The Eiffel Tower ___ in 1889."', options: ['builds','has built','was built','built'], correctIndex: 2, explanation: 'Passive: was + past participle' },
+  { text: 'Relative clause — choose the correct word: "The boy ___ won the competition was from our school."', options: ['which','whose','who','where'], correctIndex: 2, explanation: '"Who" is used for people, "which" for things' },
+  { text: 'Second conditional — choose the correct form: "If I ___ a million dollars, I would travel the world."', options: ['have','had','will have','am having'], correctIndex: 1, explanation: 'Second conditional: If + past simple, would + base verb' },
+  { text: 'Superlative — choose the correct form: "Mount Everest is ___ mountain in the world."', options: ['the highest','higher','the more high','most high'], correctIndex: 0, explanation: 'Superlative: the + adjective-est' },
+  { text: 'Modal verb — choose the correct word: "You ___ wear a helmet when cycling. It\'s the law."', options: ['might','could','must','would'], correctIndex: 2, explanation: '"Must" = strong obligation or rule' },
+  { text: 'Present perfect — choose the correct form: "I ___ already seen that film three times."', options: ['had','have','did','was'], correctIndex: 1, explanation: 'Present perfect: have/has + past participle' },
+  { text: 'Comparison — which sentence is correct?', options: ['She is more tall than her brother.','She is taller than her brother.','She is tallest than her brother.','She is the taller than her brother.'], correctIndex: 1, explanation: 'Comparative: adjective + -er + than' },
+  { text: '"___ the match, one player was injured." Choose the correct word:', options: ['While','During','For','When'], correctIndex: 1, explanation: '"During" + noun; "while" + clause (subject + verb)' },
+  { text: 'Relative clause — choose the correct word: "This is the book ___ I was telling you about."', options: ['who','whom','which','whose'], correctIndex: 2, explanation: '"Which" is used for things; "who" for people' },
+], 3);
 
 const SCIENCE_QS: ExerciseQuestion[] = tag('science-nature', [
   { text: 'מה צמחים צריכים כדי לגדול?', options: ['רק מים','שמש, מים, אדמה','רק שמש','רק אדמה'], correctIndex: 1 },
@@ -320,13 +360,21 @@ const LOGIC_ITAI_QS: ExerciseQuestion[] = tag('logic-itai', [
 ], 3);
 
 function genMul200(): ExerciseQuestion[] {
+  // Extended to 250 — 2-digit × 2-digit, products 100-250
   const pairs: Array<[number,number]> = [
-    [12,5],[15,6],[11,8],[14,9],[13,7],[16,8],[25,6],[18,9],[11,12],[15,12],
-    [20,8],[17,9],[13,11],[14,12],[22,7],[25,8],[15,11],[19,8],[16,11],[12,13],
+    [12,9],[13,9],[14,9],[15,9],[16,9],[17,9],[18,9],[19,9],[21,9],[27,9],
+    [14,8],[15,8],[16,8],[17,8],[18,8],[19,8],[21,8],[23,8],[25,8],[27,8],[31,8],
+    [15,7],[17,7],[19,7],[21,7],[23,7],[25,7],[27,7],[29,7],[31,7],[35,7],
+    [12,11],[13,11],[14,11],[15,11],[16,11],[17,11],[18,11],[19,11],[22,11],
+    [12,12],[13,12],[14,12],[15,12],[16,12],[17,12],[18,12],[19,12],
+    [14,13],[15,13],[16,13],[17,13],[18,13],[19,13],
+    [14,14],[15,14],[16,14],[17,14],
+    [13,15],[14,15],[15,15],[16,15],
+    [14,16],[15,16],[13,17],[14,17],[13,18],[13,19],
   ];
   const selected = shuffle(pairs).slice(0, 10);
   return selected.map(([a, b]) => {
-    const { options, correctIndex } = opts(a * b, 4, a * b - 20, a * b + 20);
+    const { options, correctIndex } = opts(a * b, 4, a * b - 25, a * b + 25);
     return genQ('mul-200', `? = ${a} × ${b}`, options, correctIndex, 3);
   });
 }
@@ -334,27 +382,40 @@ function genMul200(): ExerciseQuestion[] {
 function genParentheses(): ExerciseQuestion[] {
   type QSpec = { text: string; answer: number };
   const all: QSpec[] = [
-    { text: '(3 + 4) × 2 = ?',   answer: 14 },
-    { text: '(10 - 3) × 3 = ?',  answer: 21 },
-    { text: '5 × (8 - 3) = ?',   answer: 25 },
-    { text: '(6 + 4) × 4 = ?',   answer: 40 },
-    { text: '2 × (7 + 3) = ?',   answer: 20 },
-    { text: '(12 - 4) × 5 = ?',  answer: 40 },
-    { text: '3 × (6 + 2) = ?',   answer: 24 },
-    { text: '(5 + 3) × (2 + 1) = ?', answer: 24 },
-    { text: '20 ÷ (2 + 3) = ?',  answer: 4 },
-    { text: '(9 - 3) ÷ 2 = ?',   answer: 3 },
-    { text: '4 × (5 - 2) + 1 = ?', answer: 13 },
-    { text: '(3 + 5) × 3 - 4 = ?', answer: 20 },
-    { text: '6 + (4 × 3) = ?',   answer: 18 },
-    { text: '10 - (2 × 3) = ?',  answer: 4 },
-    { text: '(7 + 3) × (4 - 2) = ?', answer: 20 },
+    { text: '(12 + 8) × (15 − 7) = ?',           answer: 160 },
+    { text: '3 × (4 + 6) − (20 ÷ 4) = ?',        answer: 25  },
+    { text: '(100 − 45) ÷ (3 + 8) = ?',           answer: 5   },
+    { text: '4 × (7 + 3) + 6 × (9 − 4) = ?',     answer: 70  },
+    { text: '(5 × 8 − 20) ÷ (2 + 2) = ?',        answer: 5   },
+    { text: '(48 ÷ 6) × (35 ÷ 7) = ?',           answer: 40  },
+    { text: '120 − (3 × 4 + 2 × 6) = ?',         answer: 96  },
+    { text: '(7 × 8) − (6 × 9) + (5 × 4) = ?',  answer: 22  },
+    { text: '(100 − 37) + (63 − 26) = ?',        answer: 100 },
+    { text: '4 × (25 − 13) + 3 × (17 − 8) = ?', answer: 75  },
+    { text: '(18 + 12) ÷ 5 × 7 = ?',            answer: 42  },
+    { text: '(200 − 75) ÷ 25 = ?',              answer: 5   },
+    { text: '9 × (8 − 3) − 4 × (7 − 2) = ?',   answer: 25  },
+    { text: '2 × ((15 − 3) × 4) = ?',           answer: 96  },
+    { text: '(3 × 12 − 6) ÷ (5 + 1) = ?',      answer: 5   },
+    { text: '(50 + 25) ÷ (5 × 3) = ?',         answer: 5   },
+    { text: '(8 × 9) − (7 × 8) + (6 × 5) = ?', answer: 46  },
+    { text: '7 × (3 + 4 × 2) = ?',             answer: 77  },
+    { text: '(6 + 4) × (8 − 3) − (3 × 4) = ?', answer: 38  },
+    { text: '((24 ÷ 4) + 6) × 5 = ?',          answer: 60  },
   ];
-  return shuffle(all).slice(0, 8).map(({ text, answer }) => {
-    const { options, correctIndex } = opts(answer, 4, Math.max(0, answer - 15), answer + 15);
-    return genQ('parentheses', text, options, correctIndex, 3, 'סוגריים תמיד ראשונים!');
+  return shuffle(all).slice(0, 10).map(({ text, answer }) => {
+    const { options, correctIndex } = opts(answer, 4, Math.max(0, answer - 20), answer + 20);
+    return genQ('parentheses', text, options, correctIndex, 4, 'פותרים קודם את הסוגריים הפנימיים ביותר!');
   });
 }
+
+const ENGLISH_READING_QS: ExerciseQuestion[] = tag('english-reading', [
+  { text: 'According to the passage, what happens to corals when the water becomes too warm?', options: ['They grow much faster than normal','They move to deeper, cooler water','They lose their algae and turn white','They attract more species of fish'], correctIndex: 2, explanation: 'Bleaching = corals expel their colorful algae and turn white' },
+  { text: 'What does the word "critical" mean in the last paragraph of the passage?', options: ['creative','very expensive','very important and necessary','dangerous and harmful'], correctIndex: 2, explanation: '"Most critical step" = the most important and necessary action' },
+  { text: 'Which statement best describes the MAIN IDEA of the passage?', options: ['Australia has the most beautiful reef in the world','The Great Barrier Reef is threatened but steps are being taken to protect it','Coral bleaching is mainly caused by colorful algae','Scientists have already found a complete solution to save the reef'], correctIndex: 1 },
+  { text: 'Based on the passage, what can we INFER about "super corals"?', options: ['They are the largest corals ever discovered','They alone will completely solve the reef\'s problems','They may help the reef but are not enough on their own','They were created by the Australian government'], correctIndex: 2, explanation: 'The passage says experts agree reducing carbon emissions is still the most critical step' },
+  { text: 'Why does the author mention that Australia spends over $500 million on conservation?', options: ['To show that the reef attracts many tourists','To show that serious effort and resources are needed to protect the reef','To argue that Australia is not doing enough','To explain how the reef became so large'], correctIndex: 1 },
+]);
 
 const READING_COMP_1_QS: ExerciseQuestion[] = tag('reading-comp-1', [
   { text: 'מה זה AI (בינה מלאכותית)?', options: ['רובוט פיזי','מחשב שלומד לבצע משימות חכמות','משחק מחשב','תוכנת גרפיקה'], correctIndex: 1 },
@@ -386,57 +447,57 @@ const READING_COMP_3_QS: ExerciseQuestion[] = tag('reading-comp-3', [
 // April grade 1 = second semester: addition/subtraction up to 100
 
 function genAdd10(): ExerciseQuestion[] {
-  return Array.from({ length: 10 }, () => {
+  return genUnique(() => {
     const a = rnd(2, 9), b = rnd(2, 10 - a);
     const { options, correctIndex } = opts(a + b, 4, 1, 10);
     return genQ('add-10', `? = ${a} + ${b}`, options, correctIndex, 1);
-  });
+  }, 10);
 }
 
 function genSub10(): ExerciseQuestion[] {
-  return Array.from({ length: 10 }, () => {
+  return genUnique(() => {
     const b = rnd(2, 8), a = rnd(b + 1, 10);
     const { options, correctIndex } = opts(a - b, 4, 0, 9);
     return genQ('sub-10', `? = ${a} - ${b}`, options, correctIndex, 1);
-  });
+  }, 10);
 }
 
 // Extended to 100 — April grade 1 = second semester
 function genAdd20(): ExerciseQuestion[] {
-  return Array.from({ length: 10 }, () => {
+  return genUnique(() => {
     const a = rnd(10, 60), b = rnd(10, 100 - a);
     const { options, correctIndex } = opts(a + b, 4, Math.max(1, a + b - 15), a + b + 15);
     return genQ('add-20', `? = ${a} + ${b}`, options, correctIndex, 2);
-  });
+  }, 10);
 }
 
 function genSub20(): ExerciseQuestion[] {
-  return Array.from({ length: 10 }, () => {
+  return genUnique(() => {
     const b = rnd(10, 40), a = rnd(b + 5, 100);
     const { options, correctIndex } = opts(a - b, 4, Math.max(0, a - b - 10), a - b + 10);
     return genQ('sub-20', `? = ${a} - ${b}`, options, correctIndex, 2);
-  });
+  }, 10);
 }
 
 function genCompareNums(): ExerciseQuestion[] {
-  return Array.from({ length: 8 }, () => {
+  return genUnique(() => {
     const a = rnd(1, 99), b = rnd(1, 99);
     const correct = a > b ? 0 : a < b ? 1 : 2;
     return genQ('compare-nums', `${a}  _  ${b}`, ['גדול יותר (>)', 'קטן יותר (<)', 'שווה (=)', 'אי אפשר לדעת'], correct, 1);
-  });
+  }, 8);
 }
 
 function genNumberOrder(): ExerciseQuestion[] {
-  return Array.from({ length: 8 }, () => {
+  return genUnique(() => {
     const step = shuffle([1, 2, 5, 10])[0];
     const start = rnd(2, 80);
     const { options, correctIndex } = opts(start + step, 4, start, start + step * 4);
     return genQ('number-order', `${start - step}, ${start}, __`, options, correctIndex, 1);
-  });
+  }, 8);
 }
 
 function genAddSubMix(): ExerciseQuestion[] {
-  return Array.from({ length: 10 }, () => {
+  return genUnique(() => {
     const isAdd = Math.random() > 0.5;
     if (isAdd) {
       const a = rnd(10, 50), b = rnd(10, 100 - a);
@@ -447,7 +508,7 @@ function genAddSubMix(): ExerciseQuestion[] {
       const { options, correctIndex } = opts(a - b, 4, Math.max(0, a - b - 10), a - b + 10);
       return genQ('add-sub-mix', `? = ${a} - ${b}`, options, correctIndex, 2);
     }
-  });
+  }, 10);
 }
 
 const EMOJI_POOL = ['⭐', '🍎', '🐶', '🌸', '🏀', '🎈', '🐱', '🦋', '🌈', '🍭'];
@@ -732,6 +793,7 @@ export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
     case 'hebrew-antonym':  return s(ANTONYM_QS, 8);
     case 'english-vocab':   return s(ENGLISH_VOCAB_QS, 8);
     case 'english-numbers': return s(ENGLISH_NUMS_QS, 8);
+    case 'english-reading': return s(ENGLISH_READING_QS, 5);
     case 'science-nature':  return s(SCIENCE_QS, 8);
     case 'geography-il':    return s(GEOGRAPHY_IL_QS, 8);
     case 'logic-itai':      return s(LOGIC_ITAI_QS, 6);
