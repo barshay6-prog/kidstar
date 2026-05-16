@@ -760,17 +760,38 @@ const EXAM_FRACTIONS_ADV_QS: ExerciseQuestion[] = tag('exam-fractions-adv', [
   { text: 'כיצד קוראים לשבר 3/5?', options: ['שלוש חמישיות','חמש שלישים','שלוש חמשיות','חמישית שלישי'], correctIndex: 0, explanation: 'מונה=3 → שלוש; מכנה=5 → חמישיות' },
   { text: 'מה מייצג המכנה בשבר?', options: ['כמה חלקים יש לנו','לכמה חלקים שווים חולק השלם','כמה שלמים יש','גודל השבר'], correctIndex: 1, explanation: 'המכנה (למטה) = מספר החלקים השווים שחילקנו את השלם' },
   { text: 'פיצה חתוכה ל-8 חלקים שווים, אכלנו 3. איזה שבר?', options: ['3/5','5/8','3/8','8/3'], correctIndex: 2, explanation: 'מונה=3 (אכלנו), מכנה=8 (סה"כ חלקים) → 3/8' },
-  { text: 'כיצד קוראים לשבר 5/6?', options: ['חמש שישיות','שש חמישיות','חמישית שישי','שישית חמישי'], correctIndex: 0, explanation: 'מונה=5 → חמש; מכנה=6 → שישיות' },
+  { text: 'כיצד קוראים לשבר 7/8?', options: ['שמונה שביעיות','שבע שמיניות','שביעית שמינית','שמונה שביעות'], correctIndex: 1, explanation: 'מונה=7 → שבע; מכנה=8 → שמיניות' },
+  { text: 'מה מייצג המונה בשבר?', options: ['לכמה חלקים חולק השלם','כמה חלקים יש לנו','גודל השלם','שם השבר'], correctIndex: 1, explanation: 'המונה (למעלה) = מספר החלקים שלקחנו' },
+  { text: 'שוקולד חולק ל-10 חתיכות. דני אכל 4. איזה שבר מייצג מה שנשאר?', options: ['4/10','6/10','4/6','10/4'], correctIndex: 1, explanation: 'נשארו 10−4=6 חתיכות מתוך 10 → 6/10' },
+  // ── שברים שקולים ──
+  { text: 'איזה שבר שווה ל-1/2?', options: ['2/6','3/6','1/4','3/4'], correctIndex: 1, explanation: '1/2 = 3/6 (מכפילים מונה ומכנה ב-3)' },
+  { text: 'איזה שבר שווה ל-2/3?', options: ['3/6','4/6','4/9','6/9'], correctIndex: 1, explanation: '2/3 = 4/6 (מכפילים ב-2)' },
   // ── מעבר שבר פשוט ↔ מספר מעורב ──
-  { text: '2½ כשבר פשוט = ?', options: ['2/5','4/2','5/2','6/2'], correctIndex: 2, explanation: '2 שלמים × 2 + 1 = 5 → 5/2' },
-  { text: '9/4 כמספר מעורב = ?', options: ['1¾','2¼','2½','3¼'], correctIndex: 1, explanation: '9÷4 = 2 ושאר 1 → 2¼' },
-  // ── חיבור וחיסור (מכנים שווים ומוכלים) ──
-  { text: '2/7 + 3/7 = ?', options: ['5/14','5/7','6/7','1'], correctIndex: 1, explanation: 'מכנים שווים → מחברים מונים בלבד: 2+3=5 → 5/7' },
+  { text: '2½ כשבר פשוט = ?', options: ['2/5','4/2','5/2','6/2'], correctIndex: 2, explanation: '2 × 2 + 1 = 5 → 5/2' },
+  { text: '3½ כשבר פשוט = ?', options: ['5/2','6/2','7/2','8/2'], correctIndex: 2, explanation: '3 × 2 + 1 = 7 → 7/2' },
+  { text: '9/4 כמספר מעורב = ?', options: ['1¾','2¼','2½','3¼'], correctIndex: 1, explanation: '9÷4 = 2 ושארית 1 → 2¼' },
+  { text: '17/5 כמספר מעורב = ?', options: ['2⅗','3⅖','3⅗','4⅕'], correctIndex: 1, explanation: '17÷5 = 3 ושארית 2 → 3 וּ-2/5' },
+  { text: '11/3 כמספר מעורב = ?', options: ['2⅔','3⅓','3⅔','4⅓'], correctIndex: 2, explanation: '11÷3 = 3 ושארית 2 → 3⅔' },
+  // ── חיבור וחיסור (מכנים שווים) ──
+  { text: '2/7 + 3/7 = ?', options: ['5/14','5/7','6/7','1'], correctIndex: 1, explanation: 'מכנים שווים: מחברים מונים בלבד: 2+3=5 → 5/7' },
   { text: '5/6 − 2/6 = ?', options: ['3/0','3/6','1/2','3/12'], correctIndex: 2, explanation: '5−2=3 → 3/6 = 1/2' },
-  { text: '1/3 + 1/6 = ? (מכנה מוכל)', options: ['2/9','2/6','3/6','1/2'], correctIndex: 2, explanation: '1/3 = 2/6, אז 2/6 + 1/6 = 3/6 = 1/2' },
-  // ── שאלה מילולית ──
+  { text: '3/8 + 5/8 = ?', options: ['8/16','8/8','1','7/8'], correctIndex: 2, explanation: '3+5=8 → 8/8 = 1 שלם' },
+  { text: '7/9 − 4/9 = ?', options: ['3/0','11/9','3/9','4/9'], correctIndex: 2, explanation: '7−4=3 → 3/9 = 1/3' },
+  // ── חיבור וחיסור (מכנים מוכלים) ──
+  { text: '1/2 + 3/8 = ?', options: ['4/10','4/8','7/8','5/8'], correctIndex: 2, explanation: '1/2 = 4/8, אחר כך: 4/8 + 3/8 = 7/8' },
+  { text: '3/4 − 1/8 = ?', options: ['2/4','5/8','2/8','3/8'], correctIndex: 1, explanation: '3/4 = 6/8, אחר כך: 6/8 − 1/8 = 5/8' },
+  { text: '1/3 + 1/6 = ?', options: ['2/9','2/6','1/2','2/3'], correctIndex: 2, explanation: '1/3 = 2/6, אחר כך: 2/6 + 1/6 = 3/6 = 1/2' },
+  { text: '5/6 − 1/2 = ?', options: ['4/4','2/6','1/3','3/4'], correctIndex: 2, explanation: '1/2 = 3/6, אחר כך: 5/6 − 3/6 = 2/6 = 1/3' },
+  { text: '1/4 + 3/8 = ?', options: ['4/12','5/8','2/8','4/8'], correctIndex: 1, explanation: '1/4 = 2/8, אחר כך: 2/8 + 3/8 = 5/8' },
+  // ── שבר מכמות ──
+  { text: 'מה הוא 3/4 של 24?', options: ['6','12','18','24'], correctIndex: 2, explanation: '24 ÷ 4 × 3 = 6 × 3 = 18' },
+  { text: 'מה הוא 2/5 של 30?', options: ['6','10','12','15'], correctIndex: 2, explanation: '30 ÷ 5 × 2 = 6 × 2 = 12' },
+  // ── שאלות מילוליות ──
   { text: 'אמא חתכה עוגה ל-8 חלקים. ילד אחד אכל 2 חלקים, השני אכל 3. כמה נאכל ביחד?', options: ['4/8','5/8','6/8','7/8'], correctIndex: 1, explanation: '2/8 + 3/8 = 5/8' },
-], 4);
+  { text: 'אורית אכלה 2/5 מהפיצה ודנה אכלה 3/10. כמה אכלו ביחד?', options: ['5/15','5/10','7/10','1/2'], correctIndex: 2, explanation: '2/5 = 4/10, אחר כך: 4/10 + 3/10 = 7/10' },
+  { text: 'בכיתה 30 ילדים. 2/5 מהם בחרו בכדורגל. כמה ילדים בחרו בכדורגל?', options: ['8','10','12','15'], correctIndex: 2, explanation: '30 ÷ 5 × 2 = 6 × 2 = 12 ילדים' },
+  { text: 'יצאנו לטיול של 2¼ שעות ואחר כך הלכנו עוד 1¾ שעות. כמה שעות בסה"כ?', options: ['3½','3¾','4','4½'], correctIndex: 2, explanation: '¼ + ¾ = 1, אחר כך: 2 + 1 + 1 = 4 שעות' },
+], 3);
 
 const EXAM_GEOMETRY_ADV_QS: ExerciseQuestion[] = tag('exam-geometry-adv', [
   { text: 'מה שטח מלבן עם אורך 8 סמ ורוחב 5 סמ?', options: ['26 סמ"ר','40 סמ"ר','13 סמ"ר','80 סמ"ר'], correctIndex: 1, explanation: 'שטח = אורך × רוחב = 8×5 = 40 סמ"ר' },
@@ -825,8 +846,14 @@ const EXAM_TRIANGLES_QS: ExerciseQuestion[] = tag('exam-triangles', [
 ], 3);
 
 // ─── Master dispatcher ────────────────────────────────────────────────────────
-export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
-  const s = (arr: ExerciseQuestion[], n: number) => shuffle(arr).slice(0, n);
+export function generateQuestions(exerciseTypeId: string, seenTexts?: Set<string>): ExerciseQuestion[] {
+  // Prioritise unseen questions; fall back to seen ones if pool is exhausted
+  const s = (arr: ExerciseQuestion[], n: number) => {
+    if (!seenTexts || seenTexts.size === 0) return shuffle(arr).slice(0, n);
+    const unseen = shuffle(arr.filter(q => !seenTexts.has(q.text)));
+    const seen   = shuffle(arr.filter(q =>  seenTexts.has(q.text)));
+    return [...unseen, ...seen].slice(0, n);
+  };
   switch (exerciseTypeId) {
     case 'mul-tables':      return genMulTables();
     case 'division':        return genDivision();

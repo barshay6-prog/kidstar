@@ -388,7 +388,13 @@ export default function ExerciseSessionPage({ params }: PageProps) {
   const backHref = `${kid.id === 'itai' || kid.id === 'aviv' ? `/kid/${id}/exercises` : `/kid/${id}`}`;
 
   const handleStart = () => {
-    const qs = generateQuestions(type);
+    // Build set of question texts already seen in previous sessions for this exercise
+    const seenTexts = new Set<string>(
+      kid.completedExercises
+        .filter(e => e.exerciseTypeId === type)
+        .flatMap(e => e.attempts.map(a => a.questionText))
+    );
+    const qs = generateQuestions(type, seenTexts);
     setQuestions(qs);
     setAttempts([]);
     setQi(0);
