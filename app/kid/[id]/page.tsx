@@ -57,8 +57,12 @@ export default function KidPage({ params }: PageProps) {
     showToast(`כל הכבוד! השלמת`, task.points);
   };
 
-  // Group exercises by subject
-  const bySubject = exercises.reduce<Record<string, typeof exercises>>((acc, ex) => {
+  // Separate exam-prep from regular exercises
+  const examPrep = exercises.filter(ex => ex.tags?.includes('exam-prep'));
+  const regular  = exercises.filter(ex => !ex.tags?.includes('exam-prep'));
+
+  // Group regular exercises by subject
+  const bySubject = regular.reduce<Record<string, typeof regular>>((acc, ex) => {
     (acc[ex.subject] ??= []).push(ex);
     return acc;
   }, {});
@@ -111,6 +115,46 @@ export default function KidPage({ params }: PageProps) {
         <div className="mt-3 bg-white rounded-2xl px-4 py-3 shadow-sm border border-gray-100">
           <ScreenTimeBar earned={kid.screenTimeEarned} used={kid.screenTimeUsed} color={kid.color} />
         </div>
+
+        {/* ─── EXAM PREP ─── */}
+        {examPrep.length > 0 && (
+          <section className="mt-5">
+            <div className="rounded-2xl border-2 border-amber-300 bg-amber-50 p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">🎯</span>
+                <h2 className="font-black text-lg text-amber-900">הכנה למבחן</h2>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-amber-200 text-amber-800 font-bold">{examPrep.length} נושאים</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {examPrep.map(ex => {
+                  const times = completionCount[ex.id] ?? 0;
+                  const bestPct = kid.completedExercises
+                    .filter(e => e.exerciseTypeId === ex.id)
+                    .reduce((b, e) => Math.max(b, e.total > 0 ? e.score / e.total : 0), 0);
+                  return (
+                    <Link key={ex.id} href={`/kid/${id}/exercises/${ex.id}`}
+                      className="bg-white rounded-xl border border-amber-100 p-3 shadow-sm hover:shadow-md transition-all active:scale-[0.97] block">
+                      <div className="flex items-start justify-between mb-2">
+                        <span className="text-2xl">{ex.icon}</span>
+                        {times > 0 && <span className="text-xs text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded-full">{times}×</span>}
+                      </div>
+                      <p className="font-bold text-gray-800 text-sm leading-tight">{ex.title}</p>
+                      {times > 0 && (
+                        <div className="mt-2 w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full rounded-full transition-all" style={{ width: `${bestPct * 100}%`, background: ex.color }} />
+                        </div>
+                      )}
+                      <div className="mt-2 w-full py-1.5 rounded-xl text-center text-xs font-black text-white"
+                        style={{ background: `linear-gradient(135deg, ${ex.color}dd, ${ex.color})` }}>
+                        ▶ התחל!
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* ─── EXERCISES ─── */}
         <section className="mt-5">

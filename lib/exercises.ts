@@ -117,15 +117,17 @@ To protect the reef, Australia spends over $500 million each year on conservatio
 
   // ══ ITAI — Exam Prep ════════════════════════════════════════════════════════
 
+  // ── הכנה למבחן (6 נושאים מעודכנים) ──────────────────────────────────────
   { id: 'exam-place-value',   title: 'ערך המקום עד מיליון',        subject: 'math', icon: '🔢', description: 'קריאה, כתיבה, השוואה ואומדן של מספרים גדולים', kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
-  { id: 'exam-mul-methods',   title: 'כפל בדרכים שונות',           subject: 'math', icon: '✖️', description: 'כפל דו-ספרתי בדו-ספרתי בפילוג, כפל באוזן, שאלות מילוליות', kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-add-sub',       title: 'חיבור וחיסור במאונך',        subject: 'math', icon: '➕', description: 'חיבור וחיסור עם המרה ופריטה — מספרים עד מיליון', kidIds: ['itai'], color: '#0F766E', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-div-partition', title: 'כפל וחילוק בחוק הפילוג',     subject: 'math', icon: '✖️', description: '24×13 = (20×13)+(4×13); 96÷4 = (80÷4)+(16÷4)', kidIds: ['itai'], color: '#9333EA', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
   { id: 'exam-mul-tens',      title: 'כפל וחילוק בעשרות ומאות',    subject: 'math', icon: '💯', description: '30×4=120, 300×4=1200, 120÷4=30', kidIds: ['itai'], color: '#0891B2', difficulty: 3, minPoints: 4, maxPoints: 8,  questionsCount: 8,  estimatedMinutes: 8,  tags: ['exam-prep'] },
-  { id: 'exam-div-partition', title: 'חילוק בחוק הפילוג',          subject: 'math', icon: '➗', description: '96÷4 = (80÷4) + (16÷4) = 24', kidIds: ['itai'], color: '#9333EA', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 8,  estimatedMinutes: 10, tags: ['exam-prep'] },
+  { id: 'exam-order-ops',     title: 'סדר פעולות חשבון',           subject: 'math', icon: '🧮', description: 'סוגריים → כפל/חילוק → חיבור/חיסור', kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
   { id: 'exam-fractions-adv', title: 'שברים — זיהוי, המרה וחישוב', subject: 'math', icon: '½',  description: 'זיהוי ושיום, שבר מעורב↔פשוט, חיבור/חיסור, שאלות מילוליות', kidIds: ['itai'], color: '#F59E0B', difficulty: 4, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
-  { id: 'exam-geometry-adv',  title: 'שטח והיקף — ריבוע ומלבן',   subject: 'math', icon: '📐', description: 'חישוב שטח, היקף, יחידות מ"ר וסמ"ר', kidIds: ['itai'], color: '#F97316', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
-  { id: 'exam-add-sub',       title: 'חיבור וחיסור במאונך',        subject: 'math', icon: '🔢', description: 'חיבור וחיסור עם המרה ופריטה — מספרים עד מיליון', kidIds: ['itai'], color: '#0F766E', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
-  { id: 'exam-order-ops',     title: 'סדר פעולות חשבון',           subject: 'math', icon: '🧮', description: 'סוגריים → כפל/חילוק → חיבור/חיסור', kidIds: ['itai'], color: '#7C3AED', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
-  { id: 'exam-triangles',     title: 'משולשים — זיהוי וסיווג',     subject: 'math', icon: '📐', description: 'זיהוי ושיום לפי צלעות (שווה צלעות, שווה שוקיים, שונה) ולפי זוויות (ישר, חד, קהה)', kidIds: ['itai'], color: '#DB2777', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10, tags: ['exam-prep'] },
+  // ── לא למבחן (נשאר כתרגול כללי) ─────────────────────────────────────────
+  { id: 'exam-mul-methods',   title: 'כפל בדרכים שונות',           subject: 'math', icon: '✖️', description: 'כפל דו-ספרתי בדו-ספרתי בפילוג, כפל באוזן, שאלות מילוליות', kidIds: ['itai'], color: '#1D4ED8', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10 },
+  { id: 'exam-geometry-adv',  title: 'שטח והיקף — ריבוע ומלבן',   subject: 'math', icon: '📐', description: 'חישוב שטח, היקף, יחידות מ"ר וסמ"ר', kidIds: ['itai'], color: '#F97316', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10 },
+  { id: 'exam-triangles',     title: 'משולשים — זיהוי וסיווג',     subject: 'math', icon: '🔺', description: 'זיהוי ושיום לפי צלעות (שווה צלעות, שווה שוקיים, שונה) ולפי זוויות (ישר, חד, קהה)', kidIds: ['itai'], color: '#DB2777', difficulty: 3, minPoints: 4, maxPoints: 10, questionsCount: 10, estimatedMinutes: 10 },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -739,15 +741,19 @@ const EXAM_MUL_TENS_QS: ExerciseQuestion[] = tag('exam-mul-tens', [
 ], 3);
 
 const EXAM_DIV_PARTITION_QS: ExerciseQuestion[] = tag('exam-div-partition', [
-  { text: '96 ÷ 4 = (80÷4) + (16÷4) = 20 + 4 = ?', options: ['20','24','28','32'], correctIndex: 1, explanation: 'פילוג: 80÷4=20, 16÷4=4 → 24' },
+  // ── כפל בחוק הפילוג ──
+  { text: '24 × 13 = (20×13) + (4×13) = 260 + 52 = ?', options: ['302','312','322','332'], correctIndex: 1, explanation: '260 + 52 = 312' },
+  { text: '35 × 12 = (30×12) + (5×12) = 360 + 60 = ?', options: ['400','410','420','430'], correctIndex: 2, explanation: '360 + 60 = 420' },
+  { text: '43 × 21 = (40×21) + (3×21) = 840 + 63 = ?', options: ['893','903','913','923'], correctIndex: 1, explanation: '840 + 63 = 903' },
+  { text: 'בבית הספר יש 24 כיתות, בכל כיתה 28 ילדים. כמה ילדים סה"כ? 24×28 = (20×28)+(4×28) = ?', options: ['632','652','662','672'], correctIndex: 3, explanation: '560 + 112 = 672' },
+  // ── חילוק בחוק הפילוג ──
+  { text: '96 ÷ 4 = (80÷4) + (16÷4) = 20 + 4 = ?', options: ['20','24','28','32'], correctIndex: 1, explanation: '80÷4=20, 16÷4=4 → 24' },
   { text: '75 ÷ 5 = (50÷5) + (25÷5) = 10 + 5 = ?', options: ['13','14','15','16'], correctIndex: 2, explanation: '50÷5=10, 25÷5=5 → 15' },
-  { text: '84 ÷ 4 = (80÷4) + (4÷4) = 20 + 1 = ?', options: ['19','21','22','24'], correctIndex: 1, explanation: '80÷4=20, 4÷4=1 → 21' },
   { text: '84 ÷ 6 = (60÷6) + (24÷6) = 10 + 4 = ?', options: ['12','13','14','15'], correctIndex: 2, explanation: '60÷6=10, 24÷6=4 → 14' },
-  { text: '91 ÷ 7 = ?', options: ['12','13','14','15'], correctIndex: 1, explanation: '(70÷7)+(21÷7) = 10+3 = 13' },
+  { text: '91 ÷ 7 = ?  (רמז: פלג ל-70 ו-21)', options: ['12','13','14','15'], correctIndex: 1, explanation: '(70÷7)+(21÷7) = 10+3 = 13' },
   { text: '78 ÷ 3 = (60÷3) + (18÷3) = 20 + 6 = ?', options: ['24','25','26','28'], correctIndex: 2, explanation: '60÷3=20, 18÷3=6 → 26' },
-  { text: '90 ÷ 6 = ?', options: ['12','15','16','18'], correctIndex: 1, explanation: '(60÷6)+(30÷6) = 10+5 = 15' },
-  { text: 'אמא חילקה 96 סוכריות ל-8 ילדים שווה בשווה. כמה לכל ילד?', options: ['10','12','14','16'], correctIndex: 1, explanation: '(80÷8)+(16÷8) = 10+2 = 12' },
-], 4);
+  { text: 'אמא חילקה 96 סוכריות ל-8 ילדים שווה בשווה. כמה לכל ילד? (80÷8)+(16÷8) = ?', options: ['10','12','14','16'], correctIndex: 1, explanation: '80÷8=10, 16÷8=2 → 12' },
+], 3);
 
 const EXAM_FRACTIONS_ADV_QS: ExerciseQuestion[] = tag('exam-fractions-adv', [
   // ── זיהוי ושיום ──
@@ -868,7 +874,7 @@ export function generateQuestions(exerciseTypeId: string): ExerciseQuestion[] {
     case 'exam-place-value':    return s(EXAM_PLACE_VALUE_QS, 10);
     case 'exam-mul-methods':    return s(EXAM_MUL_METHODS_QS, 10);
     case 'exam-mul-tens':       return s(EXAM_MUL_TENS_QS, 8);
-    case 'exam-div-partition':  return s(EXAM_DIV_PARTITION_QS, 8);
+    case 'exam-div-partition':  return s(EXAM_DIV_PARTITION_QS, 10);
     case 'exam-fractions-adv':  return s(EXAM_FRACTIONS_ADV_QS, 10);
     case 'exam-geometry-adv':   return s(EXAM_GEOMETRY_ADV_QS, 10);
     case 'exam-add-sub':        return s(EXAM_ADD_SUB_QS, 10);
