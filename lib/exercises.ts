@@ -93,6 +93,8 @@ To protect the reef, Australia spends over $500 million each year on conservatio
   { id: 'sub-10',         title: 'חיסור עד 10',      subject: 'math',    icon: '➖',  description: 'חיסור מספרים עד 10',         kidIds: ['aviv'], color: '#F97316', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 10, estimatedMinutes: 2 },
   { id: 'add-20',         title: 'חיבור עד 20',      subject: 'math',    icon: '🔢',  description: 'חיבור מספרים עד 20',         kidIds: ['aviv'], color: '#A855F7', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 8,  estimatedMinutes: 3 },
   { id: 'sub-20',         title: 'חיסור עד 20',      subject: 'math',    icon: '🔢',  description: 'חיסור מספרים עד 20',         kidIds: ['aviv'], color: '#7C3AED', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 8,  estimatedMinutes: 3 },
+  { id: 'add-50',         title: 'חיבור עד 50',      subject: 'math',    icon: '➕',  description: 'חיבור מספרים עד 50',         kidIds: ['aviv'], color: '#06B6D4', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 10, estimatedMinutes: 4 },
+  { id: 'sub-50',         title: 'חיסור עד 50',      subject: 'math',    icon: '➖',  description: 'חיסור מספרים עד 50',         kidIds: ['aviv'], color: '#10B981', difficulty: 2, minPoints: 1, maxPoints: 3, questionsCount: 10, estimatedMinutes: 4 },
   { id: 'add-sub-100',    title: 'חיבור וחיסור עד 100', subject: 'math',  icon: '💯', description: 'חיבור וחיסור עם מספרים עד 100', kidIds: ['aviv'], color: '#F59E0B', difficulty: 2, minPoints: 2, maxPoints: 5, questionsCount: 10, estimatedMinutes: 5 },
   { id: 'compare-nums',   title: 'גדול וקטן',        subject: 'math',    icon: '⚖️',  description: 'מה גדול יותר?',             kidIds: ['aviv'], color: '#0EA5E9', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
   { id: 'number-order',   title: 'סדר מספרים',       subject: 'math',    icon: '1️⃣',  description: 'מה הבא בתור?',              kidIds: ['aviv'], color: '#10B981', difficulty: 1, minPoints: 1, maxPoints: 2, questionsCount: 8,  estimatedMinutes: 2 },
@@ -481,6 +483,22 @@ function genSub20(): ExerciseQuestion[] {
     const b = rnd(10, 40), a = rnd(b + 5, 100);
     const { options, correctIndex } = opts(a - b, 4, Math.max(0, a - b - 10), a - b + 10);
     return genQ('sub-20', `? = ${a} - ${b}`, options, correctIndex, 2);
+  }, 10);
+}
+
+function genAdd50(): ExerciseQuestion[] {
+  return genUnique(() => {
+    const a = rnd(5, 45), b = rnd(5, 50 - a);
+    const { options, correctIndex } = opts(a + b, 4, Math.max(1, a + b - 8), a + b + 8);
+    return genQ('add-50', `? = ${a} + ${b}`, options, correctIndex, 2);
+  }, 10);
+}
+
+function genSub50(): ExerciseQuestion[] {
+  return genUnique(() => {
+    const b = rnd(5, 40), a = rnd(b + 1, 50);
+    const { options, correctIndex } = opts(a - b, 4, Math.max(0, a - b - 8), a - b + 8);
+    return genQ('sub-50', `? = ${a} - ${b}`, options, correctIndex, 2);
   }, 10);
 }
 
@@ -881,6 +899,8 @@ export function generateQuestions(exerciseTypeId: string, seenTexts?: Set<string
     case 'sub-10':          return genSub10();
     case 'add-20':          return genAdd20();
     case 'sub-20':          return genSub20();
+    case 'add-50':          return genAdd50();
+    case 'sub-50':          return genSub50();
     case 'add-sub-100':     return genAddSubMix(); // reuses harder mix generator
     case 'compare-nums':    return genCompareNums();
     case 'number-order':    return genNumberOrder();
